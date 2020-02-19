@@ -4,10 +4,11 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
+import {appConstants} from '../AppConstants'
 const routes = [
   {
     path: '/',
-    name: '鼎泰客户项目管理系统',
+    name: appConstants.APP_NAME,
     component: Login
   },
   {

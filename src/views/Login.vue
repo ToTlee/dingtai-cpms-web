@@ -1,9 +1,21 @@
 <template>
     <div class="loginBorder">
-        <div class="titleBorder">鼎泰客户项目管理系统</div>
+        <div class="titleBorder">{{tile}}</div>
         <img src="../assets/bg.png"/>
     </div>
 </template>
+
+<script>
+import {appConstants} from '../AppConstants'
+
+export default {
+    data(){
+        return {
+            tile:appConstants.APP_NAME
+        }
+    }
+}
+</script>
 
 <style lang="less" scoped>
 .loginBorder{
