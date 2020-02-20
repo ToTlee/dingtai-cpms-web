@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: appConstants.APP_NAME,
-    component: Login
+    component: Home
   },
   {
     path: '/about',

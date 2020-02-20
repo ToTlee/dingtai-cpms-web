@@ -1,32 +1,36 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
-    </div>
-    <router-view/>
-  </div>
+<div id="app">
+    <nav-top class="nav-top"></nav-top>
+    <router-view style="flex:1"></router-view>
+    <nav-bottom class="nav-bottom"></nav-bottom>
+</div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+import NavigationBarTop from './views/NavigationBar/NavigationBarTop'
+import NavigationBarBottom from './views/NavigationBar/NavigationBarBottom'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+    name: 'app',
+    components: {
+        HelloWorld,
+        "nav-top": NavigationBarTop,
+        "nav-bottom": NavigationBarBottom
     }
-  }
 }
+</script>
+
+<style>
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 </style>
