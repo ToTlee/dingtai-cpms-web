@@ -69,11 +69,6 @@ export default {
     padding-top: 12px
 }
 
-.login-tab {
-    width: 100%;
-
-}
-
 .bg-img {
     width: 100%;
     height: 100%;

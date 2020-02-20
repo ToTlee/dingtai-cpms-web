@@ -22,7 +22,7 @@
             </el-submenu>
     </el-menu>
     <div class="user-panel">
-        <el-button type="text">登录</el-button>
+        <!-- <router-link to="/login"><el-button type="text">登录</el-button></router-link> -->
     </div>
 </div>
 </template>
@@ -37,7 +37,12 @@ export default {
         return {
             appName: appConstants.APP_NAME
         }
-    }
+    },
+    methods: {
+        login(){
+            this.$router.go("/login");
+        }
+    },
 }
 </script>
 

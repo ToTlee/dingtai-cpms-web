@@ -8,7 +8,6 @@
 
 <script>
 // @ is an alias to /src
-import Permission from '../router/permission'
 import NavigationBarTop from './NavigationBar/NavigationBarTop'
 import NavigationBarBottom from './NavigationBar/NavigationBarBottom'
 
