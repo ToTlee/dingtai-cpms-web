@@ -1,22 +1,15 @@
 <template>
 <div id="app">
-    <nav-top class="nav-top"></nav-top>
-    <router-view style="flex:1"></router-view>
-    <nav-bottom class="nav-bottom"></nav-bottom>
+    <router-view>
+    </router-view>
 </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import NavigationBarTop from './views/NavigationBar/NavigationBarTop'
-import NavigationBarBottom from './views/NavigationBar/NavigationBarBottom'
 
 export default {
     name: 'app',
     components: {
-        HelloWorld,
-        "nav-top": NavigationBarTop,
-        "nav-bottom": NavigationBarBottom
     }
 }
 </script>
@@ -32,5 +25,4 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
 </style>
