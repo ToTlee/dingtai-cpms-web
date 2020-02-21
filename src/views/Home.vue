@@ -1,21 +1,17 @@
 <template>
 <div class="home">
-    <nav-top class="nav-top"></nav-top>
-    <router-view style="flex:1"></router-view>
-    <nav-bottom class="nav-bottom"></nav-bottom>
+    <overview></overview>
 </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import NavigationBarTop from './NavigationBar/NavigationBarTop'
-import NavigationBarBottom from './NavigationBar/NavigationBarBottom'
+
+import Overview from '../views/overview/Overview.vue'
 
 export default {
     name: 'Home',
     components: {
-        "nav-top": NavigationBarTop,
-        "nav-bottom": NavigationBarBottom
+       'overview':Overview
     },
     created() {
 

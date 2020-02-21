@@ -1,15 +1,20 @@
 <template>
 <div id="app">
-    <router-view>
-    </router-view>
+    <nav-top class="nav-top"></nav-top>
+    <router-view style="flex:1"></router-view>
+    <nav-bottom class="nav-bottom"></nav-bottom>
 </div>
 </template>
 
 <script>
-
+// @ is an alias to /src
+import NavigationBarTop from './views/navigationBar/NavigationBarTop'
+import NavigationBarBottom from './views/navigationBar/NavigationBarBottom'
 export default {
     name: 'app',
     components: {
+        "nav-top": NavigationBarTop,
+        "nav-bottom": NavigationBarBottom
     }
 }
 </script>
