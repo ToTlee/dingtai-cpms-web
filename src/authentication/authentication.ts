@@ -1,11 +1,11 @@
 const AUTHORIZATION_KEY = 'Authorization';
 
 export default {
-  getAuthrization(){
+  getLocalAuthorization(){
     let token = localStorage.getItem(AUTHORIZATION_KEY);
     return  token ? token : '';
   },
-  setAuthrization(user:any){
+  setLocalAuthorization(user:any){
     localStorage.setItem(AUTHORIZATION_KEY, user.Authorization);
   },
     useAuthentication(router: any) {
