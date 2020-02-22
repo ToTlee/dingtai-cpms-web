@@ -5,7 +5,11 @@ import store from './store'
 import './plugins/element.js'
 import './plugins/vue-echarts.js'
 
+import * as client from './client/index'
+
 Vue.config.productionTip = false
+
+Vue.prototype.$dataApi = client.UserControllerApiFp();
 
 new Vue({
   router,

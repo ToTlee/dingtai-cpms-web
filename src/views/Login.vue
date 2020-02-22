@@ -1,10 +1,10 @@
 <template>
 <div class="login-root">
     <div class="login-border">
-        <div class="titleBorder">{{tile}}</div>
+        <div class="titleBorder">{{title}}</div>
         <div class="login-panel">
             <div class="logo-info">
-                <img class="bg-img" src="../assets/login_bg.png"/>
+                <img class="bg-img" src="../assets/login_bg.png" />
             </div>
             <div class="login-part">
                 <el-form>
@@ -16,11 +16,18 @@
                     </el-form-item>
                     <el-form-item>
                         <div class="dock-panel">
+                            <el-input placeholder="请输入验证码"></el-input>
+                            <img :src="captchaUrl" class="captcha-img" title="点击刷新验证码" @click="changeCaptcha" />
+                        </div>
+                    </el-form-item>
+                    <el-form-item>
+                        <div class="dock-panel">
                             <el-checkbox style="flex:1;text-align:left;">记住我</el-checkbox>
                             <el-button style="flex:1;text-align:right;" type="text">忘记密码？</el-button>
                         </div>
                     </el-form-item>
-                     <el-form-item>
+
+                    <el-form-item>
                         <el-button type="primary" style="width:100%">登录</el-button>
                     </el-form-item>
                 </el-form>
@@ -35,10 +42,25 @@ import {
     appConstants
 } from '../AppConstants'
 
+import {
+    loginApi,
+    LoginControllerApiFetchParamCreator
+} from '../client/data-provider'
+
 export default {
     data() {
         return {
-            tile: appConstants.APP_NAME
+            title: appConstants.APP_NAME,
+            captchaUrl: ''
+        }
+    },
+    mounted() {
+        this.changeCaptcha();
+    },
+    methods: {
+        changeCaptcha() {
+            let relativeUrl = LoginControllerApiFetchParamCreator(loginApi.configuration).captchaUsingGET().url;
+            this.captchaUrl = loginApi.basePath + relativeUrl + "?i="+new Date().getTime();
         }
     }
 }
@@ -60,7 +82,7 @@ export default {
 .login-border {
     width: 800px;
     height: 500px;
-    box-shadow: 0px 20px 80px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 20px 80px 0px rgba(0, 0, 0, 0.3);
     border-radius: 6px;
     background-color: white;
     display: flex;
@@ -86,13 +108,13 @@ export default {
     // align-items: center;
     margin-top: 30px;
 }
-.login-panel{
+
+.login-panel {
     flex: 1;
     display: flex;
     margin-top: 16px;
 
 }
-
 
 .logo-info {
     flex: 1;
@@ -101,11 +123,17 @@ export default {
     align-items: center;
 }
 
-.dock-panel{
+.dock-panel {
     display: flex;
 }
 
 .login-part .el-form-item {
     margin-bottom: 10px;
+}
+
+.captcha-img {
+    width: 120px;
+    cursor: hand;
+    margin-left: 8px;
 }
 </style>
