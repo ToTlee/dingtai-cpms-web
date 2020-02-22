@@ -3,6 +3,7 @@
     <avatar :size="90" username="用户01"></avatar>
     <div class="user-name">用户01</div>
     <div class="user-description">用户01 暂无简介</div>
+    <div class="user-description">yonghu01@qq.com</div>
 </div>
 </template>
 
@@ -24,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 .user-panel {
     width: 400px;
-    margin-top: 30px;
+    padding-top: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;

@@ -31,7 +31,6 @@ export default {
 .overview-panel{
     display: flex;
     flex-direction: row;
-    height: 100%;
 }
 .statistics-panel{
     background-color: antiquewhite;

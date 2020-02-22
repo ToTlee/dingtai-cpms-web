@@ -8,12 +8,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 存储token
-    Authorization: authentication.getLocalAuthorization()
+    authToken: authentication.getLocalAuthorization()
   },
   mutations: {
     // 修改token，并将token存入localStorage
     changeLogin(state, user) {
-      state.Authorization = user.Authorization;
+      state.authToken = user.Authorization;
       authentication.setLocalAuthorization(user.Authorization);
     }
   },

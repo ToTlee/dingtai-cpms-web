@@ -1,7 +1,7 @@
 <template>
 <div class="home">
     <nav-top class="nav-top"></nav-top>
-    <overview></overview>
+    <router-view style="flex:1"></router-view>
     <nav-bottom class="nav-bottom"></nav-bottom>
 </div>
 </template>
@@ -10,12 +10,12 @@
 import NavigationBarTop from './navigationBar/NavigationBarTop'
 import NavigationBarBottom from './navigationBar/NavigationBarBottom'
 
-import Overview from './overview/Overview.vue'
+// import Overview from './overview/Overview.vue'
 
 export default {
     name: 'Home',
     components: {
-       'overview':Overview,
+    //    'overview':Overview,
         "nav-top": NavigationBarTop,
         "nav-bottom": NavigationBarBottom
     },
@@ -27,6 +27,8 @@ export default {
 
 <style scoped>
 .home {
-    width: 100%
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 </style>

@@ -9,14 +9,14 @@
             <div class="login-part">
                 <el-form>
                     <el-form-item>
-                        <el-input placeholder="请输入用户名"></el-input>
+                        <el-input placeholder="请输入用户名" v-model="userName"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-input placeholder="请输入密码"></el-input>
+                        <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
                     </el-form-item>
                     <el-form-item>
                         <div class="dock-panel">
-                            <el-input placeholder="请输入验证码"></el-input>
+                            <el-input placeholder="请输入验证码" v-model="captcha"></el-input>
                             <img :src="captchaUrl" class="captcha-img" title="点击刷新验证码" @click="changeCaptcha" />
                         </div>
                     </el-form-item>
@@ -28,7 +28,7 @@
                     </el-form-item>
 
                     <el-form-item>
-                        <el-button type="primary" style="width:100%">登录</el-button>
+                        <el-button type="primary" style="width:100%" @click="login">登录</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -44,15 +44,19 @@ import {
 
 import {
     loginApi,
-    LoginControllerApiFetchParamCreator
+    LoginControllerApiFetchParamCreator,
+    LoginReq
 } from '../client/data-provider'
 
 export default {
     data() {
         return {
             title: appConstants.APP_NAME,
-            captchaUrl: ''
-        }
+            captchaUrl: '',
+            userName: '',
+            password: '',
+            captcha: ''
+        };
     },
     mounted() {
         this.changeCaptcha();
@@ -60,7 +64,20 @@ export default {
     methods: {
         changeCaptcha() {
             let relativeUrl = LoginControllerApiFetchParamCreator(loginApi.configuration).captchaUsingGET().url;
-            this.captchaUrl = loginApi.basePath + relativeUrl + "?i="+new Date().getTime();
+            this.captchaUrl = loginApi.basePath + relativeUrl + "?i=" + new Date().getTime();
+        },
+        async login() {
+            let userReq = {
+                userName: this.userName,
+                captcha: this.captcha,
+                password: this.password
+            };
+            let result = await loginApi.loginUsingPOST(userReq);
+            if (result.status == 0) {
+                this.$router.push({path:'/'});
+            } else {
+                this.$message.error(result.msg);
+            }
         }
     }
 }

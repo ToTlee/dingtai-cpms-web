@@ -10,6 +10,6 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes
 });
-authentication.useAuthentication(router);
+// authentication.useAuthentication(router);
 
 export default router;

@@ -4,11 +4,11 @@
     <div class="app-name">
         {{appName}}
     </div>
-    <el-menu mode="horizontal" class="main-menu">
+    <el-menu mode="horizontal" class="main-menu" @select="selected">
         <el-menu-item index="1">
             项目报价
         </el-menu-item>
-        <el-menu-item index="2">
+        <el-menu-item index="/contracts">
             合同管理
         </el-menu-item>
         <el-menu-item index="3">
@@ -52,8 +52,8 @@ export default {
         }
     },
     methods: {
-        login() {
-            this.$router.go("/login");
+        selected(index, indexPath){
+            this.$router.push(index)
         }
     },
 }
