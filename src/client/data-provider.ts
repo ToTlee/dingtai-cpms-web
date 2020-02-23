@@ -16,7 +16,7 @@ const SERVER_PATH = "/admin".replace(/\/+$/, "");
 // const SERVER_PATH = "http://129.211.66.41:8080/admin".replace(/\/+$/, "");
 
 export let parameters: ConfigurationParameters = {
-    accessToken: auth.getLocalAuthorization()
+    accessToken: auth.getAuthorization()
 };
 export const configuraion = new Configuration(parameters);
 

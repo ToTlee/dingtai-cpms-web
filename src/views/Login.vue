@@ -47,6 +47,7 @@ import {
     LoginControllerApiFetchParamCreator,
     LoginReq
 } from '../client/data-provider'
+import {mapMutations} from 'vuex'
 
 export default {
     data() {
@@ -62,6 +63,7 @@ export default {
         this.changeCaptcha();
     },
     methods: {
+        ...mapMutations(['CHANGE_LOGIN']),
         changeCaptcha() {
             let relativeUrl = LoginControllerApiFetchParamCreator(loginApi.configuration).captchaUsingGET().url;
             this.captchaUrl = loginApi.basePath + relativeUrl + "?i=" + new Date().getTime();
@@ -74,6 +76,11 @@ export default {
             };
             let result = await loginApi.loginUsingPOST(userReq);
             if (result.status == 0) {
+                let userInfo = {
+                    name:this.userName,
+                    token:this.userName
+                }
+                this.CHANGE_LOGIN(this.$store.state,userInfo);
                 this.$router.push({path:'/'});
             } else {
                 this.$message.error(result.msg);

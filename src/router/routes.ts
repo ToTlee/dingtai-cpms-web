@@ -5,7 +5,7 @@ import { appConstants } from '../AppConstants'
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     component: Home,
     children: [
     {
