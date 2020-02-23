@@ -35,17 +35,18 @@
 <script lang="ts">
 import Vue from 'vue'
 import {
-    Message
+    Message, Form
 } from 'element-ui'
 import {
-    contractApi,
-    GetContractListResp
+    contractApi
 } from '@/client/data-provider'
 import Component from 'vue-class-component'
+import auth from '@/authentication/authentication'
+import {AuthVueRouter} from '@/router/index'
 
 @Component
 export default class Contracts extends Vue {
-    data: Array < GetContractListResp > | undefined = [];
+    data : any = [];
     async mounted() {
         let result = await contractApi.listContractUsingGET();
         if (result.status == 0) {
@@ -57,6 +58,7 @@ export default class Contracts extends Vue {
             }
             this.data = list;
         } else {
+            (this.$router as AuthVueRouter).clearLogin();
             this.$message.error(result.msg as string);
         }
     }

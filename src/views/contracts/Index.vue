@@ -1,7 +1,7 @@
 <!-- 合同管理模块 -->
 <template>
 <div class="contracts-root">
-        <div>项目合同信息</div>
+        <div class="page-title">项目合同信息</div>
     <div class="contracts-tools">
         <el-button type="primary" size="small">客户资料</el-button>
         <el-button type="primary" size="small">添加</el-button>

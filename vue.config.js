@@ -6,7 +6,7 @@ module.exports = {
         'resize-detector'
     ],
     devServer: {
-        port: 80,
+        port: 8080,
         proxy: {
             '/admin': {
                 target: 'http://129.211.66.41:8080/admin',

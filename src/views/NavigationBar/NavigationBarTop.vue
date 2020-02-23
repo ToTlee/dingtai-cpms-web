@@ -15,10 +15,10 @@
             客户跟进
         </el-menu-item>
         <el-submenu index="4">
-            <template slot="title">关于</template>
-            <el-menu-item index="4-1">关于项目报价</el-menu-item>
-            <el-menu-item index="4-2">关于合同管理</el-menu-item>
-            <el-menu-item index="4-3">关于客户跟进</el-menu-item>
+            <template slot="title">系统管理</template>
+            <el-menu-item index="4-1">用户管理</el-menu-item>
+            <el-menu-item index="4-2">权限管理</el-menu-item>
+            <el-menu-item index="4-3">系统设置</el-menu-item>
         </el-submenu>
     </el-menu>
     <span class="user-panel">

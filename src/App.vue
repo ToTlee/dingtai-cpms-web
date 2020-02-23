@@ -14,7 +14,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
+@import './element-variables.scss';
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -23,5 +24,11 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.page-title{
+    padding-top: 8px;
+    font-size: 22px;
+    color: $--color-primary;
 }
 </style>

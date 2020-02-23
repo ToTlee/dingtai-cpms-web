@@ -7,7 +7,7 @@ import {
     PermissionControllerApi,
     ContractControllerApi
 } from './index';
-import { CustomerControllerApi } from './api';
+import { CustomerControllerApi, ProjectControllerApi, ProjectQuotationControllerApi } from './api';
 
 
 export * from "./api";
@@ -25,3 +25,5 @@ export const loginApi = new LoginControllerApi (configuraion,SERVER_PATH);
 export const permissionApi = new PermissionControllerApi (configuraion,SERVER_PATH);
 export const contractApi = new ContractControllerApi (configuraion,SERVER_PATH);
 export const customerApi = new CustomerControllerApi (configuraion,SERVER_PATH);
+export const projectApi = new ProjectControllerApi (configuraion,SERVER_PATH);
+export const quotationApi = new ProjectQuotationControllerApi (configuraion,SERVER_PATH);
