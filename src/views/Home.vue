@@ -29,8 +29,7 @@
 </template>
 
 <script>
-import NavigationBarTop from './navigationBar/NavigationBarTop'
-
+import NavigationBarTop from '@/views/navigationBar/NavigationBarTop'
 // import Overview from './overview/Overview.vue'
 
 export default {
