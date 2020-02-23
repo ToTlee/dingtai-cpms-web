@@ -19,8 +19,14 @@ jobs:
           node-version: "10.x"
       - name: Build project
         run: yarn && yarn build
-      - name: deployment
-        run: |
-         echo ${{ secrets.DING_TAI_HOST_PASSWORD }} | scp -r ./dist/* ${{ secrets. DING_TAI_HOST_USERNAME }}@${{ secrets.DING_TAI_HOST }}:/home/xiang.li/test
+      - name: SCP Command to Transfer Files
+        uses: appleboy/scp-action@v0.0.6
+        with:
+          host: ${{ secrets.DING_TAI_HOST }}
+          username: ${{ secrets. DING_TAI_HOST_USERNAME }}
+          password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
+          target: /home/xiang.li/test
+          source: ./dist/*
+          rm: true
         
        
