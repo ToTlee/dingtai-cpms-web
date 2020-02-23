@@ -21,6 +21,6 @@ jobs:
         run: yarn && yarn build
       - name: deployment
         run: |
-         echo ${{ secrets.DING_TAI_HOST_PASSWORD }} | scp -r ./dist/* {{ secrets. DING_TAI_HOST_USERNAME }}@{{ secrets.DING_TAI_HOST }}:/home/xiang.li/test
+         echo ${{ secrets.DING_TAI_HOST_PASSWORD }} | scp -r ./dist/* ${{ secrets. DING_TAI_HOST_USERNAME }}@${{ secrets.DING_TAI_HOST }}:/home/xiang.li/test
         
        
