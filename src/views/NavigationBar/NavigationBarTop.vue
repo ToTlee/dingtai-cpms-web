@@ -5,7 +5,7 @@
         {{appName}}
     </div>
     <el-menu mode="horizontal" class="main-menu" @select="selected">
-        <el-menu-item index="1">
+        <el-menu-item index="/quotation">
             项目报价
         </el-menu-item>
         <el-menu-item index="/contracts">

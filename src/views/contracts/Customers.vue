@@ -1,9 +1,9 @@
 <!-- 合同管理-客户列表 -->
 <template>
 <el-table :data="data" stripe style="width: 100%;height:100%" size="small">
-    <el-table-column prop="customerName" label="供应商名称" width="180">
+    <el-table-column prop="customerName" label="供应商名称">
     </el-table-column>
-    <el-table-column prop="contacts" label="联系人" width="180">
+    <el-table-column prop="contacts" label="联系人">
     </el-table-column>
     <el-table-column prop="phone" label="联系电话">
     </el-table-column>
