@@ -4,27 +4,10 @@
     <div class="app-name" @click="goHome">
         {{appName}}
     </div>
-    <el-menu mode="horizontal" class="main-menu" @select="selected">
-        <el-menu-item index="/quotation">
-            项目报价
-        </el-menu-item>
-        <el-menu-item index="/contracts">
-            合同管理
-        </el-menu-item>
-        <el-menu-item index="3">
-            客户跟进
-        </el-menu-item>
-        <el-submenu index="4">
-            <template slot="title">系统管理</template>
-            <el-menu-item index="4-1">用户管理</el-menu-item>
-            <el-menu-item index="4-2">权限管理</el-menu-item>
-            <el-menu-item index="4-3">系统设置</el-menu-item>
-        </el-submenu>
-    </el-menu>
     <span class="user-panel">
         <el-dropdown style="height: 40px;">
             <span class="el-dropdown-link">
-                <i class="el-icon-user-solid"></i>
+                <i class="el-icon-user-solid" style="color:white"></i>
                 用户01
                 <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
@@ -56,7 +39,7 @@ export default {
             this.$router.push(index)
         },
         goHome() {
-            this.$router({
+            this.$router.push({
                 path: '/'
             });
         }
@@ -70,28 +53,30 @@ export default {
 .nav_top {
     height: 60px;
     line-height: 60px;
-    color: $--color-primary;
+    background-color: $--color-primary;
+    color: white;
     display: flex;
 }
 
 .el-dropdown-link {
     cursor: pointer;
+    color: white;
+    font-size: 16px;
 }
 
 .app-name {
-    font-size: 20px;
+    font-size: 24px;
     margin-left: 10px;
     margin-right: 6px;
     cursor: pointer;
 }
 
-.main-menu {
-    flex: 1;
-}
-
 .user-panel {
     text-decoration: none;
+    flex: 1;
+    text-align: right;
     margin-right: 18px;
+    color: white;
 
 }
 </style>

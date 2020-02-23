@@ -1,7 +1,6 @@
 <!-- 项目报价列表主页 -->
 <template>
-<div>
-    <el-table :data="data" style="height:100%" row-key="id" size="small" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" default-expand-all>
+    <el-table :data="data" style="height: 100%;" row-key="id" border :tree-props="{children: 'children', hasChildren: 'hasChildren'}" default-expand-all>
         <el-table-column prop="name" label="项目" sortable>
         </el-table-column>
         <el-table-column prop="content" label="内容">
@@ -11,7 +10,6 @@
         <el-table-column prop="remark" label="备注">
         </el-table-column>
     </el-table>
-</div>
 </template>
 
 <script lang="ts">
@@ -41,6 +39,8 @@ export default class QuotationList extends Vue {
                 list.push({
                     id: "parent" + key,
                     name: value[0].name,
+                    content:'11',
+                    remark:'11',
                     quotation: '合计: '+value.map(v => v.quotation).reduce((pre, curr) => pre!+curr!),
                     children: value
                 });
@@ -58,3 +58,9 @@ interface tableSpanParameter {
         columnIndex: any
 }
 </script>
+<style lang="scss" scoped>
+.list-table{
+    height:100%;
+    padding:8px;
+}
+</style>

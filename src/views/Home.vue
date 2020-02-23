@@ -1,7 +1,29 @@
 <template>
 <div class="home">
-    <nav-top class="nav-top"></nav-top>
-    <router-view style="flex:1"></router-view>
+    <nav-top></nav-top>
+    <div class="nav-mid">
+        <div class="main-menu">
+            <el-menu @select="selected" background-color="#1b2a46" text-color="#ffffff" default-active="/customers">
+                <el-menu-item index="/customers">
+                    客户跟进
+                </el-menu-item>
+                <el-menu-item index="/quotation">
+                    项目报价
+                </el-menu-item>
+                <el-menu-item index="/contracts">
+                    合同管理
+                </el-menu-item>
+                <el-submenu index="4">
+                    <template slot="title">系统管理</template>
+                    <el-menu-item index="4-1">用户管理</el-menu-item>
+                    <el-menu-item index="4-2">权限管理</el-menu-item>
+                    <el-menu-item index="4-3">系统设置</el-menu-item>
+                </el-submenu>
+            </el-menu>
+        </div>
+
+        <router-view style="flex:1;overflow:hidden"></router-view>
+    </div>
     <nav-bottom class="nav-bottom"></nav-bottom>
 </div>
 </template>
@@ -15,13 +37,23 @@ import NavigationBarBottom from './navigationBar/NavigationBarBottom'
 export default {
     name: 'Home',
     components: {
-    //    'overview':Overview,
+        //    'overview':Overview,
         "nav-top": NavigationBarTop,
         "nav-bottom": NavigationBarBottom
     },
     created() {
 
     },
+    methods: {
+        selected(index, indexPath) {
+            this.$router.push(index)
+        },
+        goHome() {
+            this.$router.push({
+                path: '/'
+            });
+        }
+    }
 }
 </script>
 
@@ -30,5 +62,23 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.nav-mid {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    width: 100%;
+}
+
+.main-menu {
+    text-align: left;
+    background-color: #1b2a46;
+    margin-right: 10px;
+}
+
+.main-menu .el-menu {
+    width: 200px;
+    height: 100%;
 }
 </style>

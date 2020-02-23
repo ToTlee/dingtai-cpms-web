@@ -1,11 +1,12 @@
 <template>
 <div class="login-root">
+    <div class="titleBorder">{{title}}</div>
     <div class="login-border">
-        <div class="titleBorder">{{title}}</div>
+        <div class="login-title">用户登录</div>
         <div class="login-panel">
-            <div class="logo-info">
+            <!-- <div class="logo-info">
                 <img class="bg-img" src="../assets/login_bg.png" />
-            </div>
+            </div> -->
             <div class="login-part">
                 <el-form>
                     <el-form-item>
@@ -47,7 +48,9 @@ import {
     LoginControllerApiFetchParamCreator,
     LoginReq
 } from '../client/data-provider'
-import {mapMutations} from 'vuex'
+import {
+    mapMutations
+} from 'vuex'
 
 export default {
     data() {
@@ -77,11 +80,13 @@ export default {
             let result = await loginApi.loginUsingPOST(userReq);
             if (result.status == 0) {
                 let userInfo = {
-                    name:this.userName,
-                    token:this.userName
+                    name: this.userName,
+                    token: this.userName
                 }
-                this.CHANGE_LOGIN(this.$store.state,userInfo);
-                this.$router.push({path:'/'});
+                this.CHANGE_LOGIN(this.$store.state, userInfo);
+                this.$router.push({
+                    path: '/'
+                });
             } else {
                 this.$message.error(result.msg);
             }
@@ -97,22 +102,25 @@ export default {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     min-height: 540px;
     min-width: 840px;
-    background-color: #fcfcfc;
+    text-align: center;
+    background-image: url('../assets/login-bg2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-border {
-    width: 800px;
-    height: 500px;
-    box-shadow: 0px 20px 80px 0px rgba(0, 0, 0, 0.3);
+    width: 340px;
+    height: 380px;
+    box-shadow: 0px 20px 80px 0px #0000004d;
     border-radius: 6px;
-    background-color: white;
+    background-color: #e1fcff;
+    margin-left: auto;
     display: flex;
     flex-direction: column;
-    margin-top: -30px;
+    margin-right: 8%;
     padding-top: 12px
 }
 
@@ -122,8 +130,17 @@ export default {
 }
 
 .titleBorder {
+    align-self: start;
+    margin: 6%;
+    color: #0072ff;
+    font-size: 60px;
+    font-family: '华文行楷';
+    position: absolute;
+}
+
+.login-title {
     color: $--color-primary;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 .login-part {
@@ -131,13 +148,13 @@ export default {
     width: 280px;
     // display: flex;
     // align-items: center;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .login-panel {
     flex: 1;
     display: flex;
-    margin-top: 16px;
+    justify-content: center;
 
 }
 
@@ -153,7 +170,7 @@ export default {
 }
 
 .login-part .el-form-item {
-    margin-bottom: 10px;
+    margin-bottom: 18px;
 }
 
 .captcha-img {

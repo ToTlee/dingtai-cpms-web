@@ -1,19 +1,19 @@
 <!-- 合同管理模块 -->
 <template>
-<div class="contracts-root">
-    <div class="page-title">项目合同信息</div>
-    <div class="contracts-tools">
+<div class="customer-root">
+    <div class="page-title">客户跟进</div>
+    <div class="customer-tools">
         <el-button type="primary" size="small">客户资料</el-button>
         <el-button type="primary" size="small">添加</el-button>
     </div>
-    <div class="contracts-content">
-        <contracts></contracts>
+    <div class="customer-content">
+        <customers></customers>
     </div>
 </div>
 </template>
 
 <script>
-import Contracts from './Contracts'
+import Customers from './Customers'
 
 export default {
     data() {
@@ -22,25 +22,26 @@ export default {
         }
     },
     components: {
-        Contracts
+        Customers
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.contracts-root {
+.customer-root {
     display: flex;
+    width: 100%;
     flex-direction: column;
 }
 
-.contracts-tools {
+.customer-tools {
     display: flex;
     flex-direction: row;
     margin-top: 4px;
     margin-bottom: 10px;
 }
 
-.contracts-content {
+.customer-content {
     flex: 1;
     padding: 8px;
 }

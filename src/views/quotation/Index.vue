@@ -36,9 +36,12 @@ export default class Quotation extends Vue {
 .quotation-tools {
     display: flex;
     flex-direction: row;
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
 .quotation-content {
     flex: 1;
+    padding: 8px;
 }
 </style>

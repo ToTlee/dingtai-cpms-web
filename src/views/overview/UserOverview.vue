@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-panel {
-    width: 400px;
+    width: 260px;
     padding-top: 30px;
     display: flex;
     align-items: center;

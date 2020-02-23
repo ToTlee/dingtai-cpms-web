@@ -1,12 +1,12 @@
 <!-- 合同列表 -->
 <template>
 <div>
-    <el-table :data="data" stripe style="height:100%" size="small">
+    <el-table :data="data" stripe style="height:100%" border>
         <el-table-column prop="id" label="序号" fixed>
         </el-table-column>
-        <el-table-column prop="contractNo" label="合同编号" fixed>
+        <el-table-column prop="contractNo" label="合同编号" fixed sortable>
         </el-table-column>
-        <el-table-column prop="customerName" label="客户名称" fixed>
+        <el-table-column prop="customerName" label="客户名称" fixed sortable>
         </el-table-column>
         <el-table-column prop="contractName" label="合同名称">
         </el-table-column>

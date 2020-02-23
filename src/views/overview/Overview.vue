@@ -30,7 +30,10 @@ export default {
 <style lang="scss" scoped>
 .overview-panel{
     display: flex;
+    align-self: center;
     flex-direction: row;
+    background-color: antiquewhite;
+    max-width: 1200px;
 }
 .statistics-panel{
     //background-color: antiquewhite;

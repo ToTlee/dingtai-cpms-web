@@ -27,8 +27,11 @@ export default {
 }
 
 .page-title{
-    padding-top: 8px;
+    padding-left: 4px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     font-size: 22px;
     color: $--color-primary;
+    text-align: left;
 }
 </style>

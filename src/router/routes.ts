@@ -11,7 +11,7 @@ const routes = [
     {
         path: '/',
         name: appConstants.APP_NAME,
-        component: () => import('../views/overview/Overview.vue')
+        redirect:'/customers'
     },
     {
         path: '/contracts',
@@ -22,6 +22,11 @@ const routes = [
         path: '/quotation',
         name: '项目报价',
         component:  () => import('../views/quotation/Index.vue'),
+    },
+    {
+        path: '/customers',
+        name: '客户资料',
+        component:  () => import('../views/customer/Index.vue'),
     }
   ]
   },
