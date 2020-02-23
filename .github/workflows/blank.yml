@@ -1,0 +1,19 @@
+name: develop-CI-CD
+
+on: 
+  push:
+    branches: 
+      - develop
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: ----yarn install----
+    - name: ---yarn build------
+      run: |
+        yarn run build --if-present
