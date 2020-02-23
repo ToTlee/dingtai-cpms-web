@@ -33,7 +33,7 @@ export default {
     flex-direction: row;
 }
 .statistics-panel{
-    background-color: antiquewhite;
+    //background-color: antiquewhite;
     flex: 1;
 }
 </style>

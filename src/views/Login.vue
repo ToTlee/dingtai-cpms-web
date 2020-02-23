@@ -99,7 +99,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 800px;
+    min-height: 540px;
+    min-width: 840px;
     background-color: #fcfcfc;
 }
 
@@ -157,7 +158,7 @@ export default {
 
 .captcha-img {
     width: 120px;
-    cursor: hand;
+    cursor: pointer;
     margin-left: 8px;
 }
 </style>

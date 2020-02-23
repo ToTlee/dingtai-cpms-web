@@ -22,7 +22,8 @@ export class AuthVueRouter extends VueRouter {
 }
 
 const router = new AuthVueRouter({
-  routes
+  routes,
+  mode:'history'
 });
 authentication.useAuthentication(router);
 

@@ -1,7 +1,7 @@
 <!-- 顶部导航栏 -->
 <template>
 <div class="nav_top">
-    <div class="app-name">
+    <div class="app-name" @click="goHome">
         {{appName}}
     </div>
     <el-menu mode="horizontal" class="main-menu" @select="selected">
@@ -52,8 +52,13 @@ export default {
         }
     },
     methods: {
-        selected(index, indexPath){
+        selected(index, indexPath) {
             this.$router.push(index)
+        },
+        goHome() {
+            this.$router({
+                path: '/'
+            });
         }
     },
 }
@@ -61,19 +66,23 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../element-variables.scss';
+
 .nav_top {
     height: 60px;
     line-height: 60px;
     color: $--color-primary;
     display: flex;
 }
- .el-dropdown-link {
+
+.el-dropdown-link {
     cursor: pointer;
-  }
+}
+
 .app-name {
     font-size: 20px;
     margin-left: 10px;
     margin-right: 6px;
+    cursor: pointer;
 }
 
 .main-menu {

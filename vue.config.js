@@ -1,15 +1,17 @@
-APP_BASE_API = '/api'
+const config = require('./src/config/config')
 
 module.exports = {
     transpileDependencies: [
         'vue-echarts',
         'resize-detector'
     ],
+    publicPath: './',
+    productionSourceMap: false,
     devServer: {
         port: 8080,
         proxy: {
-            '/admin': {
-                target: 'http://129.211.66.41:8080/admin',
+            [config.URL_ROOT]: {
+                target: config.PROD_URL,
                 changeOrigin: true,
                 ws: true,
                 pathRewrite: {
