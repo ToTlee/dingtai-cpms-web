@@ -1,0 +1,31 @@
+name: master-CI-CD
+
+on: 
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout develop
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - name: Build project
+        run: yarn && yarn build
+      - name: SCP Command to Transfer Files
+        uses: appleboy/scp-action@v0.0.6
+        with:
+          host: ${{ secrets.DING_TAI_HOST }}
+          username: ${{ secrets. DING_TAI_HOST_USERNAME }}
+          password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
+          target: /usr/local/dingtai/frontend/nginx/nginx/client
+          source: ./dingtai/*
+          rm: true
+        
