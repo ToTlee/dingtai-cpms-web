@@ -6,6 +6,7 @@ module.exports = {
         'resize-detector'
     ],
     publicPath: './',
+    outputDir: 'dingtai',
     productionSourceMap: false,
     devServer: {
         port: 8080,
