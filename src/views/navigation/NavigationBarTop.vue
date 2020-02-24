@@ -8,7 +8,7 @@
         <el-dropdown style="height: 40px;">
             <span class="el-dropdown-link">
                 <i class="el-icon-user-solid" style="color:white"></i>
-                用户01
+                用户02
                 <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
