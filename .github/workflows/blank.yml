@@ -25,7 +25,7 @@ jobs:
           host: ${{ secrets.DING_TAI_HOST }}
           username: ${{ secrets. DING_TAI_HOST_USERNAME }}
           password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
-          target: /usr/local/dingtai/frontend/nginx/nginx/client
+          target: /usr/local/dingtai/frontend/nginx/nginx/client/test
           source: ./dingtai/*
           rm: true
         
