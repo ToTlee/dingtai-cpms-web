@@ -1,7 +1,7 @@
 # dingtai-cpms-web
 
 [![develop-构建部署状态](https://github.com/ToTlee/dingtai-cpms-web/workflows/develop-CI-CD/badge.svg)]()
-[![master-构建部署状态](https://github.com/ToTlee/dingtai-cpms-web/workflows/master-CI-CD/badge.svg)]()
+![master-CI-CD](https://github.com/ToTlee/dingtai-cpms-web/workflows/master-CI-CD/badge.svg?branch=master)
 ## Project setup
 ```
 yarn install
