@@ -1,7 +1,7 @@
 <!-- 合同列表 -->
 <template>
     <div>
-        <el-table :data="data" stripe style="height:100%" border>
+        <el-table v-loading="isLoading" element-loading-text="正在加载..." :data="data" stripe style="height:100%" border>
             <el-table-column prop="id" label="序号" fixed>
             </el-table-column>
             <el-table-column prop="contractNo" label="合同编号" fixed sortable>
@@ -32,14 +32,15 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog title="详细信息" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock>
+        <el-dialog :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock>
+            <template></template>
             <component :is="dialogComponent" :contractId="currentId"></component>
         </el-dialog>
     </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import {ClientDataVue} from '@/client/client-types'
 import {
     Message,
     Form
@@ -61,25 +62,29 @@ import ContractsProceedsRecord from './ContractsProceedsRecord.vue'
         "proceeds-record": ContractsProceedsRecord
     }
 })
-export default class Contracts extends Vue {
+export default class Contracts extends ClientDataVue {
     data: Array<GetContractListResp> = [];
     dialogTableVisible:boolean = false;
     dialogComponent : any = '';
+    isLoading:boolean = false;
     currentId:number = Number.MIN_VALUE;
     async mounted() {
+        this.isLoading = true;
         let result = await contractApi.listContractUsingGET();
-        if (result.status == 0) {
+        let resultData = this.getClientData(result);
+        if(resultData != undefined){
             let list = result.data?.list;
             if (list) {
-                list.sort((a, b) => a.id!-b.id!);
+                list.sort((a, b) => a.id! - b.id!);
             } else {
                 list = [];
             }
             this.data = list;
-        } else {
-            (this.$router as AuthVueRouter).clearLogin();
-            this.$message.error(result.msg as string);
         }
+        else{
+            this.data = [];
+        }
+        this.isLoading = false;
     };
     openInfo(command: string, row: GetContractListResp){
         let component = Overview;

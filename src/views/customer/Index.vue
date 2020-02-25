@@ -12,19 +12,19 @@
 </div>
 </template>
 
-<script>
-import Customers from './Customers'
+<script lang="ts">
+import {ClientDataVue} from '@/client/client-types'
+import {Component} from  'vue-property-decorator'
+import Customers from './Customers.vue'
 
-export default {
-    data() {
-        return {
-
-        }
-    },
-    components: {
-        Customers
+@Component({
+    components:{
+        "customers":Customers
     }
-}
+})
+export default class Index extends ClientDataVue{
+    
+};
 </script>
 
 <style lang="scss" scoped>

@@ -7,7 +7,7 @@
         <el-button type="primary" size="small">添加</el-button>
     </div>
     <div class="contracts-content">
-        <contracts></contracts>
+        <contracts style="flex:1"></contracts>
     </div>
 </div>
 </template>
@@ -43,5 +43,6 @@ export default {
 .contracts-content {
     flex: 1;
     padding: 8px;
+    display: flex;
 }
 </style>

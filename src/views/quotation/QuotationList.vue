@@ -1,6 +1,6 @@
 <!-- 项目报价列表主页 -->
 <template>
-    <el-table :data="data" style="height: 100%;" row-key="id" border :tree-props="{children: 'children', hasChildren: 'hasChildren'}" default-expand-all>
+    <el-table :data="data" style="height: 100%;"  v-loading="isLoading" element-loading-text="正在加载..."  row-key="id" border :tree-props="{children: 'children', hasChildren: 'hasChildren'}" default-expand-all>
         <el-table-column prop="name" label="项目" sortable>
         </el-table-column>
         <el-table-column prop="content" label="内容">
@@ -23,7 +23,9 @@ import Component from 'vue-class-component';
 @Component
 export default class QuotationList extends Vue {
     data = [];
+    isLoading:boolean = false;
     async mounted() {
+        this.isLoading = true;
         let result = await quotationApi.queryAllProjectQuotationUsingGET();
         if (result.status == 0 && result.data != undefined) {
             const groups = new Map<number,GetProjectQuotationListResp[]>();
@@ -49,6 +51,7 @@ export default class QuotationList extends Vue {
         } else {
             this.$message.error(result.msg as string);
         }
+        this.isLoading = false;
     };
 }
 interface tableSpanParameter {

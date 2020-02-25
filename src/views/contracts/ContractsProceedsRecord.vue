@@ -23,38 +23,34 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import {ClientDataVue} from '@/client/client-types'
 import {Component, Prop, Watch, PropSync} from 'vue-property-decorator'
 import {contractApi, GetContractReceivablesResp} from '../../client/data-provider'
 
 @Component
-export default class ContractsProceedsRecord extends Vue{
+export default class ContractsProceedsRecord extends ClientDataVue{
     @PropSync('contractId',{type: Number,default :Number.NaN})
     contractId1!: number;
     isLoading:boolean = false;
     data:Array<GetContractReceivablesResp> = [];
     async mounted() {
-        this.isLoading = true;
-        console.log('----'+this.contractId1);
-        if(this.contractId1 !== Number.NaN){
-            let result = await contractApi.getContractReceivablesUsingGET(this.contractId1);
-            if(result.status == 0 && result.data != undefined){
-                this.data = result.data;
-            }else{
-                this.$message.error(result.msg as string);
-            }
-        }
-        this.isLoading = false;
+        await this.requestData();
     };
+    
     @Watch('contractId1')
     async contractIdChanged(){
+        await this.requestData();
+    }
+
+    async requestData(){
         this.isLoading = true;
         if(this.contractId1 !== Number.NaN){
             let result = await contractApi.getContractReceivablesUsingGET(this.contractId1);
-            if(result.status == 0 && result.data != undefined){
-                this.data = result.data;
-            }else{
-                this.$message.error(result.msg as string);
+            let resultData = this.getClientData(result);
+            if(resultData != undefined){
+                this.data = resultData;
+            } else{
+                this.data = [];
             }
         }
         this.isLoading = false;
