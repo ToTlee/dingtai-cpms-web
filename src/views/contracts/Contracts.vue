@@ -1,6 +1,6 @@
 <!-- 合同列表 -->
 <template>
-    <div>
+    <div class="contracts-panel">
         <el-table v-loading="isLoading" element-loading-text="正在加载..." :data="data" stripe style="height:100%" border>
             <el-table-column prop="id" label="序号" fixed>
             </el-table-column>
@@ -32,9 +32,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock>
+        <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock >
             <template></template>
-            <component :is="dialogComponent" :contractId="currentId"></component>
+            <component :is="dialogComponent" :info="currentInfo"></component>
         </el-dialog>
     </div>
 </template>
@@ -46,7 +46,7 @@ import {
     Form
 } from 'element-ui'
 import {
-    contractApi, GetContractListResp
+    contractApi, GetContractResp
 } from '@/client/data-provider'
 import Component from 'vue-class-component'
 import auth from '@/authentication/authentication'
@@ -63,16 +63,17 @@ import ContractsProceedsRecord from './ContractsProceedsRecord.vue'
     }
 })
 export default class Contracts extends ClientDataVue {
-    data: Array<GetContractListResp> = [];
+    data: Array<GetContractResp> = [];
     dialogTableVisible:boolean = false;
     dialogComponent : any = '';
-    isLoading:boolean = false;
-    currentId:number = Number.MIN_VALUE;
+    dialogTitle: string = '';
+    currentInfo: GetContractResp = {};
+    isLoading: boolean = false;
     async mounted() {
         this.isLoading = true;
         let result = await contractApi.listContractUsingGET();
         let resultData = this.getClientData(result);
-        if(resultData != undefined){
+        if(resultData.successed){
             let list = result.data?.list;
             if (list) {
                 list.sort((a, b) => a.id! - b.id!);
@@ -86,11 +87,12 @@ export default class Contracts extends ClientDataVue {
         }
         this.isLoading = false;
     };
-    openInfo(command: string, row: GetContractListResp){
+    openInfo(command: string, row: GetContractResp){
         let component = Overview;
-        this.currentId = row.id!;
+        this.currentInfo = row;
         if(command == "proceeds"){
             this.dialogComponent = "proceeds-record";
+            this.dialogTitle = row.contractName + "合同收款情况";
             this.dialogTableVisible = true;
         }else if(command == "invoice"){
 
@@ -121,5 +123,8 @@ export default class Contracts extends ClientDataVue {
     margin-top: 8px;
     margin-bottom: 8px;
 }
-
+.contracts-root .el-dialog__body{
+   padding: 0px;
+    font-size: 14px;
+}
 </style>

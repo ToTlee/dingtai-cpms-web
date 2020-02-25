@@ -7,7 +7,7 @@ import {
     PermissionControllerApi,
     ContractControllerApi
 } from './index';
-import { CustomerControllerApi, ProjectControllerApi, ProjectQuotationControllerApi } from './api';
+import { CustomerControllerApi, ProjectControllerApi, ProjectQuotationControllerApi, ContractReceivablesControllerApi } from './api';
 
 
 export * from "./api";
@@ -27,3 +27,4 @@ export const contractApi = new ContractControllerApi (configuraion,SERVER_PATH);
 export const customerApi = new CustomerControllerApi (configuraion,SERVER_PATH);
 export const projectApi = new ProjectControllerApi (configuraion,SERVER_PATH);
 export const quotationApi = new ProjectQuotationControllerApi (configuraion,SERVER_PATH);
+export const proceedsnApi = new ContractReceivablesControllerApi (configuraion,SERVER_PATH);

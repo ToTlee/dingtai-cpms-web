@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {Message} from 'element-ui'
 
-export interface DataResult<T> {
+export interface ResResult<T> {
     /**
      * 响应结果数据
      * @type any
@@ -24,13 +24,28 @@ export interface DataResult<T> {
     status?: number;
 }
 
+export class DataResult<T> {
+    /**
+     * 响应结果
+     * @type boolean
+     */
+    successed: boolean = false;
+    data?: T = undefined;
+
+    constructor(successed: boolean, data?: T) {
+        this.successed = successed;
+        this.data = data;
+    }
+}
+
 export class ClientDataVue extends Vue {
-    getClientData<T>(result: DataResult<T>): T | undefined{
-        if (result.status == 0 && result.data != undefined) {
-            return result.data;
+    getClientData<T>(reResult: ResResult<T>): DataResult<T>{
+        let result = new DataResult<T>(false, reResult.data);
+        if (reResult.status == 0) {
+            result.successed = true;
         } else {
-            this.$message.error(result.msg as string);
-            return undefined;
+            this.$message.error(reResult.msg as string);
         }
+        return result;
     }
 }

@@ -31,21 +31,20 @@
 <script lang="ts">
 import {ClientDataVue} from '@/client/client-types'
 import {
-    customerApi,
-    GetCustomerListResp
+    customerApi, GetCustomerResp
 } from '@/client/data-provider'
 import {Component} from 'vue-property-decorator';
 
 @Component
 export default class Customers extends ClientDataVue{
-    data?: GetCustomerListResp[] = [];
+    data?: GetCustomerResp[] = [];
     isLoading:boolean = false;
     async mounted() {
         this.isLoading = true;
         let result = await customerApi.listCustomerUsingGET();
         let resultData = this.getClientData(result);
-        if(resultData !== undefined) {
-            this.data = resultData.list;
+        if(resultData.successed && resultData.data) {
+            this.data = resultData.data.list;
         } else{
             this.data = [];
         }
