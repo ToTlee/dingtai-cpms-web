@@ -32,7 +32,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock >
+        <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock-scroll >
             <template></template>
             <component :is="dialogComponent" :info="currentInfo"></component>
         </el-dialog>

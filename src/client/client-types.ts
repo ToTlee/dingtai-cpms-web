@@ -30,17 +30,19 @@ export class DataResult<T> {
      * @type boolean
      */
     successed: boolean = false;
+    message?: string = '';
     data?: T = undefined;
 
-    constructor(successed: boolean, data?: T) {
+    constructor(successed: boolean, message?:string, data?: T) {
         this.successed = successed;
+        this.message = message;
         this.data = data;
     }
 }
 
 export class ClientDataVue extends Vue {
     getClientData<T>(reResult: ResResult<T>): DataResult<T>{
-        let result = new DataResult<T>(false, reResult.data);
+        let result = new DataResult<T>(false,reResult.msg, reResult.data);
         if (reResult.status == 0) {
             result.successed = true;
         } else {

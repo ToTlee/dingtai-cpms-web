@@ -27,4 +27,4 @@ export const contractApi = new ContractControllerApi (configuraion,SERVER_PATH);
 export const customerApi = new CustomerControllerApi (configuraion,SERVER_PATH);
 export const projectApi = new ProjectControllerApi (configuraion,SERVER_PATH);
 export const quotationApi = new ProjectQuotationControllerApi (configuraion,SERVER_PATH);
-export const proceedsnApi = new ContractReceivablesControllerApi (configuraion,SERVER_PATH);
+export const proceedsApi = new ContractReceivablesControllerApi (configuraion,SERVER_PATH);
