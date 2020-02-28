@@ -1,13 +1,12 @@
 name: master-CI-CD
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +18,7 @@ jobs:
           node-version: "10.x"
       - name: 编译项目
         run: yarn && yarn build
-      - name: 部署文件
+      - name: SCP Command to Transfer Files
         uses: appleboy/scp-action@v0.0.6
         with:
           host: ${{ secrets.DING_TAI_HOST }}
@@ -28,4 +27,3 @@ jobs:
           target: /usr/local/dingtai/frontend/nginx/nginx/client
           source: ./dingtai/*
           rm: true
-        
