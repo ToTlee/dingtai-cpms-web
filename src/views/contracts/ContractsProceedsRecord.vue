@@ -11,8 +11,8 @@
         <el-button type="text" @click="refashData">刷新</el-button>
       </div>
     </div>
-    <div class="timeline">
-      <el-timeline v-if="!isLoading &&(data && data.length > 0)">
+    <div class="timeline" v-if="!isLoading">
+      <el-timeline v-if="data && data.length > 0">
         <el-timeline-item
           v-for="(item, index) in data"
           :key="index"
@@ -63,9 +63,8 @@
           </div>
         </el-timeline-item>
       </el-timeline>
+      <div style="font-size:18px;text-align:center;" v-if="!data || data.length == 0">没有收款记录</div>
     </div>
-
-    <div style="font-size:18px;" v-if="!isLoading &&(!data || data.length == 0)">没有收款记录</div>
   </div>
 </template>
 

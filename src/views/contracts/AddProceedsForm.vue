@@ -88,7 +88,6 @@ export default class AddProceedsForm extends ClientDataVue {
   };
 
   async onSubmit() {
-    console.log("111111111111");
     this.info.contractId = this.contractIdSync;
     let resResult = await proceedsApi.addContractReceivablesUsingPOST(
       this.info
