@@ -19,7 +19,7 @@ jobs:
           node-version: "10.x"
       - name: 编译项目
         run: yarn && yarn build
-      - name: SCP Command to Transfer Files
+      - name: 部署文件
         uses: appleboy/scp-action@v0.0.6
         with:
           host: ${{ secrets.DING_TAI_HOST }}
