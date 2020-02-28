@@ -15,6 +15,7 @@
     <el-table-column prop="tel" label="联系电话"></el-table-column>
     <el-table-column prop="mail" label="邮箱地址"></el-table-column>
     <el-table-column prop="connector" label="对接人"></el-table-column>
+    <el-table-column prop="remark" label="备注"></el-table-column>
   </el-table>
 </template>
 
