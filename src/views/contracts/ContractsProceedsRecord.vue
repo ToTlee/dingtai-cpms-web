@@ -91,7 +91,7 @@
                     </div>
                     <div class="info-list-item">发票编号: {{ item.invoice.invoiceNo }}</div>
                     <div class="info-list-item">开票人: {{ item.invoice.invoicePerson }}</div>
-                    <div class="info-list-item">开票时间: {{ item.invoice.invoiceTime }}</div>
+                    <div class="info-list-item">开票时间: {{ item.invoice.invoiceTime.toString() }}</div>
                   </div>
                 </div>
                 <div class="item-edit-panel" v-if="item.showEditor">
@@ -197,24 +197,6 @@ export default class ContractsProceedsRecord extends ClientDataVue {
 
   async requestData() {
     this.isLoading = true;
-    // if (this.contractInfo) {
-    //   let result = await contractApi.getContractReceivablesUsingGET(this.contractInfo.id!);
-    //   let resultData = this.getClientData<Array<GetContractReceivablesResp>>(result);
-    //   if (resultData.successed && resultData.data != undefined) {
-    //     this.data = resultData.data;
-    //   } else {
-    //     this.data = [];
-    //   }
-
-    //   let periodResult = await periodApi.getContractPeriodUsingGET1(this.contractInfo.id);
-    //   let periods = this.getClientData<Array<GetContractPeriodResp>>(result);
-    //   if (periods.successed && periods.data != undefined) {
-    //     this.contractPeriods = periods.data;
-    //   } else {
-    //     this.data = [];
-    //   }
-    // }
-
     this.data = await ContractCreator.get(this.contractInfo);
     this.currentEditPeriod = undefined;
     this.isLoading = false;
@@ -235,25 +217,29 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   itemLeave(item: any) {
     this.$set(item, "showEditor", false);
   }
-  deleteItem(item: GetContractReceivablesResp) {
+  deleteItem(item: ContractPeroid) {
     this.$confirm("是否删除该收款项, 是否继续?", "提示", {
       confirmButtonText: "是",
       cancelButtonText: "否",
       type: "warning"
     })
       .then(() => {
-        let result = proceedsApi.deleteContractReceivablesUsingPOST(item.id!);
-        result.then(r => {
-          let resultValue = this.getClientData(r);
-          if (resultValue.successed) {
-            // let index = this.data.findIndex(value => value.id == item.id);
-            // this.data.splice(index, 1);
-            this.$message({
-              type: "success",
-              message: "删除成功!"
-            });
-          }
-        });
+        if (item.proceed && item.proceed.id) {
+          let result = proceedsApi.deleteContractReceivablesUsingPOST(
+            item.proceed.id!
+          );
+          result.then(r => {
+            let resultValue = this.getClientData(r);
+            if (resultValue.successed) {
+              // let index = this.data.findIndex(value => value.id == item.id);
+              // this.data.splice(index, 1);
+              this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+            }
+          });
+        }
       })
       .catch(() => {
         this.$message({
@@ -274,10 +260,18 @@ export default class ContractsProceedsRecord extends ClientDataVue {
 
   closeAddItemDialog() {
     this.addItemDialogVisible = false;
+    this.currentEditPeriod = undefined;
   }
 
-  submitAddItem(newItem: GetContractReceivablesResp) {
-    //this.data.push(newItem);
+  submitAddItem(newPeriod: ContractPeroid) {
+    if (this.currentEditPeriod) {
+      if (newPeriod.proceed) {
+        this.currentEditPeriod.proceed = newPeriod.proceed;
+      }
+      if (newPeriod.invoice) {
+        this.currentEditPeriod.invoice = newPeriod.invoice;
+      }
+    }
     this.closeAddItemDialog();
   }
 
