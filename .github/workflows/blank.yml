@@ -20,13 +20,7 @@ jobs:
       - name: Build project
         run: yarn && yarn build
       - name: SCP Command to Transfer Files
-        uses: appleboy/scp-action@v0.0.6
-        with:
-          host: ${{ secrets.DING_TAI_HOST }}
-          username: ${{ secrets. DING_TAI_HOST_USERNAME }}
-          password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
-          target: /usr/local/dingtai/frontend/nginx/nginx/client/test
-          source: ./dingtai/*
-          rm: true
+        run: |
+          sshpass -p ${{ secrets.DING_TAI_HOST_PASSWORD }} scp -r ./dingtai ${{ secrets. DING_TAI_HOST_USERNAME }}@${{ secrets.DING_TAI_HOST }}:/home/
         
        
