@@ -1,14 +1,7 @@
 <!-- 合同列表 -->
 <template>
   <div class="contracts-panel">
-    <el-table
-      v-loading="isLoading"
-      element-loading-text="正在加载..."
-      :data="data"
-      stripe
-      style="height:100%"
-      border
-    >
+    <el-table v-loading="isLoading" element-loading-text="正在加载..." :data="data" stripe border>
       <el-table-column prop="id" label="序号" fixed></el-table-column>
       <el-table-column prop="contractNo" label="合同编号" fixed sortable></el-table-column>
       <el-table-column prop="customerName" label="客户名称" fixed sortable></el-table-column>
@@ -18,7 +11,7 @@
       <el-table-column prop="status" label="完成情况"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-dropdown szie="medium" @command="openInfo($event,scope.row)">
+          <el-dropdown szie="medium" @command="openInfo($event, scope.row)">
             <span class="el-dropdown-link">
               <el-button size="medium" type="primary">
                 查看
@@ -102,8 +95,11 @@ export default class Contracts extends ClientDataVue {
 }
 </script>
 
-
 <style lang="scss" scoped>
+.contracts-panel {
+  width: 100%;
+  height: 100%;
+}
 .el-dropdown-link {
   cursor: pointer;
   font-size: 18px;

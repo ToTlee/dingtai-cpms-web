@@ -2,39 +2,108 @@
 <template>
   <div class="dialog-timeline" v-loading="isLoading" element-loading-text="正在加载...">
     <div class="top-panel">
-      <div>合同编号: {{contractInfo.contractNo}}</div>
-      <div>合同状态: {{contractInfo.status == 1? '已完成':'未完成'}}</div>
+      <div class="info-item">
+        <span class="info-item-label">编号:</span>
+        {{ contractInfo.contractNo }}
+      </div>
+      <div class="info-item">
+        <span class="info-item-label">状态:</span>
+        {{ contractInfo.status }}
+      </div>
+      <div class="info-item">
+        <span class="info-item-label">合同款:</span>
+        {{ contractSummary.total }}元
+      </div>
+      <div class="info-item">
+        <span class="info-item-label">已收款:</span>
+        {{ contractSummary.recievedMoney }}元
+      </div>
+      <el-button
+        class="info-item"
+        type="text"
+        @click="showDetail"
+      >{{ showDetailInfo ? "收起" : "更多" }}</el-button>
       <div style="flex:1;text-align:right;">
-        <el-tooltip content="添加合同款项" placement="bottom">
+        <!-- <el-tooltip content="添加合同款项" placement="bottom">
           <el-button type="text" @click="addItem">添加</el-button>
-        </el-tooltip>
+        </el-tooltip>-->
         <el-button type="text" @click="refashData">刷新</el-button>
       </div>
     </div>
+    <div class="deltail-info" v-if="showDetailInfo">
+      <div class="info-item">
+        <span class="info-item-label">已开票:</span>
+        {{ contractSummary.invoicedMoney }}元
+      </div>
+      <div class="info-item">
+        <span class="info-item-label">未收款: :</span>
+        {{ contractSummary.unrecievedMoney }}元
+      </div>
+    </div>
     <div class="timeline" v-if="!isLoading">
-      <el-timeline v-if="data && data.length > 0">
+      <el-timeline>
         <el-timeline-item
-          v-for="(item, index) in data"
+          v-for="(item, index) in contractPeriods"
           :key="index"
-          :timestamp="item.receiveTime.toString()"
+          :timestamp="item.info.endTime.toString() + '———' + item.info.periodContent"
           placement="top"
           type="primary"
         >
-          <el-card>
-            <div @mouseenter="itemEnter(item)" @mouseleave="itemLeave(item)">
-              <div class="item-first-line">
-                <div class="timeline-item-title">收款金额: {{item.receiveMoney}}元</div>
-                <div>收款方式: {{item.receiveMethod}}</div>
+          <template slot="dot">
+            <span class="timeline-dot">
+              <span class="timeline-dot-text">{{ item.info.periodName }}</span>
+              <i class="el-icon-success icon-success"></i>
+            </span>
+          </template>
+          <div>
+            <el-card v-if="item.proceed != undefined">
+              <div @mouseenter="itemEnter(item)" @mouseleave="itemLeave(item)">
+                <div class="info-list">
+                  <div class="info-list-item">
+                    <div class="timeline-item-title">收款金额: {{ item.proceed.receiveMoney }}元</div>
+                  </div>
+                  <div class="info-list-item">收款方式: {{ item.proceed.receiveMethod }}</div>
+                  <div class="info-list-item">收款人: {{ item.proceed.receivePerson }}</div>
+                  <div class="info-list-item">
+                    发票编号:
+                    <el-button
+                      type="text"
+                      v-if="item.invoice != undefined"
+                      @click="showInvoiceInfo(item)"
+                    >
+                      {{
+                      item.invoice.invoiceNo
+                      }}
+                    </el-button>
+                    <el-button
+                      type="text"
+                      v-if="item.invoice == undefined"
+                      @click="addItem(item)"
+                    >未开发票</el-button>
+                  </div>
+                </div>
+                <div>备注: {{ item.remark }}</div>
+                <div v-if="item.showInvoice">
+                  <div class="info-invoice-title">发票信息</div>
+                  <div class="info-list">
+                    <div class="info-list-item">
+                      <div class="timeline-item-title">发票金额: {{ item.invoice.invoiceMoney }}元</div>
+                    </div>
+                    <div class="info-list-item">发票编号: {{ item.invoice.invoiceNo }}</div>
+                    <div class="info-list-item">开票人: {{ item.invoice.invoicePerson }}</div>
+                    <div class="info-list-item">开票时间: {{ item.invoice.invoiceTime }}</div>
+                  </div>
+                </div>
+                <div class="item-edit-panel" v-if="item.showEditor">
+                  <el-button type="text" @click="editItem(item)">编辑</el-button>
+                  <el-button type="text" @click="deleteItem(item)">删除</el-button>
+                </div>
               </div>
-              <div>收款人: {{item.receivePerson}}</div>
-              <div>备注: {{item.remark}}</div>
-              <div class="item-edit-panel" v-if="item.showEditor">
-                <el-button type="text" @click="invoiceInfo(item)">发票</el-button>
-                <el-button type="text" @click="editItem(item)">编辑</el-button>
-                <el-button type="text" @click="deleteItem(item)">删除</el-button>
-              </div>
+            </el-card>
+            <div v-if="item.proceed == undefined">
+              <el-button type="text" @click="addItem(item)">未收款项，点击添加</el-button>
             </div>
-          </el-card>
+          </div>
         </el-timeline-item>
         <el-timeline-item hide-timestamp type="success" v-if="contractInfo.status == '已完成'">
           <span style="font-weight:bold">合同款项已结清</span>
@@ -42,11 +111,11 @@
         <el-timeline-item hide-timestamp type="warning" v-if="contractInfo.status != '已完成'">
           <div class="inline-panel-center">
             <span style="font-weight:bold">合同款项待收取</span>
-            <el-tooltip content="添加合同款项" placement="right">
+            <!-- <el-tooltip content="添加合同款项" placement="right">
               <span class="add-button">
-                <i class="el-icon-circle-plus" @click="addItem(item)"></i>
+                <i class="el-icon-circle-plus" @click="addItem"></i>
               </span>
-            </el-tooltip>
+            </el-tooltip>-->
             <el-dialog
               title="添加合同收款项"
               :visible.sync="addItemDialogVisible"
@@ -56,6 +125,7 @@
             >
               <add-proceeds-form
                 :contractId="contractInfo.id"
+                :period="currentEditPeriod"
                 @cancel="cancleAdd($event)"
                 @submit="submitAddItem"
               ></add-proceeds-form>
@@ -63,7 +133,6 @@
           </div>
         </el-timeline-item>
       </el-timeline>
-      <div style="font-size:18px;text-align:center;" v-if="!data || data.length == 0">没有收款记录</div>
     </div>
   </div>
 </template>
@@ -76,21 +145,30 @@ import {
   proceedsApi,
   invoiceApi,
   GetContractReceivablesResp,
-  GetContractResp
+  GetContractResp,
+  GetContractPeriodResp,
+  periodApi
 } from "../../client/data-provider";
+import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 
 import AddProceedsForm from "./AddProceedsForm.vue";
+import ToggleButton from "@/components/Element/ToggleButton.vue";
+
 @Component({
   components: {
-    "add-proceeds-form": AddProceedsForm
+    "add-proceeds-form": AddProceedsForm,
+    "el-toggle-button": ToggleButton
   }
 })
 export default class ContractsProceedsRecord extends ClientDataVue {
-  @PropSync("info", { default: undefined })
+  @PropSync("info", { default: {} })
   contractInfo!: GetContractResp;
+  // contractPeriods: GetContractPeriodResp[] = [];
   isLoading: boolean = false;
   addItemDialogVisible: boolean = false;
-  data: Array<GetContractReceivablesResp> = [];
+  data: ContractInfo = {};
+  showDetailInfo: boolean = false;
+  currentEditPeriod?: ContractPeroid = undefined;
 
   async mounted() {
     await this.requestData();
@@ -101,25 +179,53 @@ export default class ContractsProceedsRecord extends ClientDataVue {
     await this.requestData();
   }
 
+  get contractPeriods() {
+    return this.data.peroids;
+  }
+
+  get contractSummary() {
+    let recievedMoney = 0;
+    let invoicedMoney = 0;
+    let total = this.contractInfo.contractMoney!;
+    this.data?.peroids?.forEach(element => {
+      invoicedMoney += element.invoice?.invoiceMoney ?? 0;
+      recievedMoney += element.proceed?.receiveMoney ?? 0;
+    });
+    let unrecievedMoney = total - recievedMoney;
+    return { total, invoicedMoney, recievedMoney, unrecievedMoney };
+  }
+
   async requestData() {
     this.isLoading = true;
-    if (this.contractInfo) {
-      let result = await contractApi.getContractReceivablesUsingGET(
-        this.contractInfo.id!
-      );
-      let resultData = this.getClientData<Array<GetContractReceivablesResp>>(
-        result
-      );
-      if (resultData.successed && resultData.data != undefined) {
-        this.data = resultData.data;
-      } else {
-        this.data = [];
-      }
-    }
+    // if (this.contractInfo) {
+    //   let result = await contractApi.getContractReceivablesUsingGET(this.contractInfo.id!);
+    //   let resultData = this.getClientData<Array<GetContractReceivablesResp>>(result);
+    //   if (resultData.successed && resultData.data != undefined) {
+    //     this.data = resultData.data;
+    //   } else {
+    //     this.data = [];
+    //   }
+
+    //   let periodResult = await periodApi.getContractPeriodUsingGET1(this.contractInfo.id);
+    //   let periods = this.getClientData<Array<GetContractPeriodResp>>(result);
+    //   if (periods.successed && periods.data != undefined) {
+    //     this.contractPeriods = periods.data;
+    //   } else {
+    //     this.data = [];
+    //   }
+    // }
+
+    this.data = await ContractCreator.get(this.contractInfo);
+    this.currentEditPeriod = undefined;
     this.isLoading = false;
   }
+
   async refashData() {
     await this.requestData();
+  }
+
+  showDetail() {
+    this.showDetailInfo = !this.showDetailInfo;
   }
 
   itemEnter(item: any) {
@@ -140,8 +246,8 @@ export default class ContractsProceedsRecord extends ClientDataVue {
         result.then(r => {
           let resultValue = this.getClientData(r);
           if (resultValue.successed) {
-            let index = this.data.findIndex(value => value.id == item.id);
-            this.data.splice(index, 1);
+            // let index = this.data.findIndex(value => value.id == item.id);
+            // this.data.splice(index, 1);
             this.$message({
               type: "success",
               message: "删除成功!"
@@ -156,10 +262,13 @@ export default class ContractsProceedsRecord extends ClientDataVue {
         });
       });
   }
-  invoiceInfo(item: GetContractReceivablesResp) {}
+  showInvoiceInfo(info: any) {
+    this.$set(info, "showInvoice", !info.showInvoice);
+  }
   editItem(item: GetContractReceivablesResp) {}
 
-  addItem(item: GetContractReceivablesResp) {
+  addItem(period?: ContractPeroid) {
+    this.currentEditPeriod = period;
     this.addItemDialogVisible = true;
   }
 
@@ -168,7 +277,7 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   }
 
   submitAddItem(newItem: GetContractReceivablesResp) {
-    this.data.push(newItem);
+    //this.data.push(newItem);
     this.closeAddItemDialog();
   }
 
@@ -180,7 +289,10 @@ export default class ContractsProceedsRecord extends ClientDataVue {
 
 <style lang="scss" scoped>
 @import "@/element-variables.scss";
-
+.top-panel {
+  display: inline-flex;
+  align-items: center;
+}
 .dialog-timeline {
   text-align: left;
   width: 600px;
@@ -189,10 +301,22 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   flex-direction: column;
   overflow: auto;
 }
+.info-item {
+  margin-right: 18px;
+}
+
+.info-item-label {
+}
+
+.deltail-info {
+  display: flex;
+  flex-direction: row;
+}
 
 .timeline {
   flex: 1;
   overflow: auto;
+  margin-top: 20px;
 }
 
 .item-first-line {
@@ -203,6 +327,45 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   font-weight: bold;
   width: 180px;
 }
+.timeline-dot {
+  margin-left: -37px;
+  margin-top: -2px;
+}
+.timeline-dot-text {
+  color: $--color-primary;
+  font-weight: bold;
+  margin-right: 6px;
+}
+.info-invoice-title {
+  color: $--color-primary;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.icon-success {
+  color: $--color-success;
+  font-size: 16px;
+}
+
+.icon-warning {
+  font-size: 16px;
+  color: --color-warning;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.info-list-item {
+  width: 200px;
+  margin-bottom: 6px;
+}
+
+.info-list-item .el-button--text {
+  padding: 0px;
+}
 
 .item-edit-panel {
   position: absolute;
@@ -210,12 +373,7 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   right: 8px;
   display: inline-flex;
 }
-.top-panel {
-  display: inline-flex;
-  align-items: center;
-  margin-left: 30px;
-  margin-bottom: 20px;
-}
+
 .add-button {
   margin-left: 8px;
   cursor: pointer;
