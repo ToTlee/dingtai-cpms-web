@@ -5,7 +5,7 @@
     v-loading="isLoading"
     element-loading-text="正在加载..."
     stripe
-    style="height:100%;"
+    height="100%"
     border
   >
     <el-table-column type="index" label="序号" width="60px" sortable></el-table-column>

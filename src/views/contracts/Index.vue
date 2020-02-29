@@ -41,6 +41,6 @@ export default {
 
 .contracts-content {
   flex: 1;
-  padding: 8px;
+  overflow: auto;
 }
 </style>

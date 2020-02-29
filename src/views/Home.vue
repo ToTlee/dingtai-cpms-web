@@ -1,18 +1,20 @@
 <template>
-  <div class="home">
-    <nav-top></nav-top>
-    <div class="nav-mid">
-      <div class="main-menu">
-        <el-menu @select="selected" background-color="#1b2a46" text-color="#ffffff" default-active="/customers">
-          <el-menu-item index="/customers">
-            客户跟进
-          </el-menu-item>
-          <el-menu-item index="/quotation">
-            项目报价
-          </el-menu-item>
-          <el-menu-item index="/contracts">
-            合同管理
-          </el-menu-item>
+  <el-container style="height:100%">
+    <el-header class="navigation-top">
+      <nav-top></nav-top>
+    </el-header>
+    <el-container style="overflow: auto">
+      <el-aside style="width:220px">
+        <el-menu
+          class="main-menu"
+          @select="selected"
+          background-color="#1b2a46"
+          text-color="#ffffff"
+          default-active="/customers"
+        >
+          <el-menu-item index="/customers">客户跟进</el-menu-item>
+          <el-menu-item index="/quotation">项目报价</el-menu-item>
+          <el-menu-item index="/contracts">合同管理</el-menu-item>
           <el-submenu index="4">
             <template slot="title">系统管理</template>
             <el-menu-item index="4-1">用户管理</el-menu-item>
@@ -20,12 +22,14 @@
             <el-menu-item index="4-3">系统设置</el-menu-item>
           </el-submenu>
         </el-menu>
-      </div>
+      </el-aside>
+      <el-main>
+        <router-view style="flex:1;"></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 
-      <router-view style="flex:1;overflow:auto"></router-view>
-    </div>
-    <!-- <nav-bottom class="nav-bottom"></nav-bottom> -->
-  </div>
+  <!-- <nav-bottom class="nav-bottom"></nav-bottom> -->
 </template>
 
 <script>
@@ -53,28 +57,13 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.navigation-top {
+  padding: 0px;
 }
-
-.nav-mid {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  height: 100%;
-}
-
 .main-menu {
   text-align: left;
   background-color: #1b2a46;
-  margin-right: 10px;
-  overflow: auto;
-}
-
-.main-menu .el-menu {
-  width: 200px;
   height: 100%;
+  text-align: left;
 }
 </style>
