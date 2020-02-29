@@ -117,6 +117,8 @@
               </span>
             </el-tooltip>-->
             <el-dialog
+              :close-on-click-modal="false"
+              :close-on-press-escape="false"
               title="添加合同收款项"
               :visible.sync="addItemDialogVisible"
               append-to-body
@@ -251,7 +253,9 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   showInvoiceInfo(info: any) {
     this.$set(info, "showInvoice", !info.showInvoice);
   }
-  editItem(item: GetContractReceivablesResp) {}
+  editItem(period: ContractPeroid) {
+    this.addItem(period);
+  }
 
   addItem(period?: ContractPeroid) {
     this.currentEditPeriod = period;

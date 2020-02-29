@@ -1,24 +1,5 @@
 <template>
   <div class="input-root">
-    <!-- <div>
-      <div class="item-input-form">
-        <div class="tile-text">基本信息</div>
-        <div>
-          <el-form label-width="100px" size="small">
-            <el-form-item label="合同期间:">
-              <el-select v-model="periodId">
-                <el-option
-                  v-for="item in periodOptions"
-                  :key="item.id"
-                  :label="item.periodName"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-        </div>
-      </div>
-    </div>-->
     <div class="input-forms">
       <div class="item-input-form">
         <div class="tile-text">收款信息</div>
@@ -57,7 +38,7 @@
         <div v-if="editingInvoice" class="item-input-form">
           <div class="tile-text">
             发票信息
-            <el-link type="text" style="text-align:right" @click="toggleEditInvoice">取消</el-link>
+            <el-link type="danger" style="text-align:right" @click="toggleEditInvoice">取消</el-link>
           </div>
           <el-form class="item-input-form" label-width="100px">
             <el-form-item label="开票金额:" required>
@@ -119,16 +100,7 @@ export default class AddProceedsForm extends ClientDataVue {
   @Prop()
   contractId?: number;
   periodId?: number = this.period?.info.id;
-  editingInvoice: boolean = false;
-  // periodOptions: Array<GetContractPeriodResp> = [];
-
-  async mounted() {
-    // let data = await contractApi.getContractPeriodUsingGET(this.contractId!);
-    // let result = this.getClientData(data);
-    // if (result.successed) {
-    //   this.periodOptions = result.data!;
-    // }
-  }
+  editingInvoice: boolean = true;
 
   get info(): ContractPeroid {
     let contractPeroid: ContractPeroid = {
@@ -145,6 +117,11 @@ export default class AddProceedsForm extends ClientDataVue {
       contractPeroid.invoice.periodId = this.period.info.id;
     }
     return ClientDataVue.observable(contractPeroid);
+  }
+
+  @Watch("period")
+  onPeriod(newVal?: ContractPeroid) {
+    this.editingInvoice = newVal?.invoice != undefined;
   }
 
   @Watch("periodId")

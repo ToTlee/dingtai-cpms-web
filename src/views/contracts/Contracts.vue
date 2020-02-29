@@ -35,6 +35,8 @@
       </el-table-column>
     </el-table>
     <el-dialog
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
       :title="dialogTitle"
       :visible.sync="dialogTableVisible"
       width="fit-content"
