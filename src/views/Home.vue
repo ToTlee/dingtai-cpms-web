@@ -1,7 +1,7 @@
 <template>
   <el-container style="height:100%">
     <el-header class="navigation-top">
-      <nav-top></nav-top>
+      <nav-top style="padding:0px"></nav-top>
     </el-header>
     <el-container style="overflow: auto">
       <el-aside style="width:220px">
@@ -23,7 +23,7 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main>
+      <el-main style="padding:0px 20px 20px 10px">
         <router-view style="flex:1;"></router-view>
       </el-main>
     </el-container>
@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 .navigation-top {
-  padding: 0px;
+  padding: 0px !important;
 }
 .main-menu {
   text-align: left;

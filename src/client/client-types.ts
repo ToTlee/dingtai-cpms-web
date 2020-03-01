@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Message } from "element-ui";
+import { Result } from "./api";
 
 export interface ResResult<T> {
   /**
@@ -55,5 +56,20 @@ export class ClientDataVue extends Vue {
       this.$message.error(reResult.msg as string);
     }
     return result;
+  }
+
+  async getData<T>(callback: (...para: any) => Promise<Result>, ...para: any): Promise<T | undefined> {
+    let result = await callback(para);
+    let resultData = getClientData<T>(result);
+    if (resultData.successed && resultData.data != undefined) {
+      return resultData.data;
+    } else {
+      return undefined;
+    }
+  }
+  async requestWithoutResult(callback: (...para: any) => Promise<Result>, ...para: any): Promise<boolean> {
+    let result = await callback(para);
+    let resultData = getClientData(result);
+    return resultData.successed;
   }
 }

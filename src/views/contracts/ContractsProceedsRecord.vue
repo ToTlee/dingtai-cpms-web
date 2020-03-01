@@ -124,6 +124,7 @@
               append-to-body
               width="fit-content"
               height="fit-content"
+              :show-close="false"
             >
               <add-proceeds-form
                 :contractId="contractInfo.id"
@@ -182,14 +183,14 @@ export default class ContractsProceedsRecord extends ClientDataVue {
   }
 
   get contractPeriods() {
-    return this.data.peroids;
+    return this.data.periods;
   }
 
   get contractSummary() {
     let recievedMoney = 0;
     let invoicedMoney = 0;
     let total = this.contractInfo.contractMoney!;
-    this.data?.peroids?.forEach(element => {
+    this.data?.periods?.forEach(element => {
       invoicedMoney += element.invoice?.invoiceMoney ?? 0;
       recievedMoney += element.proceed?.receiveMoney ?? 0;
     });

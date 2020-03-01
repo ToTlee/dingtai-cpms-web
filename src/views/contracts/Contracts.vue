@@ -41,8 +41,8 @@
       :visible.sync="dialogTableVisible"
       width="fit-content"
       height="fit-content"
+      :show-close="false"
       lock-scroll
-      destroy-on-close
     >
       <template></template>
       <component :is="dialogComponent" :info="currentInfo"></component>
@@ -60,6 +60,7 @@ import { AuthVueRouter } from "@/router/index";
 
 import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
+import { ContractInfo } from "./ContractInfo";
 
 @Component({
   components: {
@@ -73,6 +74,7 @@ export default class Contracts extends ClientDataVue {
   dialogTitle: string = "";
   currentInfo: GetContractResp = {};
   isLoading: boolean = false;
+
   async mounted() {
     this.isLoading = true;
     let result = await contractApi.listContractUsingGET();
@@ -90,6 +92,7 @@ export default class Contracts extends ClientDataVue {
     }
     this.isLoading = false;
   }
+
   openInfo(command: string, row: GetContractResp) {
     let component = Overview;
     this.currentInfo = row;
