@@ -43,11 +43,15 @@ export default class DataView extends Vue {
 
   async addItem() {
     let dataView: any = this.$refs.dataView;
-    let result = await dataView.onAddItem();
+    if (dataView.onAddItem) {
+      let result = await dataView.onAddItem();
+    }
   }
   async search() {
     let dataView: any = this.$refs.dataView;
-    let result = await dataView.onSearch(this.queryString);
+    if (dataView.onSearch) {
+      let result = await dataView.onSearch(this.queryString);
+    }
   }
 }
 </script>
