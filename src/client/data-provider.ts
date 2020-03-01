@@ -12,7 +12,8 @@ import {
   ProjectQuotationControllerApi,
   ContractReceivablesControllerApi,
   ContractInvoiceControllerApi,
-  ContractPeriodControllerApi
+  ContractPeriodControllerApi,
+  RoleControllerApi
 } from "./api";
 
 export * from "./api";
@@ -34,5 +35,5 @@ export const customerApi = new CustomerControllerApi(configuraion, SERVER_PATH);
 export const quotationApi = new ProjectQuotationControllerApi(configuraion, SERVER_PATH);
 export const proceedsApi = new ContractReceivablesControllerApi(configuraion, SERVER_PATH);
 export const invoiceApi = new ContractInvoiceControllerApi(configuraion, SERVER_PATH);
-
+export const roleApi = new RoleControllerApi(configuraion,SERVER_PATH);
 export const periodApi = new ContractPeriodControllerApi(configuraion, SERVER_PATH);
