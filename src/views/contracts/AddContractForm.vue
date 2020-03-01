@@ -149,7 +149,7 @@ export default class AddContractForm extends ClientDataVue {
   }
 
   @Emit()
-  cancle() {}
+  cancel() {}
 
   showAddPeriodDialog() {
     this.addPeriodVisible = true;
@@ -232,9 +232,12 @@ export default class AddContractForm extends ClientDataVue {
 
   cancelContract() {
     let vm = this;
-    this.$msgbox.confirm("是否放弃当前编辑内容?").then(() => {
-      vm.cancle();
-    });
+    this.$msgbox
+      .confirm("是否放弃当前编辑内容?")
+      .then(() => {
+        vm.cancel();
+      })
+      .catch(() => {});
   }
 
   private async commitContract(

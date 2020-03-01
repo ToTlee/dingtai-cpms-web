@@ -15,10 +15,16 @@
         height="fit-content"
         :show-close="false"
       >
-        <add-contract-form @submit="submitContract" @cancle="cancleAddContract"></add-contract-form>
+        <add-contract-form @submit="submitContract" @cancel="cancleAddContract"></add-contract-form>
       </el-dialog>
       <div class="search-panel">
-        <el-input prefix-icon="el-icon-search" placeholder="输入关键字" size="small">
+        <el-input
+          prefix-icon="el-icon-search"
+          placeholder="输入关键字"
+          @keyup.enter.native="search"
+          size="small"
+          v-model="queryString"
+        >
           <!-- <el-select slot="prepend" placeholder="请选择检索段">
             <el-option label="餐厅名" value="1"></el-option>
             <el-option label="订单号" value="2"></el-option>
@@ -29,7 +35,7 @@
       </div>
     </div>
     <div class="contracts-content">
-      <contracts></contracts>
+      <contracts ref="addForm"></contracts>
     </div>
   </div>
 </template>
@@ -41,6 +47,7 @@ import Contracts from "./Contracts.vue";
 import AddContractForm from "./AddContractForm.vue";
 import Component from "vue-class-component";
 import { ContractInfo } from "./ContractInfo";
+import { DataListVue } from "../DataListVue";
 @Component({
   components: {
     Contracts,
@@ -49,6 +56,7 @@ import { ContractInfo } from "./ContractInfo";
 })
 export default class Index extends Vue {
   addContractVisible: boolean = false;
+  queryString: string | number = "";
 
   addContract() {
     this.addContractVisible = true;
@@ -61,7 +69,14 @@ export default class Index extends Vue {
     this.addContractVisible = false;
   }
 
-  cancleAddContract() {}
+  cancleAddContract() {
+    this.addContractVisible = false;
+  }
+
+  async search() {
+    let addform: any = this.$refs.addForm;
+    let result = await addform.search(this.queryString);
+  }
 }
 </script>
 

@@ -52,8 +52,13 @@
 
 <script lang="ts">
 import { ClientDataVue } from "@/client/client-types";
+import { DataListVue } from "../DataListVue";
 import { Message, Form } from "element-ui";
-import { contractApi, GetContractResp } from "@/client/data-provider";
+import {
+  contractApi,
+  GetContractResp,
+  PageInfoGetContractResp
+} from "@/client/data-provider";
 import Component from "vue-class-component";
 import auth from "@/authentication/authentication";
 import { AuthVueRouter } from "@/router/index";
@@ -61,13 +66,14 @@ import { AuthVueRouter } from "@/router/index";
 import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
 import { ContractInfo } from "./ContractInfo";
+import { ElSelect } from "element-ui/types/select";
 
 @Component({
   components: {
     "proceeds-record": ContractsProceedsRecord
   }
 })
-export default class Contracts extends ClientDataVue {
+export default class Contracts extends DataListVue {
   data: Array<GetContractResp> = [];
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
@@ -76,6 +82,10 @@ export default class Contracts extends ClientDataVue {
   isLoading: boolean = false;
 
   async mounted() {
+    await this.refreshData();
+  }
+
+  async refreshData() {
     this.isLoading = true;
     let result = await contractApi.listContractUsingGET();
     let resultData = this.getClientData(result);
@@ -103,6 +113,31 @@ export default class Contracts extends ClientDataVue {
     } else if (command == "invoice") {
     } else if (command == "customer-info") {
     }
+  }
+
+  async search(query: string): Promise<boolean> {
+    if (!query || query == "") {
+      await this.refreshData();
+      return true;
+    }
+    this.isLoading = true;
+    let result = await this.getData<PageInfoGetContractResp>(() =>
+      contractApi.listContractUsingGET(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        query
+      )
+    );
+    let success = false;
+    if (result && result.list) {
+      this.data = result.list;
+      success = true;
+    }
+    this.isLoading = false;
+    return success;
   }
 }
 </script>
