@@ -83,6 +83,7 @@
           height="fit-content"
           :show-close="false"
           append-to-body
+          destroy-on-close
         >
           <add-period-form @submit="addPeriod" @cancel="cancelAddPeriod"></add-period-form>
         </el-dialog>
