@@ -35,13 +35,21 @@
       </el-table-column>
     </el-table>
     <el-dialog
+      :visible.sync="addContractVisible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      title="添加合同"
+      width="fit-content"
+      height="fit-content"
+      :show-close="false"
+    >
+      <add-contract-form @submit="submitContract" @cancel="cancleAddContract"></add-contract-form>
+    </el-dialog>
+    <el-dialog
       :title="dialogTitle"
       :visible.sync="dialogTableVisible"
       width="fit-content"
       height="fit-content"
-      :show-close="false"
       lock-scroll
     >
       <template></template>
@@ -53,24 +61,22 @@
 <script lang="ts">
 import { ClientDataVue } from "@/client/client-types";
 import { DataListVue } from "../DataListVue";
-import { Message, Form } from "element-ui";
 import {
   contractApi,
   GetContractResp,
   PageInfoGetContractResp
 } from "@/client/data-provider";
 import Component from "vue-class-component";
-import auth from "@/authentication/authentication";
-import { AuthVueRouter } from "@/router/index";
 
 import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
+import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
-import { ElSelect } from "element-ui/types/select";
 
 @Component({
   components: {
-    "proceeds-record": ContractsProceedsRecord
+    "proceeds-record": ContractsProceedsRecord,
+    "add-contract-form": AddContractForm
   }
 })
 export default class Contracts extends DataListVue {
@@ -80,6 +86,7 @@ export default class Contracts extends DataListVue {
   dialogTitle: string = "";
   currentInfo: GetContractResp = {};
   isLoading: boolean = false;
+  addContractVisible: boolean = false;
 
   async mounted() {
     await this.refreshData();
@@ -103,6 +110,22 @@ export default class Contracts extends DataListVue {
     this.isLoading = false;
   }
 
+  onAddItem() {
+    this.addContractVisible = true;
+    return true;
+  }
+
+  submitContract(info?: ContractInfo) {
+    if (info) {
+      this.data.push(info.info!);
+    }
+    this.addContractVisible = false;
+  }
+
+  cancleAddContract() {
+    this.addContractVisible = false;
+  }
+
   openInfo(command: string, row: GetContractResp) {
     let component = Overview;
     this.currentInfo = row;
@@ -115,7 +138,7 @@ export default class Contracts extends DataListVue {
     }
   }
 
-  async search(query: string): Promise<boolean> {
+  async onSearch(query: string): Promise<boolean> {
     if (!query || query == "") {
       await this.refreshData();
       return true;
