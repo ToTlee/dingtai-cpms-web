@@ -4,12 +4,10 @@ import router from './router'
 import store from './store'
 import './plugins/element.js'
 import './plugins/vue-echarts.js'
+import './plugins/date-format.js'
 
-import * as client from './client/index'
 
 Vue.config.productionTip = false
-
-Vue.prototype.$dataApi = client.UserControllerApiFp();
 
 new Vue({
   router,

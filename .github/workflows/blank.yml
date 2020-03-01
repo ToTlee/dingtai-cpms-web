@@ -1,13 +1,12 @@
 name: develop-CI-CD
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - develop
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -28,5 +27,3 @@ jobs:
           target: /usr/local/dingtai/frontend/nginx/nginx/client/test
           source: ./dingtai/*
           rm: true
-        
-       
