@@ -15,6 +15,10 @@
       <el-table-column prop="contractName" label="合同名称" sortable></el-table-column>
       <el-table-column prop="signTime" label="签订日期" sortable></el-table-column>
       <el-table-column prop="contractMoney" label="合同金额" sortable></el-table-column>
+      <el-table-column prop="finishMoney" label="已完成金额" sortable></el-table-column>
+      <el-table-column prop="receiveMoney" label="已收款金额" sortable></el-table-column>
+      <el-table-column prop="unFinishMoney" label="未完成金额" sortable></el-table-column>
+      <el-table-column prop="unReceiveMoney" label="未收款金额" sortable></el-table-column>
       <el-table-column prop="status" label="完成情况" sortable></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
