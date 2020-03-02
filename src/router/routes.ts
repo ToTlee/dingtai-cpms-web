@@ -33,6 +33,16 @@ const routes = [
             path: "customers",
             name: "客户资料",
             component: () => import("../views/customer/Customers.vue")
+          },
+          {
+            path: "users",
+            name: "用户管理",
+            component: () => import("../views/systemmanage/UsersIndex.vue")
+          },
+          {
+            path: "roles",
+            name: "角色管理",
+            component: () => import("../views/customer/Customers.vue")
           }
         ]
       },
