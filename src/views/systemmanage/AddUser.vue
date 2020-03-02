@@ -52,7 +52,10 @@ export default class AddUser extends ClientDataVue {
   isSearching = false;
   get userInfo(): UserInfo {
     let info = new UserInfo(UserCreator.createEmptyUser());
-
+    if (this.info) {
+      //编辑信息
+      info.info = UserCreator.copyUser(this.info.info);
+    }
     return ClientDataVue.observable(info);
   }
 
