@@ -45,12 +45,16 @@ import { userApi, AddUserReq } from "@/client/data-provider";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit } from "vue-property-decorator";
+@Component
 export default class AddUser extends ClientDataVue {
   info?: UserInfo;
   isSearching = false;
   get userInfo(): UserInfo {
     let info = new UserInfo(UserCreator.createEmptyUser());
-
+    if (this.info) {
+      //编辑信息
+      info.info = UserCreator.copyUser(this.info.info);
+    }
     return ClientDataVue.observable(info);
   }
 
