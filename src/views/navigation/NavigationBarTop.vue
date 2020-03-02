@@ -13,7 +13,7 @@
           <el-dropdown-item icon="el-icon-user-solid">个人信息</el-dropdown-item>
           <el-dropdown-item icon="el-icon-s-tools">账号设置</el-dropdown-item>
           <el-dropdown-item icon="el-icon-s-comment">意见反馈</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-error">退出</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-error" @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <!-- <router-link to="/login"><el-button type="text">登录</el-button></router-link> -->
@@ -22,8 +22,15 @@
 </template>
 
 <script>
-import { appConstants } from "../../AppConstants";
-
+import { appConstants } from "../../AppConstants"
+import {
+    loginApi,
+    LoginControllerApiFetchParamCreator,
+    LoginReq
+} from '../../client/data-provider'
+import {
+    mapMutations
+} from 'vuex'
 export default {
   data() {
     return {
@@ -31,6 +38,7 @@ export default {
     };
   },
   methods: {
+           ...mapMutations(['CHANGE_LOGIN']),
     selected(index, indexPath) {
       this.$router.push(index);
     },
@@ -38,7 +46,21 @@ export default {
       this.$router.push({
         path: "/"
       });
-    }
+    },
+    async logout() {
+       
+          let result = await loginApi.logoutUsingGET();
+          if (result.status == 0) {
+  
+           sessionStorage.clear();
+    
+              this.$router.push({
+                  path: '/login'
+              });
+          } else {
+              this.$message.error(result.msg);
+          }
+      }
   }
 };
 </script>

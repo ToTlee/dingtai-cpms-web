@@ -29,7 +29,7 @@
                     </el-form-item>
 
                     <el-form-item>
-                        <el-button type="primary" style="width:100%" @click="login">登录</el-button>
+                        <el-button type="primary" style="width:100%" @click="login" >登录</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -64,6 +64,17 @@ export default {
     },
     mounted() {
         this.changeCaptcha();
+    },
+     created:function()
+    {
+    let that = this;
+            document.onkeypress = function(e) {
+            var keycode = document.all ? event.keyCode : e.which;
+            if (keycode == 13) {
+                that.login();
+                return false;
+            }
+            }
     },
     methods: {
         ...mapMutations(['CHANGE_LOGIN']),

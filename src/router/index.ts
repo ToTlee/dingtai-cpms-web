@@ -17,7 +17,7 @@ export class AuthVueRouter extends VueRouter {
       name: '',
       token: ''
     });
-    this.push({path:'/login'});
+    this.push({ path: '/login' });
   }
 }
 
@@ -25,6 +25,6 @@ const router = new AuthVueRouter({
   routes,
   // mode:'history'
 });
- authentication.useAuthentication(router);
+authentication.useAuthentication(router);
 
 export default router;
