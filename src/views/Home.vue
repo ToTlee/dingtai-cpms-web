@@ -10,11 +10,11 @@
           @select="selected"
           background-color="#1b2a46"
           text-color="#ffffff"
-          default-active="/customers"
+          default-active="customers"
         >
-          <el-menu-item index="customers">客户跟进</el-menu-item>
-          <el-menu-item index="quotation">项目报价</el-menu-item>
-          <el-menu-item index="contracts">合同管理</el-menu-item>
+          <el-menu-item index="/data-view/customers">客户跟进</el-menu-item>
+          <el-menu-item index="/data-view/quotation">项目报价</el-menu-item>
+          <el-menu-item index="/data-view/contracts">合同管理</el-menu-item>
           <el-submenu index="4">
             <template slot="title">系统管理</template>
             <el-menu-item index="/users">用户管理</el-menu-item>

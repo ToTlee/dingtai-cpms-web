@@ -158,19 +158,22 @@ export class ContractCreator {
   static copyContract(obj: GetContractResp | undefined): GetContractResp {
     let newObj = ContractCreator.createEmptyContract();
     if (obj) {
-      newObj.customerId = obj.customerId;
-      newObj.contractMoney = obj.contractMoney;
-      newObj.id = obj.id;
-      newObj.contractName = obj.contractName;
-      newObj.contractNo = obj.contractNo;
-      newObj.customerName = obj.customerName;
-      newObj.finishMoney = obj.finishMoney;
-      newObj.receiveMoney = obj.receiveMoney;
-      newObj.signTime = obj.signTime;
-      newObj.unFinishMoney = obj.unFinishMoney;
-      newObj.unReceiveMoney = obj.unReceiveMoney;
-      newObj.status = obj.status;
+      ContractCreator.copyContractToObj(newObj, obj);
     }
     return newObj;
+  }
+  static copyContractToObj(to: GetContractResp, from: GetContractResp) {
+    to.customerId = from.customerId;
+    to.contractMoney = from.contractMoney;
+    to.id = from.id;
+    to.contractName = from.contractName;
+    to.contractNo = from.contractNo;
+    to.customerName = from.customerName;
+    to.finishMoney = from.finishMoney;
+    to.receiveMoney = from.receiveMoney;
+    to.signTime = from.signTime;
+    to.unFinishMoney = from.unFinishMoney;
+    to.unReceiveMoney = from.unReceiveMoney;
+    to.status = from.status;
   }
 }

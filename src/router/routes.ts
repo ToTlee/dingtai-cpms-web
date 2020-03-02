@@ -13,7 +13,7 @@ const routes = [
       {
         path: "/",
         name: appConstants.APP_NAME,
-        redirect: "/customers"
+        redirect: "data-view/customers"
       },
       {
         path: "data-view",

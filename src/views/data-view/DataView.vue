@@ -5,6 +5,9 @@
     <div class="contracts-tools">
       <div class="function-panel">
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
+        <el-button type="primary" size="small" @click="editItem">编辑</el-button>
+        <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
+        <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </div>
 
       <div class="search-panel">
@@ -51,6 +54,25 @@ export default class DataView extends Vue {
     let dataView: any = this.$refs.dataView;
     if (dataView.onSearch) {
       let result = await dataView.onSearch(this.queryString);
+    }
+  }
+
+  deleteItem() {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onDeleteItem) {
+      dataView.onDeleteItem();
+    }
+  }
+  refresh() {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onRefresh) {
+      dataView.onRefresh();
+    }
+  }
+  editItem() {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onEditItem) {
+      dataView.onEditItem();
     }
   }
 }

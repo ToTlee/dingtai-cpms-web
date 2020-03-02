@@ -45,6 +45,8 @@ import { userApi, AddUserReq } from "@/client/data-provider";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit } from "vue-property-decorator";
+
+@Component
 export default class AddUser extends ClientDataVue {
   info?: UserInfo;
   isSearching = false;

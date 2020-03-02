@@ -7,12 +7,14 @@
           <el-form-item label="客户名称:" required>
             <el-select
               v-model="contractInfo.info.customerId"
+              value-key="id"
               filterable
               remote
               reserve-keyword
               placeholder="请输入客户关键词"
               :remote-method="searchCustomers"
               :loading="isSearching"
+              @change="onCustomerChange"
             >
               <el-option
                 v-for="item in customers"
@@ -68,7 +70,7 @@
             <div class="period-content">{{item.info.periodContent ? item.info.periodContent:'无节点'}}</div>
             <div
               class="period-content"
-            >{{item.info.startTime.date()}} 至 {{item.info.endTime.date()}}</div>
+            >{{getDate(item.info.startTime)}} 至 {{getDate(item.info.endTime)}}</div>
           </el-timeline-item>
           <el-timeline-item>
             <el-link type="primary" @click="showAddPeriodDialog" hide-timestamp>添加期间</el-link>
@@ -113,7 +115,7 @@ import {
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 import AddPeriodForm from "./AddPeriodForm.vue";
 import Component, { createDecorator } from "vue-class-component";
-import { Emit } from "vue-property-decorator";
+import { Emit, Prop, PropSync } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -121,6 +123,7 @@ import { Emit } from "vue-property-decorator";
   }
 })
 export default class AddContractForm extends ClientDataVue {
+  @Prop({ default: undefined })
   info?: ContractInfo;
   addPeriodVisible = false;
   isSearching = false;
@@ -133,20 +136,18 @@ export default class AddContractForm extends ClientDataVue {
       this.info.periods?.forEach(p => {
         info.periods?.push({ info: ContractCreator.copyPeriod(p.info) });
       });
-      if (this.info.periods) {
-      }
     }
     return ClientDataVue.observable(info);
   }
 
   @Emit()
   submit() {
-    if (this.info) {
-      this.info = this.contractInfo;
-      return undefined;
-    } else {
-      return this.contractInfo;
-    }
+    //if (this.info) {
+    //ContractCreator.copyContractToObj(this.info!.info!, this.contractInfo.info!);
+    // return undefined;
+    //} else {
+    return this.contractInfo;
+    //}
   }
 
   @Emit()
@@ -174,6 +175,12 @@ export default class AddContractForm extends ClientDataVue {
       this.customers = [];
     }
     this.isSearching = false;
+  }
+
+  onCustomerChange(value: number) {
+    this.contractInfo.info!.customerName = this.customers.find(
+      ele => ele.id == value
+    )?.customerName;
   }
 
   addPeriod(info: GetContractPeriodResp) {
@@ -226,7 +233,7 @@ export default class AddContractForm extends ClientDataVue {
       );
     }
     if (result) {
-      this.$message.success("添加成功");
+      this.$message.success("操作成功");
       this.submit();
     }
   }
@@ -257,6 +264,13 @@ export default class AddContractForm extends ClientDataVue {
       }
     }
     return result;
+  }
+
+  getDate(value: Date | string) {
+    if (value instanceof Date) {
+      return value.date();
+    }
+    return new Date(value).date();
   }
 }
 </script>

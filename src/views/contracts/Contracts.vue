@@ -8,7 +8,9 @@
       :data="data"
       stripe
       border
+      @selection-change="handleSelectionChange"
     >
+      <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="序号" fixed></el-table-column>
       <el-table-column prop="contractNo" label="合同编号" fixed sortable></el-table-column>
       <el-table-column prop="customerName" label="客户名称" fixed sortable></el-table-column>
@@ -47,7 +49,11 @@
       height="fit-content"
       :show-close="false"
     >
-      <add-contract-form @submit="submitContract" @cancel="cancleAddContract"></add-contract-form>
+      <add-contract-form
+        :info="currentContractInfo"
+        @submit="submitContract"
+        @cancel="cancleAddContract"
+      ></add-contract-form>
     </el-dialog>
     <el-dialog
       :title="dialogTitle"
@@ -68,7 +74,9 @@ import { DataListVue } from "../DataListVue";
 import {
   contractApi,
   GetContractResp,
-  PageInfoGetContractResp
+  PageInfoGetContractResp,
+  GetCustomerFollowResp,
+  GetContractPeriodResp
 } from "@/client/data-provider";
 import Component from "vue-class-component";
 
@@ -91,7 +99,8 @@ export default class Contracts extends DataListVue {
   currentInfo: GetContractResp = {};
   isLoading: boolean = false;
   addContractVisible: boolean = false;
-
+  selectedItems: Array<GetContractResp> = [];
+  currentContractInfo?: ContractInfo = {};
   async mounted() {
     await this.refreshData();
   }
@@ -114,13 +123,64 @@ export default class Contracts extends DataListVue {
     this.isLoading = false;
   }
 
+  handleSelectionChange(selection: Array<GetContractResp>) {
+    this.selectedItems = selection;
+  }
+
   onAddItem() {
+    this.currentContractInfo = undefined;
     this.addContractVisible = true;
     return true;
   }
+  async onEditItem() {
+    let vm = this;
+    if (vm.selectedItems.length == 1) {
+      let cinfo = new ContractInfo(vm.selectedItems[0], []);
+      let result = await this.getData<Array<GetContractPeriodResp>>(() =>
+        contractApi.getContractPeriodUsingGET(cinfo.info!.id!)
+      );
+      if (result) {
+        result.forEach(element => {
+          cinfo.periods!.push({ info: element });
+        });
+      }
+      this.currentContractInfo = cinfo;
+      this.addContractVisible = true;
+    } else {
+      this.$message.warning("必须选中一项！");
+    }
+  }
+  onDeleteItem() {
+    let vm = this;
+    if (this.selectedItems.length == 0) return;
+    this.$msgbox
+      .confirm("是否确定删除选中的合同?")
+      .then(async () => {
+        for (let i = 0; i < vm.selectedItems.length; i++) {
+          const element = vm.selectedItems[i];
+          await vm.requestWithoutResult(() =>
+            contractApi.deleteUserUsingPOST(element.id!)
+          );
+          vm.data.splice(vm.data.indexOf(element), 1);
+        }
+        vm.$message.success(
+          "成功删除" + this.selectedItems.length + "个合同！"
+        );
+      })
+      .catch();
+  }
 
-  submitContract(info?: ContractInfo) {
-    if (info) {
+  onRefresh(): void {
+    this.refreshData();
+  }
+
+  submitContract(info: ContractInfo) {
+    if (this.currentContractInfo) {
+      //更新
+      let index = this.data.indexOf(this.currentContractInfo.info!);
+      this.$set(this.data, index, info.info);
+    } else {
+      //添加
       this.data.push(info.info!);
     }
     this.addContractVisible = false;
