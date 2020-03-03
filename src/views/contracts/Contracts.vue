@@ -2,6 +2,7 @@
 <template>
   <div class="contracts-panel">
     <el-table
+      style="flex:1"
       v-loading="isLoading"
       element-loading-text="正在加载..."
       height="100%"
@@ -40,6 +41,17 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pageInfo.total"
+      :size="pageInfo.pages"
+      :current-page="pageInfo.pageNum"
+      :page-size="pageInfo.pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      @size-change="onPageSizeChange"
+      @current-change="onChangePage"
+    ></el-pagination>
     <el-dialog
       :visible.sync="addContractVisible"
       :close-on-click-modal="false"
@@ -69,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue, PageInfo } from "@/client/client-types";
 import { DataListVue } from "../DataListVue";
 import {
   contractApi,
@@ -94,6 +106,7 @@ import { Emit, Prop } from "vue-property-decorator";
 })
 export default class Contracts extends DataListVue {
   data: Array<GetContractResp> = [];
+  pageInfo: PageInfo = { pageSize: 5, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
@@ -111,10 +124,16 @@ export default class Contracts extends DataListVue {
 
   async refreshData() {
     this.isLoading = true;
-    let result = await contractApi.listContractUsingGET();
-    let resultData = this.getClientData(result);
-    if (resultData.successed) {
-      let list = result.data?.list;
+    let vm = this;
+    let result = await this.getData<PageInfoGetContractResp>(() =>
+      contractApi.listContractUsingGET(
+        vm.pageInfo.pageNum,
+        vm.pageInfo.pageSize
+      )
+    );
+    if (result) {
+      this.pageInfo = result;
+      let list = result.list;
       if (list) {
         list.sort((a, b) => a.id! - b.id!);
       } else {
@@ -230,12 +249,23 @@ export default class Contracts extends DataListVue {
     this.isLoading = false;
     return success;
   }
+
+  onChangePage(page: number) {
+    this.pageInfo.pageNum = page;
+    this.refreshData();
+  }
+  onPageSizeChange(size: number) {
+    this.pageInfo.pageSize = size;
+    this.refreshData();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .contracts-panel {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .el-dropdown-link {
   cursor: pointer;

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Message } from "element-ui";
-import { Result } from "./api";
+import { Result, PageInfoGetContractResp } from "./api";
 
 export interface ResResult<T> {
   /**
@@ -39,6 +39,13 @@ export class DataResult<T> {
     this.message = message;
     this.data = data;
   }
+}
+
+export interface PageInfo {
+  pageNum?: number;
+  pageSize?: number;
+  total?: number;
+  pages?: number;
 }
 
 export const getClientData = function<T>(reResult: ResResult<T>) {
