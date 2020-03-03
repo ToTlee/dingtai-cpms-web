@@ -21,12 +21,6 @@
                 <img :src="captchaUrl" class="captcha-img" title="点击刷新验证码" @click="changeCaptcha" />
               </div>
             </el-form-item>
-            <el-form-item>
-              <div class="dock-panel">
-                <el-checkbox style="flex:1;text-align:left;">记住我</el-checkbox>
-                <el-button style="flex:1;text-align:right;" type="text">忘记密码？</el-button>
-              </div>
-            </el-form-item>
 
             <el-form-item>
               <el-button type="primary" style="width:100%" @click="login">登录</el-button>
@@ -99,6 +93,7 @@ export default {
         });
       } else {
         this.$message.error(result.msg);
+        this.changeCaptcha();
       }
     }
   }
