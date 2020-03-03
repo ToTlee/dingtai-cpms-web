@@ -39,7 +39,7 @@ export class UserCreator {
       id: 0,
       userName: "",
       mobile: "",
-      roleId: "",
+      roleId: [],
       email: "",
       realName: ""
     };

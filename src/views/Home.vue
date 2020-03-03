@@ -19,7 +19,6 @@
             <template slot="title">系统管理</template>
             <el-menu-item index="/data-view/users">用户管理</el-menu-item>
             <el-menu-item index="/data-view/roles">角色管理</el-menu-item>
-            <el-menu-item index="4-3">系统设置</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>

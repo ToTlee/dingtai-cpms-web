@@ -37,12 +37,12 @@ const routes = [
           {
             path: "users",
             name: "用户管理",
-            component: () => import("../views/systemmanage/UsersIndex.vue")
+            component: () => import("../views/systemmanage/Users.vue")
           },
           {
             path: "roles",
             name: "角色管理",
-            component: () => import("../views/customer/Customers.vue")
+            component: () => import("../views/systemmanage/Roles.vue")
           }
         ]
       },

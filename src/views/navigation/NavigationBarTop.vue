@@ -5,14 +5,12 @@
     <span class="user-panel">
       <el-dropdown style="height: 40px;">
         <span class="el-dropdown-link">
-          <i class="el-icon-user-solid" style="color:white"></i>
-          用户02
+          <i class="el-icon-user-" style="color:white"></i>
+          {{userName}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-user-solid">个人信息</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-s-tools">账号设置</el-dropdown-item>
-          <el-dropdown-item icon="el-icon-s-comment">意见反馈</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-user">修改密码</el-dropdown-item>
           <el-dropdown-item icon="el-icon-error" @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -20,25 +18,25 @@
     </span>
   </div>
 </template>
-
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
-import { appConstants } from "../../AppConstants"
+import { appConstants } from "../../AppConstants";
 import {
-    loginApi,
-    LoginControllerApiFetchParamCreator,
-    LoginReq
-} from '../../client/data-provider'
-import {
-    mapMutations
-} from 'vuex'
+  loginApi,
+  LoginControllerApiFetchParamCreator,
+  LoginReq
+} from "../../client/data-provider";
+import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
-      appName: appConstants.APP_NAME
+      appName: appConstants.APP_NAME,
+      userName: sessionStorage.getItem("userName")
     };
   },
   methods: {
-           ...mapMutations(['CHANGE_LOGIN']),
+    ...mapMutations(["CHANGE_LOGIN"]),
     selected(index, indexPath) {
       this.$router.push(index);
     },
@@ -48,19 +46,17 @@ export default {
       });
     },
     async logout() {
-       
-          let result = await loginApi.logoutUsingGET();
-          if (result.status == 0) {
-  
-           sessionStorage.clear();
-    
-              this.$router.push({
-                  path: '/login'
-              });
-          } else {
-              this.$message.error(result.msg);
-          }
+      let result = await loginApi.logoutUsingGET();
+      if (result.status == 0) {
+        sessionStorage.clear();
+
+        this.$router.push({
+          path: "/login"
+        });
+      } else {
+        this.$message.error(result.msg);
       }
+    }
   }
 };
 </script>

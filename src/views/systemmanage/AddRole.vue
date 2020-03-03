@@ -1,39 +1,24 @@
 
-
 <template>
   <div class="form-root">
     <el-form label-width="100px" size="small">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="用户账号:" required>
-            <el-input v-model="userInfo.info.userName"></el-input>
+          <el-form-item label="角色名称:" required>
+            <el-input v-model="roleInfo.info.roleName"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="真实姓名:" required>
-            <el-input v-model="userInfo.info.realName"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="手机号:" required>
-            <el-input v-model="userInfo.info.mobile"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="邮箱:" required>
-            <el-input v-model="userInfo.info.email"></el-input>
+          <el-form-item label="角色描述:" required>
+            <el-input v-model="roleInfo.info.roleDesc"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item size="normal">
-        <el-button type="primary" @click="saveUser">保存</el-button>
-        <el-button @click="cancelUser">取消</el-button>
+        <el-button type="primary" @click="saveRole">保存</el-button>
+        <el-button @click="cancelRole">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -42,44 +27,42 @@
 <script lang="ts">
 import { ClientDataVue } from "@/client/client-types";
 import {
-  userApi,
-  AddUserReq,
-  UpdateUserReq,
+  roleApi,
+  AddRoleReq,
+  UpdateRoleReq,
   Result
 } from "@/client/data-provider";
-import { UserCreator, UserInfo } from "./UserInfo";
+import { RoleCreator, RoleInfo } from "./RoleInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
 @Component
-export default class AddUser extends ClientDataVue {
+export default class AddRole extends ClientDataVue {
   @Prop({ default: undefined })
-  info?: UserInfo;
+  info?: RoleInfo;
   isSearching = false;
-  get userInfo(): UserInfo {
-    let info = new UserInfo(UserCreator.createEmptyUser());
+  get roleInfo(): RoleInfo {
+    let info = new RoleInfo(RoleCreator.createEmptyRole());
     if (this.info) {
       //编辑信息
-      info.info = UserCreator.copyUser(this.info.info);
+      info.info = RoleCreator.copyRole(this.info.info);
     }
     return ClientDataVue.observable(info);
   }
 
   @Emit()
   submit() {
-    return this.userInfo;
+    return this.roleInfo;
   }
 
   @Emit()
   cancel() {}
 
-  async saveUser() {
+  async saveRole() {
     let vm = this;
     let result = false;
-    let cinfo = this.userInfo.info!;
-    cinfo.roleId = [1, 2];
+    let cinfo = this.roleInfo.info!;
     if (this.info) {
-      result = await this.commitUser(() => userApi.updateUserUsingPOST(cinfo!));
-      debugger;
+      result = await this.commitRole(() => roleApi.updateRoleUsingPOST(cinfo!));
       if (result) {
         this.$message.success("修改成功");
         this.submit();
@@ -88,27 +71,24 @@ export default class AddUser extends ClientDataVue {
       }
     } else {
       //添加
-      let data: AddUserReq = {
-        userName: cinfo.userName!,
-        mobile: cinfo.mobile!,
-        email: cinfo.email!,
-        realName: cinfo.realName!,
-        roleId: [1, 2]
+      let data: AddRoleReq = {
+        roleName: cinfo.roleName!,
+        roleDesc: cinfo.roleDesc!
       };
 
       result = await this.requestWithoutResult(() =>
-        userApi.addUserUsingPOST1(data)
+        roleApi.addUserUsingPOST(data)
       );
-      if (result) {
-        this.$message.success("添加成功");
-        this.submit();
-      } else {
-        this.$message.success("添加失败");
-      }
+    }
+    if (result) {
+      this.$message.success("添加成功");
+      this.submit();
+    } else {
+      this.$message.success("添加失败");
     }
   }
 
-  cancelUser() {
+  cancelRole() {
     let vm = this;
     this.$msgbox
       .confirm("是否放弃当前编辑内容?")
@@ -117,10 +97,10 @@ export default class AddUser extends ClientDataVue {
       })
       .catch(() => {});
   }
-  private async commitUser(
+  private async commitRole(
     contractCallback: (...para: any) => Promise<Result>
   ): Promise<boolean> {
-    let data = this.userInfo;
+    let data = this.roleInfo;
     let result = await this.requestWithoutResult(contractCallback);
 
     return result;

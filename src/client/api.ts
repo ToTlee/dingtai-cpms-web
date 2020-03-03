@@ -1042,7 +1042,7 @@ export interface GetUserListResp {
    * @type {string}
    * @memberof GetUserListResp
    */
-  roleId?: string;
+  roleId?: Array<number>;
   /**
    *
    * @type {string}
@@ -3186,13 +3186,13 @@ export interface UpdateRoleReq {
    * @type {number}
    * @memberof UpdateRoleReq
    */
-  roleId: number;
+  id?: number;
   /**
    * 角色名称
    * @type {string}
    * @memberof UpdateRoleReq
    */
-  roleName: string;
+  roleName?: string;
 }
 
 /**
@@ -3206,43 +3206,32 @@ export interface UpdateUserReq {
    * @type {string}
    * @memberof UpdateUserReq
    */
-  email: string;
+  email?: string;
   /**
    * 手机号
    * @type {string}
    * @memberof UpdateUserReq
    */
-  mobile: string;
-  /**
-   * OA账号
-   * @type {string}
-   * @memberof UpdateUserReq
-   */
-  oaId?: string;
-  /**
-   * 组织id
-   * @type {number}
-   * @memberof UpdateUserReq
-   */
-  orgId?: number;
+  mobile?: string;
+
   /**
    * 真实姓名
    * @type {string}
    * @memberof UpdateUserReq
    */
-  realName: string;
+  realName?: string;
   /**
    * 角色id
    * @type {Array<number>}
    * @memberof UpdateUserReq
    */
-  roleId: Array<number>;
+  roleId?: Array<number>;
   /**
    * 用户id
    * @type {number}
    * @memberof UpdateUserReq
    */
-  userId: number;
+  id?: number;
 }
 
 /**
@@ -3287,7 +3276,7 @@ export interface ZtreeResp {
  * ContractControllerApi - fetch parameter creator
  * @export
  */
-export const ContractControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -3704,7 +3693,7 @@ export const ContractControllerApiFetchParamCreator = function(configuration?: C
  * ContractControllerApi - functional programming interface
  * @export
  */
-export const ContractControllerApiFp = function(configuration?: Configuration) {
+export const ContractControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -3965,7 +3954,7 @@ export const ContractControllerApiFp = function(configuration?: Configuration) {
  * ContractControllerApi - factory interface
  * @export
  */
-export const ContractControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -4300,7 +4289,7 @@ export class ContractControllerApi extends BaseAPI {
  * ContractInvoiceControllerApi - fetch parameter creator
  * @export
  */
-export const ContractInvoiceControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractInvoiceControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4508,7 +4497,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function(configurat
  * ContractInvoiceControllerApi - functional programming interface
  * @export
  */
-export const ContractInvoiceControllerApiFp = function(configuration?: Configuration) {
+export const ContractInvoiceControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4651,7 +4640,7 @@ export const ContractInvoiceControllerApiFp = function(configuration?: Configura
  * ContractInvoiceControllerApi - factory interface
  * @export
  */
-export const ContractInvoiceControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractInvoiceControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -4835,7 +4824,7 @@ export class ContractInvoiceControllerApi extends BaseAPI {
  * ContractPeriodControllerApi - fetch parameter creator
  * @export
  */
-export const ContractPeriodControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractPeriodControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4976,7 +4965,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function(configurati
  * ContractPeriodControllerApi - functional programming interface
  * @export
  */
-export const ContractPeriodControllerApiFp = function(configuration?: Configuration) {
+export const ContractPeriodControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5073,7 +5062,7 @@ export const ContractPeriodControllerApiFp = function(configuration?: Configurat
  * ContractPeriodControllerApi - factory interface
  * @export
  */
-export const ContractPeriodControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractPeriodControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -5184,7 +5173,7 @@ export class ContractPeriodControllerApi extends BaseAPI {
  * ContractReceivablesControllerApi - fetch parameter creator
  * @export
  */
-export const ContractReceivablesControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractReceivablesControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5388,7 +5377,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function(config
  * ContractReceivablesControllerApi - functional programming interface
  * @export
  */
-export const ContractReceivablesControllerApiFp = function(configuration?: Configuration) {
+export const ContractReceivablesControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5534,7 +5523,7 @@ export const ContractReceivablesControllerApiFp = function(configuration?: Confi
  * ContractReceivablesControllerApi - factory interface
  * @export
  */
-export const ContractReceivablesControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractReceivablesControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -5718,7 +5707,7 @@ export class ContractReceivablesControllerApi extends BaseAPI {
  * CustomerControllerApi - fetch parameter creator
  * @export
  */
-export const CustomerControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const CustomerControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5922,7 +5911,7 @@ export const CustomerControllerApiFetchParamCreator = function(configuration?: C
  * CustomerControllerApi - functional programming interface
  * @export
  */
-export const CustomerControllerApiFp = function(configuration?: Configuration) {
+export const CustomerControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6056,7 +6045,7 @@ export const CustomerControllerApiFp = function(configuration?: Configuration) {
  * CustomerControllerApi - factory interface
  * @export
  */
-export const CustomerControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const CustomerControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6225,7 +6214,7 @@ export class CustomerControllerApi extends BaseAPI {
  * CustomerFollowControllerApi - fetch parameter creator
  * @export
  */
-export const CustomerFollowControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const CustomerFollowControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6270,7 +6259,7 @@ export const CustomerFollowControllerApiFetchParamCreator = function(configurati
  * CustomerFollowControllerApi - functional programming interface
  * @export
  */
-export const CustomerFollowControllerApiFp = function(configuration?: Configuration) {
+export const CustomerFollowControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6304,7 +6293,7 @@ export const CustomerFollowControllerApiFp = function(configuration?: Configurat
  * CustomerFollowControllerApi - factory interface
  * @export
  */
-export const CustomerFollowControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const CustomerFollowControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6346,7 +6335,7 @@ export class CustomerFollowControllerApi extends BaseAPI {
  * LoginControllerApi - fetch parameter creator
  * @export
  */
-export const LoginControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const LoginControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6433,7 +6422,7 @@ export const LoginControllerApiFetchParamCreator = function(configuration?: Conf
  * LoginControllerApi - functional programming interface
  * @export
  */
-export const LoginControllerApiFp = function(configuration?: Configuration) {
+export const LoginControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6497,7 +6486,7 @@ export const LoginControllerApiFp = function(configuration?: Configuration) {
  * LoginControllerApi - factory interface
  * @export
  */
-export const LoginControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const LoginControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6576,7 +6565,7 @@ export class LoginControllerApi extends BaseAPI {
  * PermissionControllerApi - fetch parameter creator
  * @export
  */
-export const PermissionControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const PermissionControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6631,7 +6620,7 @@ export const PermissionControllerApiFetchParamCreator = function(configuration?:
  * PermissionControllerApi - functional programming interface
  * @export
  */
-export const PermissionControllerApiFp = function(configuration?: Configuration) {
+export const PermissionControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6676,7 +6665,7 @@ export const PermissionControllerApiFp = function(configuration?: Configuration)
  * PermissionControllerApi - factory interface
  * @export
  */
-export const PermissionControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const PermissionControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6733,7 +6722,7 @@ export class PermissionControllerApi extends BaseAPI {
  * ProjectQuotationControllerApi - fetch parameter creator
  * @export
  */
-export const ProjectQuotationControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ProjectQuotationControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6865,7 +6854,7 @@ export const ProjectQuotationControllerApiFetchParamCreator = function(configura
  * ProjectQuotationControllerApi - functional programming interface
  * @export
  */
-export const ProjectQuotationControllerApiFp = function(configuration?: Configuration) {
+export const ProjectQuotationControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6955,7 +6944,7 @@ export const ProjectQuotationControllerApiFp = function(configuration?: Configur
  * ProjectQuotationControllerApi - factory interface
  * @export
  */
-export const ProjectQuotationControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ProjectQuotationControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7077,7 +7066,7 @@ export class ProjectQuotationControllerApi extends BaseAPI {
  * QuotationCategoryControllerApi - fetch parameter creator
  * @export
  */
-export const QuotationCategoryControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const QuotationCategoryControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7174,7 +7163,7 @@ export const QuotationCategoryControllerApiFetchParamCreator = function(configur
  * QuotationCategoryControllerApi - functional programming interface
  * @export
  */
-export const QuotationCategoryControllerApiFp = function(configuration?: Configuration) {
+export const QuotationCategoryControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7239,7 +7228,7 @@ export const QuotationCategoryControllerApiFp = function(configuration?: Configu
  * QuotationCategoryControllerApi - factory interface
  * @export
  */
-export const QuotationCategoryControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const QuotationCategoryControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7336,7 +7325,7 @@ export class QuotationCategoryControllerApi extends BaseAPI {
  * RoleControllerApi - fetch parameter creator
  * @export
  */
-export const RoleControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const RoleControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7566,7 +7555,7 @@ export const RoleControllerApiFetchParamCreator = function(configuration?: Confi
  * RoleControllerApi - functional programming interface
  * @export
  */
-export const RoleControllerApiFp = function(configuration?: Configuration) {
+export const RoleControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7710,7 +7699,7 @@ export const RoleControllerApiFp = function(configuration?: Configuration) {
  * RoleControllerApi - factory interface
  * @export
  */
-export const RoleControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const RoleControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7901,7 +7890,7 @@ export class RoleControllerApi extends BaseAPI {
  * UserControllerApi - fetch parameter creator
  * @export
  */
-export const UserControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const UserControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -8166,7 +8155,7 @@ export const UserControllerApiFetchParamCreator = function(configuration?: Confi
  * UserControllerApi - functional programming interface
  * @export
  */
-export const UserControllerApiFp = function(configuration?: Configuration) {
+export const UserControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -8334,7 +8323,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
  * UserControllerApi - factory interface
  * @export
  */
-export const UserControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const UserControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
