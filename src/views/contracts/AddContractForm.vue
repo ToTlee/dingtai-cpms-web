@@ -11,7 +11,7 @@
               filterable
               remote
               reserve-keyword
-              placeholder="请输入客户关键词"
+              placeholder="请输入客户名称"
               :remote-method="searchCustomers"
               :loading="isSearching"
               @change="onCustomerChange"

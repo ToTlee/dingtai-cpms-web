@@ -46,7 +46,7 @@ import {
   GetRoleListResp,
   PageInfoGetRoleListResp
 } from "@/client/data-provider";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import { DataListVue } from "../DataListVue";
 import { RoleInfo } from "./RoleInfo";
 import AddRole from "./AddRole.vue";
@@ -67,7 +67,11 @@ export default class Roles extends DataListVue {
   addRoleVisible: boolean = false;
   selectedItems: Array<GetRoleListResp> = [];
   currentRoleInfo?: RoleInfo = {};
+
+  @Prop()
+  tagInfo?: any;
   async mounted() {
+    this.tagInfo.title = "用户管理";
     await this.refreshData();
   }
 

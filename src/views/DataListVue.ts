@@ -1,4 +1,5 @@
 import { ClientDataVue } from "@/client/client-types";
+import { Emit } from "vue-property-decorator";
 
 export abstract class DataListVue extends ClientDataVue {
   abstract onSearch(query: string): Promise<boolean>;

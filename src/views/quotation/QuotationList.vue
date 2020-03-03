@@ -24,12 +24,17 @@ import {
   GetProjectQuotationListResp
 } from "@/client/data-provider";
 import Component from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 
 @Component
 export default class QuotationList extends Vue {
   data = [];
   isLoading: boolean = false;
+
+  @Prop()
+  tagInfo?: any;
   async mounted() {
+    this.tagInfo.title = "项目报价";
     this.isLoading = true;
     let result = await quotationApi.queryAllProjectQuotationUsingGET();
     if (result.status == 0 && result.data != undefined) {

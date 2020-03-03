@@ -84,6 +84,7 @@ import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
+import { Emit, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
@@ -101,7 +102,10 @@ export default class Contracts extends DataListVue {
   addContractVisible: boolean = false;
   selectedItems: Array<GetContractResp> = [];
   currentContractInfo?: ContractInfo = {};
+  @Prop()
+  tagInfo?: any;
   async mounted() {
+    this.tagInfo.title = "合同管理";
     await this.refreshData();
   }
 

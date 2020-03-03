@@ -50,7 +50,7 @@ import {
   GetUserListResp,
   PageInfoGetUserListResp
 } from "@/client/data-provider";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 import { DataListVue } from "../DataListVue";
 import { UserInfo } from "./UserInfo";
 import AddUser from "./AddUser.vue";
@@ -71,10 +71,13 @@ export default class Users extends DataListVue {
   addUserVisible: boolean = false;
   selectedItems: Array<GetUserListResp> = [];
   currentUserInfo?: UserInfo = {};
+
+  @Prop()
+  tagInfo?: any;
   async mounted() {
+    this.tagInfo.title = "用户管理";
     await this.refreshData();
   }
-
   async refreshData() {
     this.isLoading = true;
     let result = await userApi.listUserInfoUsingGET();

@@ -22,13 +22,17 @@
 <script lang="ts">
 import { ClientDataVue } from "@/client/client-types";
 import { customerApi, GetCustomerResp } from "@/client/data-provider";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Customers extends ClientDataVue {
+  @Prop()
+  tagInfo?: any;
+
   data?: GetCustomerResp[] = [];
   isLoading: boolean = false;
   async mounted() {
+    this.tagInfo.title = "客户管理";
     this.isLoading = true;
     let result = await customerApi.listCustomerUsingGET();
     let resultData = this.getClientData(result);
