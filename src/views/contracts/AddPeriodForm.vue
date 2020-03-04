@@ -50,10 +50,15 @@
 import { ClientDataVue } from "@/client/client-types";
 import { GetContractPeriodResp } from "@/client/api";
 import { ContractCreator } from "./ContractInfo";
-import { Component, Emit } from "vue-property-decorator";
+import { Component, Emit, Prop } from "vue-property-decorator";
 @Component
 export default class AddPeroidForm extends ClientDataVue {
-  info: GetContractPeriodResp = ContractCreator.createEmptyPeriod();
+  @Prop()
+  period?: GetContractPeriodResp;
+  get info() {
+    let p = ContractCreator.copyPeriod(this.period);
+    return ClientDataVue.observable(p);
+  }
 
   onSubmit() {
     this.submit();

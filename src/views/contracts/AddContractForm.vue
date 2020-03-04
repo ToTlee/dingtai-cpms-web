@@ -63,14 +63,22 @@
             :timestamp="item.info.endTime.toString()"
             placement="bottom"
           >
-            <div class="period-title">
-              {{item.info.periodName}}
-              <span>(共 {{item.info.periodMoney}} 元)</span>
+            <div @mouseenter="showEditPanel(item)" @mouseleave="hideEditPanel(item)">
+              <div class="period-title">
+                {{item.info.periodName}}
+                <span>(共 {{item.info.periodMoney}} 元)</span>
+              </div>
+              <div
+                class="period-content"
+              >{{item.info.periodContent ? item.info.periodContent:'无节点'}}</div>
+              <div
+                class="period-content"
+              >{{getDate(item.info.startTime)}} 至 {{getDate(item.info.endTime)}}</div>
+              <div class="item-edit-panel" v-if="item.showEditor">
+                <el-button type="text" @click="editPeriod(item)">编辑</el-button>
+                <el-button type="text" @click="deletePeriod(item)">删除</el-button>
+              </div>
             </div>
-            <div class="period-content">{{item.info.periodContent ? item.info.periodContent:'无节点'}}</div>
-            <div
-              class="period-content"
-            >{{getDate(item.info.startTime)}} 至 {{getDate(item.info.endTime)}}</div>
           </el-timeline-item>
           <el-timeline-item>
             <el-link type="primary" @click="showAddPeriodDialog" hide-timestamp>添加期间</el-link>
@@ -87,7 +95,7 @@
           append-to-body
           destroy-on-close
         >
-          <add-period-form @submit="addPeriod" @cancel="cancelAddPeriod"></add-period-form>
+          <add-period-form :period="currentPeroid" @submit="addPeriod" @cancel="cancelAddPeriod"></add-period-form>
         </el-dialog>
       </el-form-item>
       <el-form-item size="normal">
@@ -128,6 +136,8 @@ export default class AddContractForm extends ClientDataVue {
   addPeriodVisible = false;
   isSearching = false;
   customers: Array<GetCustomerResp> = [];
+
+  currentPeroid?: GetContractPeriodResp = {};
   get contractInfo(): ContractInfo {
     let info = new ContractInfo(ContractCreator.createEmptyContract(), []);
     if (this.info) {
@@ -154,6 +164,7 @@ export default class AddContractForm extends ClientDataVue {
   cancel() {}
 
   showAddPeriodDialog() {
+    this.currentPeroid = undefined;
     this.addPeriodVisible = true;
   }
 
@@ -183,14 +194,68 @@ export default class AddContractForm extends ClientDataVue {
     )?.customerName;
   }
 
+  showEditPanel(item: ContractPeroid) {
+    this.$set(item, "showEditor", true);
+  }
+
+  hideEditPanel(item: ContractPeroid) {
+    this.$set(item, "showEditor", false);
+  }
+
   addPeriod(info: GetContractPeriodResp) {
     if (info) {
-      this.contractInfo.periods?.push({ info });
+      if (this.currentPeroid) {
+        let index = this.contractInfo.periods?.findIndex(
+          p => p.info.id == this.currentPeroid!.id
+        );
+        this.$set(this.contractInfo.periods!, index!, { info });
+      } else {
+        this.contractInfo.periods?.push({ info });
+      }
     }
+    this.currentPeroid = undefined;
     this.addPeriodVisible = false;
   }
   cancelAddPeriod() {
     this.addPeriodVisible = false;
+  }
+
+  deletePeriod(item: ContractPeroid) {
+    let vm = this;
+    vm.$confirm("是否确定删除该分期?", "提示", {
+      confirmButtonText: "是",
+      cancelButtonText: "否",
+      type: "warning"
+    })
+      .then(() => {
+        if (item.info) {
+          if (item.info.id) {
+            vm.requestWithoutResult(() =>
+              periodApi.deleteContractPeriodUsingPOST(item.info.id!)
+            ).then(result => {
+              if (result) {
+                this.$message({
+                  type: "success",
+                  message: "删除成功!"
+                });
+              }
+            });
+          }
+          let index = vm.contractInfo.periods!.indexOf(item);
+          vm.contractInfo.periods!.splice(index, 1);
+        }
+      })
+      .catch(() => {
+        this.$message({
+          type: "info",
+          message: "已取消删除"
+        });
+      });
+  }
+
+  editPeriod(item: ContractPeroid) {
+    this.currentPeroid = item.info;
+    this.addPeriodVisible = true;
   }
 
   async saveContract() {
@@ -295,7 +360,12 @@ export default class AddContractForm extends ClientDataVue {
   margin-top: 10px !important;
   padding: 0px !important;
 }
-
+.item-edit-panel {
+  position: absolute;
+  bottom: 0px;
+  right: 8px;
+  display: inline-flex;
+}
 .period-title {
   font-weight: bold;
 }

@@ -106,7 +106,7 @@ import { Emit, Prop } from "vue-property-decorator";
 })
 export default class Contracts extends DataListVue {
   data: Array<GetContractResp> = [];
-  pageInfo: PageInfo = { pageSize: 5, pageNum: 1, total: 0, pages: 0 };
+  pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
@@ -282,6 +282,7 @@ export default class Contracts extends DataListVue {
   margin-top: 8px;
   margin-bottom: 8px;
 }
+
 .contracts-root .el-dialog__body {
   padding: 0px;
   font-size: 14px;

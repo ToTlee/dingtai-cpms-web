@@ -31,6 +31,7 @@ export class DataResult<T> {
    * @type boolean
    */
   successed: boolean = false;
+  code: number = 0;
   message?: string = "";
   data?: T = undefined;
 
@@ -50,6 +51,7 @@ export interface PageInfo {
 
 export const getClientData = function<T>(reResult: ResResult<T>) {
   let result = new DataResult<T>(false, reResult.msg, reResult.data);
+  result.code = reResult.status!;
   if (reResult.status == 0) {
     result.successed = true;
   }
@@ -61,6 +63,10 @@ export class ClientDataVue extends Vue {
     let result = getClientData(reResult);
     if (!result.successed) {
       this.$message.error(reResult.msg as string);
+      if (result.code == 401) {
+        var router: any = this.$router;
+        router.clearLogin();
+      }
     }
     return result;
   }
