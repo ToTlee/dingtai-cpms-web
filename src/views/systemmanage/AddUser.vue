@@ -31,6 +31,20 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="角色:" required>
+            <el-select multiple collapse-tags v-model="userInfo.info.roleId" placeholder="请选择">
+              <el-option
+                v-for="item in allRoles"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              />
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item size="normal">
         <el-button type="primary" @click="saveUser">保存</el-button>
         <el-button @click="cancelUser">取消</el-button>
@@ -45,21 +59,34 @@ import {
   userApi,
   AddUserReq,
   UpdateUserReq,
-  Result
+  Result,
+  roleApi,
+  GetRoleListResp,
+  PageInfoGetRoleListResp
 } from "@/client/data-provider";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
+
 @Component
 export default class AddUser extends ClientDataVue {
   @Prop({ default: undefined })
   info?: UserInfo;
+  allRoles?: Array<GetRoleListResp> = [];
+  async mounted() {
+    let result = await this.getData<PageInfoGetRoleListResp>(() =>
+      roleApi.listRoleInfoUsingGET()
+    );
+    this.allRoles = result?.list;
+    debugger;
+  }
   isSearching = false;
   get userInfo(): UserInfo {
     let info = new UserInfo(UserCreator.createEmptyUser());
     if (this.info) {
       //编辑信息
       info.info = UserCreator.copyUser(this.info.info);
+      debugger;
     }
     return ClientDataVue.observable(info);
   }
@@ -76,7 +103,7 @@ export default class AddUser extends ClientDataVue {
     let vm = this;
     let result = false;
     let cinfo = this.userInfo.info!;
-    cinfo.roleId = [1, 2];
+
     if (this.info) {
       result = await this.commitUser(() => userApi.updateUserUsingPOST(cinfo!));
       debugger;
@@ -93,7 +120,7 @@ export default class AddUser extends ClientDataVue {
         mobile: cinfo.mobile!,
         email: cinfo.email!,
         realName: cinfo.realName!,
-        roleId: [1, 2]
+        roleId: cinfo.roleId!
       };
 
       result = await this.requestWithoutResult(() =>
