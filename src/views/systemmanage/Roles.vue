@@ -2,6 +2,7 @@
 <template>
   <div class="roles-panel">
     <el-table
+      style="flex:1"
       v-loading="isLoading"
       element-loading-text="正在加载..."
       height="100%"
@@ -15,6 +16,17 @@
       <el-table-column prop="roleDesc" label="角色描述"></el-table-column>
       <el-table-column prop="createTime" label="创建时间"></el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pageInfo.total"
+      :size="pageInfo.pages"
+      :current-page="pageInfo.pageNum"
+      :page-size="pageInfo.pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      @size-change="onPageSizeChange"
+      @current-change="onChangePage"
+    ></el-pagination>
     <el-dialog
       :visible.sync="addRoleVisible"
       :close-on-click-modal="false"
@@ -40,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue, PageInfo } from "@/client/client-types";
 import {
   roleApi,
   GetRoleListResp,
@@ -59,6 +71,7 @@ import Overview from "../overview/Overview.vue";
 })
 export default class Roles extends DataListVue {
   data: Array<GetRoleListResp> = [];
+  pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
@@ -71,16 +84,19 @@ export default class Roles extends DataListVue {
   @Prop()
   tagInfo?: any;
   async mounted() {
-    this.tagInfo.title = "用户管理";
+    this.tagInfo.title = "角色管理";
     await this.refreshData();
   }
 
   async refreshData() {
     this.isLoading = true;
-    let result = await roleApi.listRoleInfoUsingGET();
-    let resultData = this.getClientData(result);
-    if (resultData.successed) {
-      let list = result.data?.list;
+    let vm = this;
+    let result = await this.getData<PageInfoGetRoleListResp>(() =>
+      roleApi.listRoleInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
+    );
+    if (result) {
+      this.pageInfo = result;
+      let list = result?.list;
       if (list) {
         list.sort((a, b) => a.id! - b.id!);
       } else {
@@ -115,6 +131,7 @@ export default class Roles extends DataListVue {
   onDeleteItem() {
     let vm = this;
     if (this.selectedItems.length == 0) return;
+    let count = this.selectedItems.length;
     this.$msgbox
       .confirm("是否确定删除选中的角色?")
       .then(async () => {
@@ -125,9 +142,7 @@ export default class Roles extends DataListVue {
           );
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success(
-          "成功删除" + this.selectedItems.length + "个角色！"
-        );
+        vm.$message.success("成功删除" + count + "个角色！");
       })
       .catch();
   }
@@ -189,11 +204,21 @@ export default class Roles extends DataListVue {
     this.isLoading = false;
     return success;
   }
+  onChangePage(page: number) {
+    this.pageInfo.pageNum = page;
+    this.refreshData();
+  }
+  onPageSizeChange(size: number) {
+    this.pageInfo.pageSize = size;
+    this.refreshData();
+  }
 }
 </script>
 <style lang="scss" scoped>
 .roles-panel {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .el-dropdown-link {
   cursor: pointer;

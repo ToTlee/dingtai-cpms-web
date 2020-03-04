@@ -19,6 +19,17 @@
       <el-table-column prop="roleName" label="角色名称"></el-table-column>
       <el-table-column prop="createTime" label="创建时间"></el-table-column>
     </el-table>
+    <el-pagination
+      background
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pageInfo.total"
+      :size="pageInfo.pages"
+      :current-page="pageInfo.pageNum"
+      :page-size="pageInfo.pageSize"
+      :page-sizes="[10, 20, 50, 100]"
+      @size-change="onPageSizeChange"
+      @current-change="onChangePage"
+    ></el-pagination>
     <el-dialog
       :visible.sync="addUserVisible"
       :close-on-click-modal="false"
@@ -44,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue, PageInfo } from "@/client/client-types";
 import {
   userApi,
   GetUserListResp,
@@ -63,6 +74,7 @@ import Overview from "../overview/Overview.vue";
 })
 export default class Users extends DataListVue {
   data: Array<GetUserListResp> = [];
+  pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
@@ -80,10 +92,14 @@ export default class Users extends DataListVue {
   }
   async refreshData() {
     this.isLoading = true;
-    let result = await userApi.listUserInfoUsingGET();
-    let resultData = this.getClientData(result);
-    if (resultData.successed) {
-      let list = result.data?.list;
+    let vm = this;
+    debugger;
+    let result = await this.getData<PageInfoGetUserListResp>(() =>
+      userApi.listUserInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
+    );
+    if (result) {
+      this.pageInfo = result;
+      let list = result?.list;
       if (list) {
         list.sort((a, b) => a.id! - b.id!);
       } else {
@@ -118,6 +134,7 @@ export default class Users extends DataListVue {
   onDeleteItem() {
     let vm = this;
     if (this.selectedItems.length == 0) return;
+    let count = this.selectedItems.length;
     this.$msgbox
       .confirm("是否确定删除选中的用户?")
       .then(async () => {
@@ -128,9 +145,7 @@ export default class Users extends DataListVue {
           );
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success(
-          "成功删除" + this.selectedItems.length + "个用户！"
-        );
+        vm.$message.success("成功删除" + count + "个用户！");
       })
       .catch();
   }
@@ -193,11 +208,21 @@ export default class Users extends DataListVue {
     this.isLoading = false;
     return success;
   }
+  onChangePage(page: number) {
+    this.pageInfo.pageNum = page;
+    this.refreshData();
+  }
+  onPageSizeChange(size: number) {
+    this.pageInfo.pageSize = size;
+    this.refreshData();
+  }
 }
 </script>
 <style lang="scss" scoped>
 .users-panel {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .el-dropdown-link {
   cursor: pointer;
