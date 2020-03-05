@@ -12,7 +12,22 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="角色描述:" required>
-            <el-input v-model="roleInfo.info.roleDesc"></el-input>
+            <el-input type="textarea" v-model="roleInfo.info.roleDesc"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12">
+          <el-form-item label="角色权限:" required>
+            <el-tree
+              :data="permissionIdList"
+              show-checkbox
+              node-key="id"
+              ref="tree"
+              highlight-current
+              :check-strictly="false"
+              :default-checked-keys="roleInfo.info.permissionIdList"
+            ></el-tree>
           </el-form-item>
         </el-col>
       </el-row>
@@ -30,16 +45,71 @@ import {
   roleApi,
   AddRoleReq,
   UpdateRoleReq,
-  Result
+  Result,
+  permissionApi,
+  ZtreeResp,
+  GetRoleInfoResp
 } from "@/client/data-provider";
 import { RoleCreator, RoleInfo } from "./RoleInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
+import { PermTreeInfo } from "./PermTreeInfo";
+import { Tree } from "element-ui";
+
 @Component
 export default class AddRole extends ClientDataVue {
   @Prop({ default: undefined })
   info?: RoleInfo;
   isSearching = false;
+  //权限列表
+  permissionIdList: Array<PermTreeInfo> = [];
+  async mounted() {
+    let perms = await this.getData<Array<ZtreeResp>>(() =>
+      permissionApi.treePermsUsingGET()
+    );
+    if (perms) {
+      perms.forEach(item => {
+        if (item.pId == 0) {
+          let objTemp: PermTreeInfo = {
+            id: item.id,
+            pId: item.pId,
+            label: item.name,
+            children: []
+          };
+          this.permissionIdList.push(objTemp);
+          this.addChild(perms!, objTemp);
+        }
+      });
+      this.permissionIdList.forEach(item => {});
+    }
+    let info = new RoleInfo(RoleCreator.createEmptyRole());
+    debugger;
+    if (this.info) {
+      //编辑信息
+      info.info = RoleCreator.copyRole(this.info.info);
+      var id = info.info.id;
+      let result = await this.getData<GetRoleInfoResp>(() =>
+        roleApi.getRoleInfoByRoleIdUsingGET(id!)
+      );
+      this.info.info = result;
+    }
+    return ClientDataVue.observable(info);
+  }
+  addChild(perms: Array<ZtreeResp>, node: PermTreeInfo) {
+    perms.forEach(item => {
+      if (item.pId == node.id) {
+        let sonNode: PermTreeInfo = {
+          id: item.id,
+          pId: item.pId,
+          label: item.name,
+          children: []
+        };
+        node.children.push(sonNode);
+        this.addChild(perms, sonNode);
+      }
+    });
+  }
+
   get roleInfo(): RoleInfo {
     let info = new RoleInfo(RoleCreator.createEmptyRole());
     if (this.info) {
@@ -60,9 +130,17 @@ export default class AddRole extends ClientDataVue {
   async saveRole() {
     let vm = this;
     let result = false;
+    const ref = <Tree>this.$refs.tree;
     let cinfo = this.roleInfo.info!;
+    cinfo.permissionIdList = ref.getCheckedKeys();
     if (this.info) {
-      result = await this.commitRole(() => roleApi.updateRoleUsingPOST(cinfo!));
+      let data: UpdateRoleReq = {
+        id: cinfo.id,
+        roleName: cinfo.roleName!,
+        roleDesc: cinfo.roleDesc!,
+        permissionIds: ref.getCheckedKeys()
+      };
+      result = await this.commitRole(() => roleApi.updateRoleUsingPOST(data!));
       if (result) {
         this.$message.success("修改成功");
         this.submit();
@@ -71,9 +149,11 @@ export default class AddRole extends ClientDataVue {
       }
     } else {
       //添加
+
       let data: AddRoleReq = {
         roleName: cinfo.roleName!,
-        roleDesc: cinfo.roleDesc!
+        roleDesc: cinfo.roleDesc!,
+        permissionIds: ref.getCheckedKeys()
       };
 
       result = await this.requestWithoutResult(() =>

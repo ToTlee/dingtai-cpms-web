@@ -55,8 +55,8 @@
 import { ClientDataVue, PageInfo } from "@/client/client-types";
 import {
   roleApi,
-  GetRoleListResp,
-  PageInfoGetRoleListResp
+  GetRoleInfoResp,
+  PageInfoGetRoleInfoResp
 } from "@/client/data-provider";
 import { Component, Prop } from "vue-property-decorator";
 import { DataListVue } from "../DataListVue";
@@ -70,15 +70,15 @@ import Overview from "../overview/Overview.vue";
   }
 })
 export default class Roles extends DataListVue {
-  data: Array<GetRoleListResp> = [];
+  data: Array<GetRoleInfoResp> = [];
   pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
-  currentInfo: GetRoleListResp = {};
+  currentInfo: GetRoleInfoResp = {};
   isLoading: boolean = false;
   addRoleVisible: boolean = false;
-  selectedItems: Array<GetRoleListResp> = [];
+  selectedItems: Array<GetRoleInfoResp> = [];
   currentRoleInfo?: RoleInfo = {};
 
   @Prop()
@@ -91,7 +91,7 @@ export default class Roles extends DataListVue {
   async refreshData() {
     this.isLoading = true;
     let vm = this;
-    let result = await this.getData<PageInfoGetRoleListResp>(() =>
+    let result = await this.getData<PageInfoGetRoleInfoResp>(() =>
       roleApi.listRoleInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
     if (result) {
@@ -109,7 +109,7 @@ export default class Roles extends DataListVue {
     this.isLoading = false;
   }
 
-  handleSelectionChange(selection: Array<GetRoleListResp>) {
+  handleSelectionChange(selection: Array<GetRoleInfoResp>) {
     this.selectedItems = selection;
   }
 
@@ -168,7 +168,7 @@ export default class Roles extends DataListVue {
     this.addRoleVisible = false;
   }
 
-  openInfo(command: string, row: GetRoleListResp) {
+  openInfo(command: string, row: GetRoleInfoResp) {
     let component = Overview;
     this.currentInfo = row;
     if (command == "proceeds") {
@@ -186,7 +186,7 @@ export default class Roles extends DataListVue {
       return true;
     }
     this.isLoading = true;
-    let result = await this.getData<PageInfoGetRoleListResp>(() =>
+    let result = await this.getData<PageInfoGetRoleInfoResp>(() =>
       roleApi.listRoleInfoUsingGET(
         undefined,
         undefined,

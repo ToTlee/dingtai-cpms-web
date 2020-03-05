@@ -58,8 +58,8 @@
 import { ClientDataVue, PageInfo } from "@/client/client-types";
 import {
   userApi,
-  GetUserListResp,
-  PageInfoGetUserListResp
+  GetUserInfoResp,
+  PageInfoGetUserInfoResp
 } from "@/client/data-provider";
 import { Component, Prop } from "vue-property-decorator";
 import { DataListVue } from "../DataListVue";
@@ -73,15 +73,15 @@ import Overview from "../overview/Overview.vue";
   }
 })
 export default class Users extends DataListVue {
-  data: Array<GetUserListResp> = [];
+  data: Array<GetUserInfoResp> = [];
   pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
-  currentInfo: GetUserListResp = {};
+  currentInfo: GetUserInfoResp = {};
   isLoading: boolean = false;
   addUserVisible: boolean = false;
-  selectedItems: Array<GetUserListResp> = [];
+  selectedItems: Array<GetUserInfoResp> = [];
   currentUserInfo?: UserInfo = {};
 
   @Prop()
@@ -94,7 +94,7 @@ export default class Users extends DataListVue {
     this.isLoading = true;
     let vm = this;
     debugger;
-    let result = await this.getData<PageInfoGetUserListResp>(() =>
+    let result = await this.getData<PageInfoGetUserInfoResp>(() =>
       userApi.listUserInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
     if (result) {
@@ -112,7 +112,7 @@ export default class Users extends DataListVue {
     this.isLoading = false;
   }
 
-  handleSelectionChange(selection: Array<GetUserListResp>) {
+  handleSelectionChange(selection: Array<GetUserInfoResp>) {
     this.selectedItems = selection;
   }
 
@@ -172,7 +172,7 @@ export default class Users extends DataListVue {
     this.addUserVisible = false;
   }
 
-  openInfo(command: string, row: GetUserListResp) {
+  openInfo(command: string, row: GetUserInfoResp) {
     let component = Overview;
     this.currentInfo = row;
     if (command == "proceeds") {
@@ -190,7 +190,7 @@ export default class Users extends DataListVue {
       return true;
     }
     this.isLoading = true;
-    let result = await this.getData<PageInfoGetUserListResp>(() =>
+    let result = await this.getData<PageInfoGetUserInfoResp>(() =>
       userApi.listUserInfoUsingGET(
         undefined,
         undefined,

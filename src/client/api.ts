@@ -925,140 +925,104 @@ export interface GetRoleInfoResp {
    * @memberof GetRoleInfoResp
    */
   roleName?: string;
-}
 
-/**
- *
- * @export
- * @interface GetRoleListResp
+  /**
+ * 角色id
+ * @type {number}
+ * @memberof GetRoleInfoResp
  */
-export interface GetRoleListResp {
-  /**
-   * 是否可以删除
-   * @type {boolean}
-   * @memberof GetRoleListResp
-   */
-  canDelete?: boolean;
-  /**
-   * 是否可以编辑
-   * @type {boolean}
-   * @memberof GetRoleListResp
-   */
-  canEdit?: boolean;
-  /**
-   * 创建时间
-   * @type {Date}
-   * @memberof GetRoleListResp
-   */
-  createTime?: Date;
-  /**
-   * 角色id
-   * @type {number}
-   * @memberof GetRoleListResp
-   */
   id?: number;
-  /**
-   * 角色描述
-   * @type {string}
-   * @memberof GetRoleListResp
-   */
-  roleDesc?: string;
-  /**
-   * 角色名称
-   * @type {string}
-   * @memberof GetRoleListResp
-   */
-  roleName?: string;
 }
+
 
 /**
  *
  * @export
- * @interface GetUserListResp
+ * @interface GetUserInfoResp
  */
-export interface GetUserListResp {
+export interface GetUserInfoResp {
   /**
    *
    * @type {boolean}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   canDelete?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   canEdit?: boolean;
   /**
    *
    * @type {Date}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   createTime?: Date;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   email?: string;
   /**
    *
    * @type {number}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   id?: number;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   mobile?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   oaId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   orgId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   parentId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   realName?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   roleId?: Array<number>;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   roleName?: string;
   /**
    *
    * @type {Date}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   updateTime?: Date;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   userName?: string;
 }
@@ -1910,127 +1874,127 @@ export interface PageInfoGetProjectQuotationListResp {
 /**
  *
  * @export
- * @interface PageInfoGetRoleListResp
+ * @interface PageInfoGetRoleInfoResp
  */
-export interface PageInfoGetRoleListResp {
+export interface PageInfoGetRoleInfoResp {
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   endRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   firstPage?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   hasNextPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   hasPreviousPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   isFirstPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   isLastPage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   lastPage?: number;
   /**
    *
-   * @type {Array<GetRoleListResp>}
-   * @memberof PageInfoGetRoleListResp
+   * @type {Array<GetRoleInfoResp>}
+   * @memberof PageInfoGetRoleInfoResp
    */
-  list?: Array<GetRoleListResp>;
+  list?: Array<GetRoleInfoResp>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigateFirstPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigateLastPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigatePages?: number;
   /**
    *
    * @type {Array<number>}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigatepageNums?: Array<number>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   nextPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pageNum?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pages?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   prePage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   size?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   startRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   total?: number;
 }
@@ -2038,127 +2002,127 @@ export interface PageInfoGetRoleListResp {
 /**
  *
  * @export
- * @interface PageInfoGetUserListResp
+ * @interface PageInfoGetUserInfoResp
  */
-export interface PageInfoGetUserListResp {
+export interface PageInfoGetUserInfoResp {
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   endRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   firstPage?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   hasNextPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   hasPreviousPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   isFirstPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   isLastPage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   lastPage?: number;
   /**
    *
-   * @type {Array<GetUserListResp>}
-   * @memberof PageInfoGetUserListResp
+   * @type {Array<GetUserInfoResp>}
+   * @memberof PageInfoGetUserInfoResp
    */
-  list?: Array<GetUserListResp>;
+  list?: Array<GetUserInfoResp>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigateFirstPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigateLastPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigatePages?: number;
   /**
    *
    * @type {Array<number>}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigatepageNums?: Array<number>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   nextPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pageNum?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pages?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   prePage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   size?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   startRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   total?: number;
 }
@@ -2422,31 +2386,31 @@ export interface ResultGetRoleInfoResp {
 /**
  *
  * @export
- * @interface ResultGetUserListResp
+ * @interface ResultGetUserInfoResp
  */
-export interface ResultGetUserListResp {
+export interface ResultGetUserInfoResp {
   /**
    *
-   * @type {GetUserListResp}
-   * @memberof ResultGetUserListResp
+   * @type {GetUserInfoResp}
+   * @memberof ResultGetUserInfoResp
    */
-  data?: GetUserListResp;
+  data?: GetUserInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   status?: number;
 }
@@ -2870,31 +2834,31 @@ export interface ResultPageInfoGetProjectQuotationListResp {
 /**
  *
  * @export
- * @interface ResultPageInfoGetRoleListResp
+ * @interface ResultPageInfoGetRoleInfoResp
  */
-export interface ResultPageInfoGetRoleListResp {
+export interface ResultPageInfoGetRoleInfoResp {
   /**
    *
-   * @type {PageInfoGetRoleListResp}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @type {PageInfoGetRoleInfoResp}
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
-  data?: PageInfoGetRoleListResp;
+  data?: PageInfoGetRoleInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   status?: number;
 }
@@ -2902,31 +2866,31 @@ export interface ResultPageInfoGetRoleListResp {
 /**
  *
  * @export
- * @interface ResultPageInfoGetUserListResp
+ * @interface ResultPageInfoGetUserInfoResp
  */
-export interface ResultPageInfoGetUserListResp {
+export interface ResultPageInfoGetUserInfoResp {
   /**
    *
-   * @type {PageInfoGetUserListResp}
-   * @memberof ResultPageInfoGetUserListResp
+   * @type {PageInfoGetUserInfoResp}
+   * @memberof ResultPageInfoGetUserInfoResp
    */
-  data?: PageInfoGetUserListResp;
+  data?: PageInfoGetUserInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   status?: number;
 }
@@ -7634,7 +7598,7 @@ export const RoleControllerApiFp = function (configuration?: Configuration) {
       pageBegin?: number,
       roleName?: string,
       options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetRoleListResp> {
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetRoleInfoResp> {
       const localVarFetchArgs = RoleControllerApiFetchParamCreator(configuration).listRoleInfoUsingGET(
         pageCurrent,
         pageSize,
@@ -8220,7 +8184,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserByUserIdUsingGET(userId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetUserListResp> {
+    getUserByUserIdUsingGET(userId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetUserInfoResp> {
       const localVarFetchArgs = UserControllerApiFetchParamCreator(configuration).getUserByUserIdUsingGET(userId, options);
       return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
         return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
@@ -8256,7 +8220,7 @@ export const UserControllerApiFp = function (configuration?: Configuration) {
       mobile?: string,
       userName?: string,
       options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetUserListResp> {
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetUserInfoResp> {
       const localVarFetchArgs = UserControllerApiFetchParamCreator(configuration).listUserInfoUsingGET(
         pageCurrent,
         pageSize,

@@ -1,7 +1,8 @@
 import {
   userApi,
   Result,
-  GetUserListResp
+  GetUserInfoResp,
+  UpdatePwdReq
 } from "@/client/data-provider";
 
 import { getClientData } from "@/client/client-types";
@@ -11,17 +12,25 @@ import { getClientData } from "@/client/client-types";
  * 用户信息
  */
 export class UserInfo {
-  info?: GetUserListResp;
+  info?: GetUserInfoResp;
 
-  constructor(user: GetUserListResp) {
+  constructor(user: GetUserInfoResp) {
+    this.info = user;
+  }
+}
+
+export class PassWordInfo {
+  info?: UpdatePwdReq;
+
+  constructor(user: UpdatePwdReq) {
     this.info = user;
   }
 }
 
 export class UserCreator {
-  static async get(userInfo: GetUserListResp): Promise<UserInfo> {
+  static async get(userInfo: GetUserInfoResp): Promise<UserInfo> {
 
-    let info = await this.getData<GetUserListResp>(() => userApi.getUserByUserIdUsingGET(userInfo.id!)) ?? {};
+    let info = await this.getData<GetUserInfoResp>(() => userApi.getUserByUserIdUsingGET(userInfo.id!)) ?? {};
     return new UserInfo(info);
   }
   static async getData<T>(callback: () => Promise<Result>): Promise<T | undefined> {
@@ -34,7 +43,7 @@ export class UserCreator {
     }
   }
 
-  static createEmptyUser(): GetUserListResp {
+  static createEmptyUser(): GetUserInfoResp {
     return {
       id: 0,
       userName: "",
@@ -44,7 +53,7 @@ export class UserCreator {
       realName: ""
     };
   }
-  static copyUser(obj: GetUserListResp | undefined): GetUserListResp {
+  static copyUser(obj: GetUserInfoResp | undefined): GetUserInfoResp {
     let newObj = UserCreator.createEmptyUser();
     if (obj) {
       newObj.userName = obj.userName;
@@ -57,3 +66,5 @@ export class UserCreator {
     return newObj;
   }
 }
+
+
