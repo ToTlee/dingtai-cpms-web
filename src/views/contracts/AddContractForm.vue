@@ -6,7 +6,7 @@
         <el-col :span="12">
           <el-form-item label="客户名称:" required>
             <el-select
-              v-model="contractInfo.info.customerId"
+              v-model="contractInfo.info.customerName"
               value-key="id"
               filterable
               remote
@@ -189,9 +189,9 @@ export default class AddContractForm extends ClientDataVue {
   }
 
   onCustomerChange(value: number) {
-    this.contractInfo.info!.customerName = this.customers.find(
-      ele => ele.id == value
-    )?.customerName;
+    let info = this.customers.find(ele => ele.id == value);
+    this.contractInfo.info!.customerName = info?.customerName;
+    this.contractInfo.info!.customerId = info?.id;
   }
 
   showEditPanel(item: ContractPeroid) {
