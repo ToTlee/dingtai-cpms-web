@@ -14,26 +14,47 @@
           <el-dropdown-item icon="el-icon-error" @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+
       <el-dialog
-        title="修改密码"
-        :close-on-click-modal="false"
         :visible.sync="dialogFormVisible"
-        @close="cancel('ruleForm')"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :center="true"
+        title="修改密码"
+        width="fit-content"
+        height="fit-content"
+        :show-close="true"
       >
-        <el-form class="passwordForm" :model="form" ref="ruleForm">
-          <el-form-item label="原密码" :label-width="formLabelWidth" prop="oldPassword">
-            <el-input v-model="form.oldPassword" auto-complete="off" type="password"></el-input>
-          </el-form-item>
-          <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPassword">
-            <el-input v-model="form.newPassword" auto-complete="off" type="password"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码" :label-width="formLabelWidth" prop="confirmPassword">
-            <el-input v-model="form.confirmPassword" auto-complete="off" type="password"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="cancel('ruleForm')">取 消</el-button>
-          <el-button type="primary" @click="submit('ruleForm')">确 定</el-button>
+        <div class="form-root">
+          <el-form label-width="100px" size="small">
+            <el-form label-width="100px" size="small">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="原密码:" required>
+                    <el-input show-password v-model="form.oldPassword"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="新密码:" required>
+                    <el-input show-password v-model="form.newPassword"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="重复新密码:" required>
+                    <el-input show-password v-model="form.confirmPassword"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-form-item size="normal">
+                <el-button type="primary" @click="save">保存</el-button>
+                <el-button @click="cancel">取消</el-button>
+              </el-form-item>
+            </el-form>
+          </el-form>
         </div>
       </el-dialog>
       <!-- <router-link to="/login"><el-button type="text">登录</el-button></router-link> -->
@@ -41,15 +62,16 @@
   </div>
 </template>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script>
+<script  >
 import { appConstants } from "../../AppConstants";
 import {
   loginApi,
+  userApi,
   LoginControllerApiFetchParamCreator,
-  LoginReq
+  LoginReq,
+  UpdatePwdReq
 } from "../../client/data-provider";
 import { mapMutations } from "vuex";
-import { ModifyPass } from "../systemmanage/ModifyPass.vue";
 export default {
   data() {
     return {
@@ -87,8 +109,28 @@ export default {
       }
     },
     modifyPwd() {
-      debugger;
       this.dialogFormVisible = true;
+    },
+
+    async save() {
+      let data = {
+        newPassword: this.form.newPassword,
+        oldPassword: this.form.oldPassword,
+        userId: this.form.userId
+      };
+      var result = await userApi.updatePasswordUsingPOST(data);
+      debugger;
+      if (result.status == 0) {
+        sessionStorage.clear();
+        this.$router.push({
+          path: "/login"
+        });
+      } else {
+        this.$message.warning(result.msg);
+      }
+    },
+    cancel() {
+      this.dialogFormVisible = false;
     }
   }
 };
@@ -125,25 +167,28 @@ export default {
   margin-right: 18px;
   color: white;
 }
-.header .passwordForm {
-  text-align: center;
-  padding: 0 40px;
+.form-root {
+  width: 660px;
+  text-align: left;
+  max-height: 700px;
+  overflow: auto;
+}
+.form-root .el-form-item {
+  margin-bottom: 10px;
+}
+.info-header {
+  font-size: 15px;
+  color: $--color-primary;
+}
+.timeline {
+  margin-top: 10px !important;
+  padding: 0px !important;
 }
 
-.header .passwordForm .el-input {
-  /* width: 85%; */
+.period-title {
+  font-weight: bold;
 }
-
-.header .passwordForm .el-form-item {
-  margin-bottom: 35px;
-  width: 100%;
-}
-
-.header .passwordForm .el-form-item__content {
-  margin-left: 100px !important;
-}
-
-.header .passwordForm .el-form-item__label {
-  width: 100px !important;
+.period-content {
+  color: gray;
 }
 </style>
