@@ -1,7 +1,7 @@
 import {
     roleApi,
     Result,
-    GetRoleListResp
+    GetRoleInfoResp
 } from "@/client/data-provider";
 
 import { getClientData } from "@/client/client-types";
@@ -11,17 +11,17 @@ import { getClientData } from "@/client/client-types";
  * 用户信息
  */
 export class RoleInfo {
-    info?: GetRoleListResp;
+    info?: GetRoleInfoResp;
 
-    constructor(Role: GetRoleListResp) {
+    constructor(Role: GetRoleInfoResp) {
         this.info = Role;
     }
 }
 
 export class RoleCreator {
-    static async get(roleInfo: GetRoleListResp): Promise<RoleInfo> {
+    static async get(roleInfo: GetRoleInfoResp): Promise<RoleInfo> {
 
-        let info = await this.getData<GetRoleListResp>(() => roleApi.getRoleInfoByRoleIdUsingGET(roleInfo.id!)) ?? {};
+        let info = await this.getData<GetRoleInfoResp>(() => roleApi.getRoleInfoByRoleIdUsingGET(roleInfo.id!)) ?? {};
         return new RoleInfo(info);
     }
     static async getData<T>(callback: () => Promise<Result>): Promise<T | undefined> {
@@ -34,19 +34,21 @@ export class RoleCreator {
         }
     }
 
-    static createEmptyRole(): GetRoleListResp {
+    static createEmptyRole(): GetRoleInfoResp {
         return {
             id: 0,
             roleName: "",
-            roleDesc: ""
+            roleDesc: "",
+            permissionIdList: []
         };
     }
-    static copyRole(obj: GetRoleListResp | undefined): GetRoleListResp {
+    static copyRole(obj: GetRoleInfoResp | undefined): GetRoleInfoResp {
         let newObj = RoleCreator.createEmptyRole();
         if (obj) {
             newObj.roleName = obj.roleName;
             newObj.roleDesc = obj.roleDesc;
             newObj.id = obj.id;
+            newObj.permissionIdList = obj.permissionIdList;
         }
         return newObj;
     }

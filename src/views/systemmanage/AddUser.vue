@@ -61,8 +61,8 @@ import {
   UpdateUserReq,
   Result,
   roleApi,
-  GetRoleListResp,
-  PageInfoGetRoleListResp
+  GetRoleInfoResp,
+  PageInfoGetRoleInfoResp
 } from "@/client/data-provider";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
@@ -72,9 +72,9 @@ import { Emit, Prop, PropSync } from "vue-property-decorator";
 export default class AddUser extends ClientDataVue {
   @Prop({ default: undefined })
   info?: UserInfo;
-  allRoles?: Array<GetRoleListResp> = [];
+  allRoles?: Array<GetRoleInfoResp> = [];
   async mounted() {
-    let result = await this.getData<PageInfoGetRoleListResp>(() =>
+    let result = await this.getData<PageInfoGetRoleInfoResp>(() =>
       roleApi.listRoleInfoUsingGET()
     );
     this.allRoles = result?.list;

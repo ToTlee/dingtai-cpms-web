@@ -10,10 +10,32 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-user">修改密码</el-dropdown-item>
+          <el-dropdown-item icon="el-icon-user" @click.native="modifyPwd">修改密码</el-dropdown-item>
           <el-dropdown-item icon="el-icon-error" @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <el-dialog
+        title="修改密码"
+        :close-on-click-modal="false"
+        :visible.sync="dialogFormVisible"
+        @close="cancel('ruleForm')"
+      >
+        <el-form class="passwordForm" :model="form" ref="ruleForm">
+          <el-form-item label="原密码" :label-width="formLabelWidth" prop="oldPassword">
+            <el-input v-model="form.oldPassword" auto-complete="off" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPassword">
+            <el-input v-model="form.newPassword" auto-complete="off" type="password"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" :label-width="formLabelWidth" prop="confirmPassword">
+            <el-input v-model="form.confirmPassword" auto-complete="off" type="password"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="cancel('ruleForm')">取 消</el-button>
+          <el-button type="primary" @click="submit('ruleForm')">确 定</el-button>
+        </div>
+      </el-dialog>
       <!-- <router-link to="/login"><el-button type="text">登录</el-button></router-link> -->
     </span>
   </div>
@@ -27,12 +49,19 @@ import {
   LoginReq
 } from "../../client/data-provider";
 import { mapMutations } from "vuex";
-
+import { ModifyPass } from "../systemmanage/ModifyPass.vue";
 export default {
   data() {
     return {
       appName: appConstants.APP_NAME,
-      userName: sessionStorage.getItem("userName")
+      userName: sessionStorage.getItem("userName"),
+      dialogFormVisible: false,
+      form: {
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+        userId: 0
+      }
     };
   },
   methods: {
@@ -56,6 +85,10 @@ export default {
       } else {
         this.$message.error(result.msg);
       }
+    },
+    modifyPwd() {
+      debugger;
+      this.dialogFormVisible = true;
     }
   }
 };
@@ -91,5 +124,26 @@ export default {
   text-align: right;
   margin-right: 18px;
   color: white;
+}
+.header .passwordForm {
+  text-align: center;
+  padding: 0 40px;
+}
+
+.header .passwordForm .el-input {
+  /* width: 85%; */
+}
+
+.header .passwordForm .el-form-item {
+  margin-bottom: 35px;
+  width: 100%;
+}
+
+.header .passwordForm .el-form-item__content {
+  margin-left: 100px !important;
+}
+
+.header .passwordForm .el-form-item__label {
+  width: 100px !important;
 }
 </style>
