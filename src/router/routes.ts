@@ -46,21 +46,6 @@ const routes = [
           }
         ]
       },
-      {
-        path: "/contracts",
-        name: "合同管理",
-        component: Contracts
-      },
-      {
-        path: "/quotation",
-        name: "项目报价",
-        component: () => import("../views/quotation/Index.vue")
-      },
-      {
-        path: "/customers",
-        name: "客户资料",
-        component: () => import("../views/customer/Index.vue")
-      },
 
     ]
   },

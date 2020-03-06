@@ -38,7 +38,9 @@ import { appConstants } from "../AppConstants";
 import {
   loginApi,
   LoginControllerApiFetchParamCreator,
-  LoginReq
+  LoginReq,
+  userApi,
+  permissionApi
 } from "../client/data-provider";
 import { mapMutations } from "vuex";
 
@@ -88,6 +90,10 @@ export default {
         };
         this.CHANGE_LOGIN(this.$store.state, userInfo);
         sessionStorage.setItem("userName", this.userName);
+        let permResult = await permissionApi.getUserPermissionListUsingGET();
+        if (permResult.status == 0) {
+          sessionStorage.setItem("perms", JSON.stringify(permResult.data));
+        }
         this.$router.push({
           path: "/"
         });
