@@ -105,7 +105,16 @@ export default class AddUser extends ClientDataVue {
     let cinfo = this.userInfo.info!;
 
     if (this.info) {
-      result = await this.commitUser(() => userApi.updateUserUsingPOST(cinfo!));
+      let updateInfo: UpdateUserReq = {
+        id: cinfo.id!,
+        email: cinfo.email!,
+        mobile: cinfo.mobile!,
+        realName: cinfo.realName!,
+        roleId: cinfo.roleId!
+      };
+      result = await this.commitUser(() =>
+        userApi.updateUserUsingPOST(updateInfo)
+      );
       debugger;
       if (result) {
         this.$message.success("修改成功");

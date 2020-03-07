@@ -19,7 +19,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { quotationApi, GetProjectQuotationListResp } from "@/client-api";
+import {
+  quotationApi,
+  QuotationControllerApi,
+  GetQuotationInfoResp
+} from "@/client-api";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 
@@ -33,9 +37,9 @@ export default class QuotationList extends Vue {
   async mounted() {
     this.tagInfo.title = "项目报价";
     this.isLoading = true;
-    let result = await quotationApi.queryAllProjectQuotationUsingGET();
+    let result = await quotationApi.listAllQuotationInfoUsingGET();
     if (result.status == 0 && result.data != undefined) {
-      const groups = new Map<number, GetProjectQuotationListResp[]>();
+      const groups = new Map<number, GetQuotationInfoResp[]>();
       result.data.list?.forEach(value => {
         if (groups.has(value.id!)) {
           groups.get(value.id!)!.push(value);
@@ -47,7 +51,7 @@ export default class QuotationList extends Vue {
       groups.forEach((value, key) => {
         list.push({
           id: "parent" + key,
-          name: value[0].name,
+          name: value[0].content,
           content: "11",
           remark: "11",
           quotation:

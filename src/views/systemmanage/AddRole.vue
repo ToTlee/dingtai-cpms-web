@@ -135,7 +135,7 @@ export default class AddRole extends ClientDataVue {
     cinfo.permissionIdList = ref.getCheckedKeys();
     if (this.info) {
       let data: UpdateRoleReq = {
-        id: cinfo.id,
+        id: cinfo.id!,
         roleName: cinfo.roleName!,
         roleDesc: cinfo.roleDesc!,
         permissionIds: ref.getCheckedKeys()

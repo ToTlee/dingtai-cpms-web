@@ -9,7 +9,7 @@ import {
 } from "./classes/index";
 import {
   CustomerControllerApi,
-  ProjectQuotationControllerApi,
+  QuotationControllerApi,
   ContractReceivablesControllerApi,
   ContractInvoiceControllerApi,
   ContractPeriodControllerApi,
@@ -30,7 +30,7 @@ export const permissionApi = new PermissionControllerApi(configuraion, SERVER_PA
 export const contractApi = new ContractControllerApi(configuraion, SERVER_PATH);
 export const customerApi = new CustomerControllerApi(configuraion, SERVER_PATH);
 // export const projectApi = new ProjectQuotationControllerApi(configuraion, SERVER_PATH);
-export const quotationApi = new ProjectQuotationControllerApi(configuraion, SERVER_PATH);
+export const quotationApi = new QuotationControllerApi(configuraion, SERVER_PATH);
 export const proceedsApi = new ContractReceivablesControllerApi(configuraion, SERVER_PATH);
 export const invoiceApi = new ContractInvoiceControllerApi(configuraion, SERVER_PATH);
 export const roleApi = new RoleControllerApi(configuraion, SERVER_PATH);
