@@ -46,21 +46,6 @@
       @size-change="onPageSizeChange"
       @current-change="onChangePage"
     ></el-pagination>
-    <!-- <el-dialog
-      :visible.sync="addContractVisible"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      title="添加合同"
-      width="fit-content"
-      height="fit-content"
-      :show-close="false"
-    >
-      <add-contract-form
-        :info="currentContractInfo"
-        @submit="submitContract"
-        @cancel="cancleAddContract"
-      ></add-contract-form>
-    </el-dialog> -->
     <el-dialog
       :title="dialogTitle"
       :visible.sync="dialogTableVisible"
@@ -85,14 +70,14 @@ import {
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
-import AddContractForm from "./AddContractForm.vue";
-import { ContractInfo } from "./ContractInfo";
+// import AddContractForm from "./AddContractForm.vue";
+// import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 
 @Component({
   components: {
-    "add-contract-form": AddContractForm
+    // "add-contract-form": AddContractForm
   }
 })
 export default class Quotations extends DataListVue {
@@ -105,7 +90,7 @@ export default class Quotations extends DataListVue {
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
-  currentContractInfo?: ContractInfo = {};
+  // currentContractInfo?: ContractInfo = {};
   @Prop()
   tagInfo?: any;
   async mounted() {
@@ -217,27 +202,28 @@ export default class Quotations extends DataListVue {
   // }
 
   async onSearch(query: string): Promise<boolean> {
-    // if (!query || query == "") {
-    //   await this.refreshData();
-    //   return true;
-    // }
-    // this.isLoading = true;
-    // let result = await this.getData<PageInfoGetContractResp>(() =>
-    //   contractApi.listContractUsingGET(
-    //     undefined,
-    //     undefined,
-    //     undefined,
-    //     undefined,
-    //     undefined,
-    //     query
-    //   )
-    // );
+    if (!query || query == "") {
+      await this.refreshData();
+      return true;
+    }
+    this.isLoading = true;
+    let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
+      // contractApi.listContractUsingGET(
+      quotationApi.listAllQuotationInfoUsingGET(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        query
+      )
+    );
     let success = false;
-    // if (result && result.list) {
-    //   this.data = result.list;
-    //   success = true;
-    // }
-    // this.isLoading = false;
+    if (result && result.list) {
+      this.data = result.list;
+      success = true;
+    }
+    this.isLoading = false;
     return success;
   }
 
