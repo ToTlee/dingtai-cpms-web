@@ -1,6 +1,6 @@
 export class PageOptions {
   pageCurrent: number = 0;
-  pageSize: number = 99999999;
+  pageSize: number = 999999999;
   orderBy?: string;
   descOrAsc?: string;
   pageBegin?: number;

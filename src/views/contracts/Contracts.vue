@@ -94,15 +94,17 @@ import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
+import ContractsStaticstic from "./ContractsStaticstic.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
-import { ExportOptions } from "../data-view/ExportOptions";
+import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 
 @Component({
   components: {
     "proceeds-record": ContractsProceedsRecord,
-    "add-contract-form": AddContractForm
+    "add-contract-form": AddContractForm,
+    staticstic: ContractsStaticstic
   }
 })
 export default class Contracts extends DataListVue {
@@ -226,9 +228,30 @@ export default class Contracts extends DataListVue {
     }
   }
 
-  onExport(options: ExportOptions) {
+  async onExport(options: ExportOptions) {
+    switch (options.Type) {
+      case ExportType.All:
+        break;
+      case ExportType.CurrentPage:
+        options.pageOptions.pageCurrent = this.pageInfo.pageNum!;
+        options.pageOptions.pageSize = this.pageInfo.pageSize!;
+        break;
+      case ExportType.Selected:
+        break;
+      default:
+        break;
+    }
     let pageOp = options.pageOptions.toParameters();
-    contractApi.exportContractUsingGET(...pageOp);
+    let result = await contractApi.exportContractUsingGET(...pageOp);
+    if (result.status == 200) {
+      window.location.href = result.url;
+    }
+  }
+
+  onStaticstic() {
+    this.dialogComponent = "staticstic";
+    this.dialogTitle = "合同统计信息";
+    this.dialogTableVisible = true;
   }
 
   async onSearch(query: string): Promise<boolean> {
