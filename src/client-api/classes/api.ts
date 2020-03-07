@@ -3033,38 +3033,6 @@ export interface ResultGetLoginUserInfoResp {
 /**
  * 
  * @export
- * @interface ResultGetQuotationInfoResp
- */
-export interface ResultGetQuotationInfoResp {
-    /**
-     * 
-     * @type {GetQuotationInfoResp}
-     * @memberof ResultGetQuotationInfoResp
-     */
-    data?: GetQuotationInfoResp;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResultGetQuotationInfoResp
-     */
-    msg?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ResultGetQuotationInfoResp
-     */
-    respTime?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ResultGetQuotationInfoResp
-     */
-    status?: number;
-}
-
-/**
- * 
- * @export
  * @interface ResultGetRoleInfoResp
  */
 export interface ResultGetRoleInfoResp {
@@ -7253,23 +7221,44 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
         /**
          * 
          * @summary 根据名称搜索项目报价
-         * @param {string} name 项目名称
+         * @param {number} [pageCurrent] 当前页
+         * @param {number} [pageSize] 每页数量
+         * @param {string} [orderBy] 排序字段
+         * @param {string} [descOrAsc] 升序或降序
+         * @param {number} [pageBegin] 
+         * @param {string} [content] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getQuotationByNameUsingGET(name: string, options: any = {}): FetchArgs {
-            // verify required parameter 'name' is not null or undefined
-            if (name === null || name === undefined) {
-                throw new RequiredError('name','Required parameter name was null or undefined when calling getQuotationByNameUsingGET.');
-            }
+        getQuotationByNameUsingGET(pageCurrent?: number, pageSize?: number, orderBy?: string, descOrAsc?: string, pageBegin?: number, content?: string, options: any = {}): FetchArgs {
             const localVarPath = `/quotation/getQuotationByName`;
             const localVarUrlObj = url.parse(localVarPath, true);
             const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
+            if (pageCurrent !== undefined) {
+                localVarQueryParameter['pageCurrent'] = pageCurrent;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (orderBy !== undefined) {
+                localVarQueryParameter['orderBy'] = orderBy;
+            }
+
+            if (descOrAsc !== undefined) {
+                localVarQueryParameter['descOrAsc'] = descOrAsc;
+            }
+
+            if (pageBegin !== undefined) {
+                localVarQueryParameter['pageBegin'] = pageBegin;
+            }
+
+            if (content !== undefined) {
+                localVarQueryParameter['content'] = content;
             }
 
             localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
@@ -7380,12 +7369,17 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
         /**
          * 
          * @summary 根据名称搜索项目报价
-         * @param {string} name 项目名称
+         * @param {number} [pageCurrent] 当前页
+         * @param {number} [pageSize] 每页数量
+         * @param {string} [orderBy] 排序字段
+         * @param {string} [descOrAsc] 升序或降序
+         * @param {number} [pageBegin] 
+         * @param {string} [content] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getQuotationByNameUsingGET(name: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetQuotationInfoResp> {
-            const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getQuotationByNameUsingGET(name, options);
+        getQuotationByNameUsingGET(pageCurrent?: number, pageSize?: number, orderBy?: string, descOrAsc?: string, pageBegin?: number, content?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetQuotationInfoResp> {
+            const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getQuotationByNameUsingGET(pageCurrent, pageSize, orderBy, descOrAsc, pageBegin, content, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -7451,12 +7445,17 @@ export const QuotationControllerApiFactory = function (configuration?: Configura
         /**
          * 
          * @summary 根据名称搜索项目报价
-         * @param {string} name 项目名称
+         * @param {number} [pageCurrent] 当前页
+         * @param {number} [pageSize] 每页数量
+         * @param {string} [orderBy] 排序字段
+         * @param {string} [descOrAsc] 升序或降序
+         * @param {number} [pageBegin] 
+         * @param {string} [content] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getQuotationByNameUsingGET(name: string, options?: any) {
-            return QuotationControllerApiFp(configuration).getQuotationByNameUsingGET(name, options)(fetch, basePath);
+        getQuotationByNameUsingGET(pageCurrent?: number, pageSize?: number, orderBy?: string, descOrAsc?: string, pageBegin?: number, content?: string, options?: any) {
+            return QuotationControllerApiFp(configuration).getQuotationByNameUsingGET(pageCurrent, pageSize, orderBy, descOrAsc, pageBegin, content, options)(fetch, basePath);
         },
         /**
          * 
@@ -7509,13 +7508,18 @@ export class QuotationControllerApi extends BaseAPI {
     /**
      * 
      * @summary 根据名称搜索项目报价
-     * @param {string} name 项目名称
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin] 
+     * @param {string} [content] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuotationControllerApi
      */
-    public getQuotationByNameUsingGET(name: string, options?: any) {
-        return QuotationControllerApiFp(this.configuration).getQuotationByNameUsingGET(name, options)(this.fetch, this.basePath);
+    public getQuotationByNameUsingGET(pageCurrent?: number, pageSize?: number, orderBy?: string, descOrAsc?: string, pageBegin?: number, content?: string, options?: any) {
+        return QuotationControllerApiFp(this.configuration).getQuotationByNameUsingGET(pageCurrent, pageSize, orderBy, descOrAsc, pageBegin, content, options)(this.fetch, this.basePath);
     }
 
     /**

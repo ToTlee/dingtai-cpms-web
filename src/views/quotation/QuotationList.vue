@@ -1,6 +1,6 @@
 <!-- 报价列表 -->
 <template>
-  <div class="contracts-panel">
+  <div class="quotations-panel">
     <el-table
       style="flex:1"
       v-loading="isLoading"
@@ -70,14 +70,11 @@ import {
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
-// import AddContractForm from "./AddContractForm.vue";
-// import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 
 @Component({
   components: {
-    // "add-contract-form": AddContractForm
   }
 })
 export default class Quotations extends DataListVue {
@@ -90,7 +87,6 @@ export default class Quotations extends DataListVue {
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
-  // currentContractInfo?: ContractInfo = {};
   @Prop()
   tagInfo?: any;
   async mounted() {
@@ -153,7 +149,7 @@ export default class Quotations extends DataListVue {
     // let vm = this;
     // if (this.selectedItems.length == 0) return;
     // this.$msgbox
-    //   .confirm("是否确定删除选中的合同?")
+    //   .confirm("是否确定删除选中的报价?")
     //   .then(async () => {
     //     for (let i = 0; i < vm.selectedItems.length; i++) {
     //       const element = vm.selectedItems[i];
@@ -208,8 +204,7 @@ export default class Quotations extends DataListVue {
     }
     this.isLoading = true;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-      // contractApi.listContractUsingGET(
-      quotationApi.listAllQuotationInfoUsingGET(
+      quotationApi.getQuotationByNameUsingGET(
         undefined,
         undefined,
         undefined,
@@ -239,7 +234,7 @@ export default class Quotations extends DataListVue {
 </script>
 
 <style lang="scss" scoped>
-.contracts-panel {
+.quotations-panel {
   height: 100%;
   display: flex;
   flex-direction: column;
