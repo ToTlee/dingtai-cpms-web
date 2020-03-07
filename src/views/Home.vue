@@ -12,13 +12,13 @@
           text-color="#ffffff"
           default-active="customers"
         >
-          <el-menu-item index="/data-view/customers">客户跟进</el-menu-item>
-          <el-menu-item index="/data-view/quotation">项目报价</el-menu-item>
-          <el-menu-item index="/data-view/contracts">合同管理</el-menu-item>
-          <el-submenu index="4">
+          <el-menu-item index="/data-view/customers" name="menu">客户管理</el-menu-item>
+          <el-menu-item index="/data-view/quotation" name="menu">报价管理</el-menu-item>
+          <el-menu-item index="/data-view/contracts" name="menu">合同管理</el-menu-item>
+          <el-submenu index="4" name="menu">
             <template slot="title">系统管理</template>
-            <el-menu-item index="/data-view/users">用户管理</el-menu-item>
-            <el-menu-item index="/data-view/roles">角色管理</el-menu-item>
+            <el-menu-item index="/data-view/users" name="menu">用户管理</el-menu-item>
+            <el-menu-item index="/data-view/roles" name="menu">角色管理</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -42,6 +42,27 @@ export default {
     "nav-top": NavigationBarTop
   },
   created() {},
+  mounted() {
+    var items = document.getElementsByName("menu");
+    for (var i = 0; i < items.length; i++) {
+      var perms = JSON.parse(sessionStorage.getItem("perms"));
+      items[i].hidden = true;
+      for (var j = 0; j < perms.length; j++) {
+        if (items[i].innerHTML.search(perms[j].name) != -1) {
+          items[i].hidden = false;
+          break;
+        }
+        if (perms[j].children.length > 0) {
+          for (var k = 0; k < perms[j].children.length; k++) {
+            if (items[i].innerHTML.search(perms[j].children[k].name) != -1) {
+              items[i].hidden = false;
+              break;
+            }
+          }
+        }
+      }
+    }
+  },
   methods: {
     selected(index, indexPath) {
       this.$router.push(index);
