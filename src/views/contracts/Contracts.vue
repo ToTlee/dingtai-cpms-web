@@ -61,19 +61,9 @@
       height="fit-content"
       :show-close="false"
     >
-      <add-contract-form
-        :info="currentContractInfo"
-        @submit="submitContract"
-        @cancel="cancleAddContract"
-      ></add-contract-form>
+      <add-contract-form :info="currentContractInfo" @submit="submitContract" @cancel="cancleAddContract"></add-contract-form>
     </el-dialog>
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogTableVisible"
-      width="fit-content"
-      height="fit-content"
-      lock-scroll
-    >
+    <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock-scroll>
       <template></template>
       <component :is="dialogComponent" :info="currentInfo"></component>
     </el-dialog>
@@ -83,13 +73,7 @@
 <script lang="ts">
 import { ClientDataVue, PageInfo } from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
-import {
-  contractApi,
-  GetContractResp,
-  PageInfoGetContractResp,
-  GetCustomerFollowResp,
-  GetContractPeriodResp
-} from "@/client-api";
+import { contractApi, GetContractResp, PageInfoGetContractResp, GetCustomerFollowResp, GetContractPeriodResp } from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
@@ -97,7 +81,7 @@ import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
-import { ExportOptions } from "../data-view/ExportOptions";
+import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 
 @Component({
   components: {
@@ -127,10 +111,7 @@ export default class Contracts extends DataListVue {
     this.isLoading = true;
     let vm = this;
     let result = await this.getData<PageInfoGetContractResp>(() =>
-      contractApi.listContractUsingGET(
-        vm.pageInfo.pageNum,
-        vm.pageInfo.pageSize
-      )
+      contractApi.listContractUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
     if (result) {
       this.pageInfo = result;
@@ -160,9 +141,7 @@ export default class Contracts extends DataListVue {
     let vm = this;
     if (vm.selectedItems.length == 1) {
       let cinfo = new ContractInfo(vm.selectedItems[0], []);
-      let result = await this.getData<Array<GetContractPeriodResp>>(() =>
-        contractApi.getContractPeriodUsingGET(cinfo.info!.id!)
-      );
+      let result = await this.getData<Array<GetContractPeriodResp>>(() => contractApi.getContractPeriodUsingGET(cinfo.info!.id!));
       if (result) {
         result.forEach(element => {
           cinfo.periods!.push({ info: element });
@@ -182,14 +161,10 @@ export default class Contracts extends DataListVue {
       .then(async () => {
         for (let i = 0; i < vm.selectedItems.length; i++) {
           const element = vm.selectedItems[i];
-          await vm.requestWithoutResult(() =>
-            contractApi.deleteUserUsingPOST(element.id!)
-          );
+          await vm.requestWithoutResult(() => contractApi.deleteUserUsingPOST(element.id!));
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success(
-          "成功删除" + this.selectedItems.length + "个合同！"
-        );
+        vm.$message.success("成功删除" + this.selectedItems.length + "个合同！");
       })
       .catch();
   }
@@ -226,10 +201,27 @@ export default class Contracts extends DataListVue {
     }
   }
 
-  onExport(options: ExportOptions) {
+  async onExport(options: ExportOptions) {
+    switch (options.Type) {
+      case ExportType.All:
+        break;
+      case ExportType.CurrentPage:
+        options.pageOptions.pageCurrent = this.pageInfo.pageNum!;
+        options.pageOptions.pageSize = this.pageInfo.pageSize!;
+        break;
+      case ExportType.Selected:
+        break;
+      default:
+        break;
+    }
     let pageOp = options.pageOptions.toParameters();
-    contractApi.exportContractUsingGET(...pageOp);
+    let result = await contractApi.exportContractUsingGET(...pageOp);
+    if (result.status == 200) {
+      window.location.href = result.url;
+    }
   }
+
+  onStatistic() {}
 
   async onSearch(query: string): Promise<boolean> {
     if (!query || query == "") {
@@ -238,14 +230,7 @@ export default class Contracts extends DataListVue {
     }
     this.isLoading = true;
     let result = await this.getData<PageInfoGetContractResp>(() =>
-      contractApi.listContractUsingGET(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        query
-      )
+      contractApi.listContractUsingGET(undefined, undefined, undefined, undefined, undefined, query)
     );
     let success = false;
     if (result && result.list) {

@@ -9,4 +9,6 @@ export abstract class DataListVue extends ClientDataVue {
   abstract onDeleteItem(): void;
   abstract onRefresh(): void;
   onExport(options: ExportOptions): void {}
+
+  onStatistic() {}
 }
