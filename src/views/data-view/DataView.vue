@@ -81,7 +81,12 @@ export default class DataView extends Vue {
     }
   }
 
-  exportData(options: ExportOptions) {}
+  exportData(options: ExportOptions) {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onExport) {
+      dataView.onExport(new ExportOptions());
+    }
+  }
 }
 </script>
 

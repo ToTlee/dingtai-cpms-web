@@ -226,7 +226,10 @@ export default class Contracts extends DataListVue {
     }
   }
 
-  onExport(options: ExportOptions) {}
+  onExport(options: ExportOptions) {
+    let pageOp = options.pageOptions.toParameters();
+    contractApi.exportContractUsingGET(...pageOp);
+  }
 
   async onSearch(query: string): Promise<boolean> {
     if (!query || query == "") {
