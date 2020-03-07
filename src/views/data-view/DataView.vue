@@ -7,19 +7,29 @@
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
         <el-button type="primary" size="small" @click="editItem">编辑</el-button>
         <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
-        <el-button type="primary" size="small" @click="refresh">刷新</el-button>
-        <el-dropdown style="margin-left:10px" @command="exportData">
-          <el-button type="primary" szie="small">导出<i class="el-icon-arrow-down el-icon--right"></i> </el-button>
+        <el-button type="primary" size="small" @click="staticstic">统计</el-button>
+        <el-dropdown style="margin-left:10px;margin-right:10px" @command="exportData">
+          <el-button type="primary" size="small">
+            导出
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="all">全部</el-dropdown-item>
             <el-dropdown-item command="currentPage">当前页</el-dropdown-item>
             <!-- <el-dropdown-item command="selected">所选</el-dropdown-item> -->
           </el-dropdown-menu>
         </el-dropdown>
+        <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </div>
 
       <div class="search-panel">
-        <el-input prefix-icon="el-icon-search" placeholder="输入关键字" @keyup.enter.native="search" size="small" v-model="queryString">
+        <el-input
+          prefix-icon="el-icon-search"
+          placeholder="输入关键字"
+          @keyup.enter.native="search"
+          size="small"
+          v-model="queryString"
+        >
           <!-- <el-select slot="prepend" placeholder="请选择检索段">
             <el-option label="餐厅名" value="1"></el-option>
             <el-option label="订单号" value="2"></el-option>
@@ -79,6 +89,13 @@ export default class DataView extends Vue {
     let dataView: any = this.$refs.dataView;
     if (dataView.onEditItem) {
       dataView.onEditItem();
+    }
+  }
+
+  staticstic() {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onStaticstic) {
+      dataView.onStaticstic();
     }
   }
 

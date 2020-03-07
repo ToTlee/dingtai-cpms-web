@@ -1,3 +1,8 @@
+export interface Group<TKey, TSource> {
+  key: TKey;
+  group: Array<TSource>;
+}
+
 export default class ArrayUtils {
   public static toMap<TKey, TValue>(source: Array<TValue>, keySelctor: (item: TValue) => TKey): Map<TKey, TValue> {
     let map = new Map<TKey, TValue>();
@@ -22,12 +27,25 @@ export default class ArrayUtils {
     return map;
   }
 
-  public static toSet<TSource, TValue>(source: Array<TSource>, keySelctor: (item: TSource) => TValue): Set<TValue> {
+  public static toSet<TValue, TSource>(source: Array<TSource>, keySelctor: (item: TSource) => TValue): Set<TValue> {
     let map = new Set<TValue>();
     source.forEach(element => {
       let value = keySelctor(element);
       map.add(value);
     });
     return map;
+  }
+
+  public static groupBy<TKey, TSource>(source: Array<TSource>, keySelctor: (item: TSource) => TKey): Array<Group<TKey, TSource>> {
+    let map = new Map<TKey, Group<TKey, TSource>>();
+    source.forEach(element => {
+      let key = keySelctor(element);
+      if (map.has(key)) {
+        map.get(key)?.group.push(element);
+      } else {
+        map.set(key, { key, group: [element] });
+      }
+    });
+    return [...map.values()];
   }
 }
