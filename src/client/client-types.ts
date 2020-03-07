@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Message } from "element-ui";
+import { Result, PageInfoGetContractResp } from "./api";
 
 export interface ResResult<T> {
   /**
@@ -30,6 +31,7 @@ export class DataResult<T> {
    * @type boolean
    */
   successed: boolean = false;
+  code: number = 0;
   message?: string = "";
   data?: T = undefined;
 
@@ -40,8 +42,16 @@ export class DataResult<T> {
   }
 }
 
+export interface PageInfo {
+  pageNum?: number;
+  pageSize?: number;
+  total?: number;
+  pages?: number;
+}
+
 export const getClientData = function<T>(reResult: ResResult<T>) {
   let result = new DataResult<T>(false, reResult.msg, reResult.data);
+  result.code = reResult.status!;
   if (reResult.status == 0) {
     result.successed = true;
   }
@@ -53,7 +63,26 @@ export class ClientDataVue extends Vue {
     let result = getClientData(reResult);
     if (!result.successed) {
       this.$message.error(reResult.msg as string);
+      if (result.code == 401) {
+        var router: any = this.$router;
+        router.clearLogin();
+      }
     }
     return result;
+  }
+
+  async getData<T>(callback: (...para: any) => Promise<Result>, ...para: any): Promise<T | undefined> {
+    let result = await callback(para);
+    let resultData = getClientData<T>(result);
+    if (resultData.successed && resultData.data != undefined) {
+      return resultData.data;
+    } else {
+      return undefined;
+    }
+  }
+  async requestWithoutResult(callback: (...para: any) => Promise<Result>, ...para: any): Promise<boolean> {
+    let result = await callback(para);
+    let resultData = getClientData(result);
+    return resultData.successed;
   }
 }

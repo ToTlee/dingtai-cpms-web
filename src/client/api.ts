@@ -925,140 +925,104 @@ export interface GetRoleInfoResp {
    * @memberof GetRoleInfoResp
    */
   roleName?: string;
-}
 
-/**
- *
- * @export
- * @interface GetRoleListResp
+  /**
+ * 角色id
+ * @type {number}
+ * @memberof GetRoleInfoResp
  */
-export interface GetRoleListResp {
-  /**
-   * 是否可以删除
-   * @type {boolean}
-   * @memberof GetRoleListResp
-   */
-  canDelete?: boolean;
-  /**
-   * 是否可以编辑
-   * @type {boolean}
-   * @memberof GetRoleListResp
-   */
-  canEdit?: boolean;
-  /**
-   * 创建时间
-   * @type {Date}
-   * @memberof GetRoleListResp
-   */
-  createTime?: Date;
-  /**
-   * 角色id
-   * @type {number}
-   * @memberof GetRoleListResp
-   */
   id?: number;
-  /**
-   * 角色描述
-   * @type {string}
-   * @memberof GetRoleListResp
-   */
-  roleDesc?: string;
-  /**
-   * 角色名称
-   * @type {string}
-   * @memberof GetRoleListResp
-   */
-  roleName?: string;
 }
+
 
 /**
  *
  * @export
- * @interface GetUserListResp
+ * @interface GetUserInfoResp
  */
-export interface GetUserListResp {
+export interface GetUserInfoResp {
   /**
    *
    * @type {boolean}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   canDelete?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   canEdit?: boolean;
   /**
    *
    * @type {Date}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   createTime?: Date;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   email?: string;
   /**
    *
    * @type {number}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   id?: number;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   mobile?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   oaId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   orgId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   parentId?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   realName?: string;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
-  roleId?: string;
+  roleId?: Array<number>;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   roleName?: string;
   /**
    *
    * @type {Date}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   updateTime?: Date;
   /**
    *
    * @type {string}
-   * @memberof GetUserListResp
+   * @memberof GetUserInfoResp
    */
   userName?: string;
 }
@@ -1910,127 +1874,127 @@ export interface PageInfoGetProjectQuotationListResp {
 /**
  *
  * @export
- * @interface PageInfoGetRoleListResp
+ * @interface PageInfoGetRoleInfoResp
  */
-export interface PageInfoGetRoleListResp {
+export interface PageInfoGetRoleInfoResp {
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   endRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   firstPage?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   hasNextPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   hasPreviousPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   isFirstPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   isLastPage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   lastPage?: number;
   /**
    *
-   * @type {Array<GetRoleListResp>}
-   * @memberof PageInfoGetRoleListResp
+   * @type {Array<GetRoleInfoResp>}
+   * @memberof PageInfoGetRoleInfoResp
    */
-  list?: Array<GetRoleListResp>;
+  list?: Array<GetRoleInfoResp>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigateFirstPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigateLastPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigatePages?: number;
   /**
    *
    * @type {Array<number>}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   navigatepageNums?: Array<number>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   nextPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pageNum?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   pages?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   prePage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   size?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   startRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetRoleListResp
+   * @memberof PageInfoGetRoleInfoResp
    */
   total?: number;
 }
@@ -2038,127 +2002,127 @@ export interface PageInfoGetRoleListResp {
 /**
  *
  * @export
- * @interface PageInfoGetUserListResp
+ * @interface PageInfoGetUserInfoResp
  */
-export interface PageInfoGetUserListResp {
+export interface PageInfoGetUserInfoResp {
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   endRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   firstPage?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   hasNextPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   hasPreviousPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   isFirstPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   isLastPage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   lastPage?: number;
   /**
    *
-   * @type {Array<GetUserListResp>}
-   * @memberof PageInfoGetUserListResp
+   * @type {Array<GetUserInfoResp>}
+   * @memberof PageInfoGetUserInfoResp
    */
-  list?: Array<GetUserListResp>;
+  list?: Array<GetUserInfoResp>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigateFirstPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigateLastPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigatePages?: number;
   /**
    *
    * @type {Array<number>}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   navigatepageNums?: Array<number>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   nextPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pageNum?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   pages?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   prePage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   size?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   startRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetUserListResp
+   * @memberof PageInfoGetUserInfoResp
    */
   total?: number;
 }
@@ -2422,31 +2386,31 @@ export interface ResultGetRoleInfoResp {
 /**
  *
  * @export
- * @interface ResultGetUserListResp
+ * @interface ResultGetUserInfoResp
  */
-export interface ResultGetUserListResp {
+export interface ResultGetUserInfoResp {
   /**
    *
-   * @type {GetUserListResp}
-   * @memberof ResultGetUserListResp
+   * @type {GetUserInfoResp}
+   * @memberof ResultGetUserInfoResp
    */
-  data?: GetUserListResp;
+  data?: GetUserInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultGetUserListResp
+   * @memberof ResultGetUserInfoResp
    */
   status?: number;
 }
@@ -2870,31 +2834,31 @@ export interface ResultPageInfoGetProjectQuotationListResp {
 /**
  *
  * @export
- * @interface ResultPageInfoGetRoleListResp
+ * @interface ResultPageInfoGetRoleInfoResp
  */
-export interface ResultPageInfoGetRoleListResp {
+export interface ResultPageInfoGetRoleInfoResp {
   /**
    *
-   * @type {PageInfoGetRoleListResp}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @type {PageInfoGetRoleInfoResp}
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
-  data?: PageInfoGetRoleListResp;
+  data?: PageInfoGetRoleInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultPageInfoGetRoleListResp
+   * @memberof ResultPageInfoGetRoleInfoResp
    */
   status?: number;
 }
@@ -2902,31 +2866,31 @@ export interface ResultPageInfoGetRoleListResp {
 /**
  *
  * @export
- * @interface ResultPageInfoGetUserListResp
+ * @interface ResultPageInfoGetUserInfoResp
  */
-export interface ResultPageInfoGetUserListResp {
+export interface ResultPageInfoGetUserInfoResp {
   /**
    *
-   * @type {PageInfoGetUserListResp}
-   * @memberof ResultPageInfoGetUserListResp
+   * @type {PageInfoGetUserInfoResp}
+   * @memberof ResultPageInfoGetUserInfoResp
    */
-  data?: PageInfoGetUserListResp;
+  data?: PageInfoGetUserInfoResp;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultPageInfoGetUserListResp
+   * @memberof ResultPageInfoGetUserInfoResp
    */
   status?: number;
 }
@@ -3186,13 +3150,13 @@ export interface UpdateRoleReq {
    * @type {number}
    * @memberof UpdateRoleReq
    */
-  roleId: number;
+  id?: number;
   /**
    * 角色名称
    * @type {string}
    * @memberof UpdateRoleReq
    */
-  roleName: string;
+  roleName?: string;
 }
 
 /**
@@ -3206,43 +3170,32 @@ export interface UpdateUserReq {
    * @type {string}
    * @memberof UpdateUserReq
    */
-  email: string;
+  email?: string;
   /**
    * 手机号
    * @type {string}
    * @memberof UpdateUserReq
    */
-  mobile: string;
-  /**
-   * OA账号
-   * @type {string}
-   * @memberof UpdateUserReq
-   */
-  oaId?: string;
-  /**
-   * 组织id
-   * @type {number}
-   * @memberof UpdateUserReq
-   */
-  orgId?: number;
+  mobile?: string;
+
   /**
    * 真实姓名
    * @type {string}
    * @memberof UpdateUserReq
    */
-  realName: string;
+  realName?: string;
   /**
    * 角色id
    * @type {Array<number>}
    * @memberof UpdateUserReq
    */
-  roleId: Array<number>;
+  roleId?: Array<number>;
   /**
    * 用户id
    * @type {number}
    * @memberof UpdateUserReq
    */
-  userId: number;
+  id?: number;
 }
 
 /**
@@ -3287,7 +3240,7 @@ export interface ZtreeResp {
  * ContractControllerApi - fetch parameter creator
  * @export
  */
-export const ContractControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -3704,7 +3657,7 @@ export const ContractControllerApiFetchParamCreator = function(configuration?: C
  * ContractControllerApi - functional programming interface
  * @export
  */
-export const ContractControllerApiFp = function(configuration?: Configuration) {
+export const ContractControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -3965,7 +3918,7 @@ export const ContractControllerApiFp = function(configuration?: Configuration) {
  * ContractControllerApi - factory interface
  * @export
  */
-export const ContractControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -4300,7 +4253,7 @@ export class ContractControllerApi extends BaseAPI {
  * ContractInvoiceControllerApi - fetch parameter creator
  * @export
  */
-export const ContractInvoiceControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractInvoiceControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4508,7 +4461,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function(configurat
  * ContractInvoiceControllerApi - functional programming interface
  * @export
  */
-export const ContractInvoiceControllerApiFp = function(configuration?: Configuration) {
+export const ContractInvoiceControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4651,7 +4604,7 @@ export const ContractInvoiceControllerApiFp = function(configuration?: Configura
  * ContractInvoiceControllerApi - factory interface
  * @export
  */
-export const ContractInvoiceControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractInvoiceControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -4835,7 +4788,7 @@ export class ContractInvoiceControllerApi extends BaseAPI {
  * ContractPeriodControllerApi - fetch parameter creator
  * @export
  */
-export const ContractPeriodControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractPeriodControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -4976,7 +4929,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function(configurati
  * ContractPeriodControllerApi - functional programming interface
  * @export
  */
-export const ContractPeriodControllerApiFp = function(configuration?: Configuration) {
+export const ContractPeriodControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5073,7 +5026,7 @@ export const ContractPeriodControllerApiFp = function(configuration?: Configurat
  * ContractPeriodControllerApi - factory interface
  * @export
  */
-export const ContractPeriodControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractPeriodControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -5184,7 +5137,7 @@ export class ContractPeriodControllerApi extends BaseAPI {
  * ContractReceivablesControllerApi - fetch parameter creator
  * @export
  */
-export const ContractReceivablesControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ContractReceivablesControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5388,7 +5341,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function(config
  * ContractReceivablesControllerApi - functional programming interface
  * @export
  */
-export const ContractReceivablesControllerApiFp = function(configuration?: Configuration) {
+export const ContractReceivablesControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5534,7 +5487,7 @@ export const ContractReceivablesControllerApiFp = function(configuration?: Confi
  * ContractReceivablesControllerApi - factory interface
  * @export
  */
-export const ContractReceivablesControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ContractReceivablesControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -5718,7 +5671,7 @@ export class ContractReceivablesControllerApi extends BaseAPI {
  * CustomerControllerApi - fetch parameter creator
  * @export
  */
-export const CustomerControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const CustomerControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -5922,7 +5875,7 @@ export const CustomerControllerApiFetchParamCreator = function(configuration?: C
  * CustomerControllerApi - functional programming interface
  * @export
  */
-export const CustomerControllerApiFp = function(configuration?: Configuration) {
+export const CustomerControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6056,7 +6009,7 @@ export const CustomerControllerApiFp = function(configuration?: Configuration) {
  * CustomerControllerApi - factory interface
  * @export
  */
-export const CustomerControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const CustomerControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6225,7 +6178,7 @@ export class CustomerControllerApi extends BaseAPI {
  * CustomerFollowControllerApi - fetch parameter creator
  * @export
  */
-export const CustomerFollowControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const CustomerFollowControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6270,7 +6223,7 @@ export const CustomerFollowControllerApiFetchParamCreator = function(configurati
  * CustomerFollowControllerApi - functional programming interface
  * @export
  */
-export const CustomerFollowControllerApiFp = function(configuration?: Configuration) {
+export const CustomerFollowControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6304,7 +6257,7 @@ export const CustomerFollowControllerApiFp = function(configuration?: Configurat
  * CustomerFollowControllerApi - factory interface
  * @export
  */
-export const CustomerFollowControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const CustomerFollowControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6346,7 +6299,7 @@ export class CustomerFollowControllerApi extends BaseAPI {
  * LoginControllerApi - fetch parameter creator
  * @export
  */
-export const LoginControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const LoginControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6433,7 +6386,7 @@ export const LoginControllerApiFetchParamCreator = function(configuration?: Conf
  * LoginControllerApi - functional programming interface
  * @export
  */
-export const LoginControllerApiFp = function(configuration?: Configuration) {
+export const LoginControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6497,7 +6450,7 @@ export const LoginControllerApiFp = function(configuration?: Configuration) {
  * LoginControllerApi - factory interface
  * @export
  */
-export const LoginControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const LoginControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6576,7 +6529,7 @@ export class LoginControllerApi extends BaseAPI {
  * PermissionControllerApi - fetch parameter creator
  * @export
  */
-export const PermissionControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const PermissionControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6631,7 +6584,7 @@ export const PermissionControllerApiFetchParamCreator = function(configuration?:
  * PermissionControllerApi - functional programming interface
  * @export
  */
-export const PermissionControllerApiFp = function(configuration?: Configuration) {
+export const PermissionControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6676,7 +6629,7 @@ export const PermissionControllerApiFp = function(configuration?: Configuration)
  * PermissionControllerApi - factory interface
  * @export
  */
-export const PermissionControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const PermissionControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -6733,7 +6686,7 @@ export class PermissionControllerApi extends BaseAPI {
  * ProjectQuotationControllerApi - fetch parameter creator
  * @export
  */
-export const ProjectQuotationControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const ProjectQuotationControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6865,7 +6818,7 @@ export const ProjectQuotationControllerApiFetchParamCreator = function(configura
  * ProjectQuotationControllerApi - functional programming interface
  * @export
  */
-export const ProjectQuotationControllerApiFp = function(configuration?: Configuration) {
+export const ProjectQuotationControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -6955,7 +6908,7 @@ export const ProjectQuotationControllerApiFp = function(configuration?: Configur
  * ProjectQuotationControllerApi - factory interface
  * @export
  */
-export const ProjectQuotationControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const ProjectQuotationControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7077,7 +7030,7 @@ export class ProjectQuotationControllerApi extends BaseAPI {
  * QuotationCategoryControllerApi - fetch parameter creator
  * @export
  */
-export const QuotationCategoryControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const QuotationCategoryControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7174,7 +7127,7 @@ export const QuotationCategoryControllerApiFetchParamCreator = function(configur
  * QuotationCategoryControllerApi - functional programming interface
  * @export
  */
-export const QuotationCategoryControllerApiFp = function(configuration?: Configuration) {
+export const QuotationCategoryControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7239,7 +7192,7 @@ export const QuotationCategoryControllerApiFp = function(configuration?: Configu
  * QuotationCategoryControllerApi - factory interface
  * @export
  */
-export const QuotationCategoryControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const QuotationCategoryControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7336,7 +7289,7 @@ export class QuotationCategoryControllerApi extends BaseAPI {
  * RoleControllerApi - fetch parameter creator
  * @export
  */
-export const RoleControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const RoleControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7566,7 +7519,7 @@ export const RoleControllerApiFetchParamCreator = function(configuration?: Confi
  * RoleControllerApi - functional programming interface
  * @export
  */
-export const RoleControllerApiFp = function(configuration?: Configuration) {
+export const RoleControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -7645,7 +7598,7 @@ export const RoleControllerApiFp = function(configuration?: Configuration) {
       pageBegin?: number,
       roleName?: string,
       options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetRoleListResp> {
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetRoleInfoResp> {
       const localVarFetchArgs = RoleControllerApiFetchParamCreator(configuration).listRoleInfoUsingGET(
         pageCurrent,
         pageSize,
@@ -7710,7 +7663,7 @@ export const RoleControllerApiFp = function(configuration?: Configuration) {
  * RoleControllerApi - factory interface
  * @export
  */
-export const RoleControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const RoleControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *
@@ -7901,7 +7854,7 @@ export class RoleControllerApi extends BaseAPI {
  * UserControllerApi - fetch parameter creator
  * @export
  */
-export const UserControllerApiFetchParamCreator = function(configuration?: Configuration) {
+export const UserControllerApiFetchParamCreator = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -8166,7 +8119,7 @@ export const UserControllerApiFetchParamCreator = function(configuration?: Confi
  * UserControllerApi - functional programming interface
  * @export
  */
-export const UserControllerApiFp = function(configuration?: Configuration) {
+export const UserControllerApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
@@ -8231,7 +8184,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getUserByUserIdUsingGET(userId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetUserListResp> {
+    getUserByUserIdUsingGET(userId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetUserInfoResp> {
       const localVarFetchArgs = UserControllerApiFetchParamCreator(configuration).getUserByUserIdUsingGET(userId, options);
       return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
         return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
@@ -8267,7 +8220,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
       mobile?: string,
       userName?: string,
       options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetUserListResp> {
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetUserInfoResp> {
       const localVarFetchArgs = UserControllerApiFetchParamCreator(configuration).listUserInfoUsingGET(
         pageCurrent,
         pageSize,
@@ -8334,7 +8287,7 @@ export const UserControllerApiFp = function(configuration?: Configuration) {
  * UserControllerApi - factory interface
  * @export
  */
-export const UserControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+export const UserControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
   return {
     /**
      *

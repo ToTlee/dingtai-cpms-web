@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import VueRouter, { RouterOptions } from 'vue-router'
+import Vue from "vue";
+import VueRouter, { RouterOptions } from "vue-router";
 
-
-import authentication from '../authentication/authentication'
-import routes from './routes'
+import authentication from "../authentication/authentication";
+import routes from "./routes";
 
 Vue.use(VueRouter);
 
@@ -14,17 +13,17 @@ export class AuthVueRouter extends VueRouter {
 
   clearLogin(): void {
     authentication.setAuthorization({
-      name: '',
-      token: ''
+      name: "",
+      token: ""
     });
-    this.push({path:'/login'});
+    this.push({ path: "/login" });
   }
 }
 
 const router = new AuthVueRouter({
-  routes,
+  routes
   // mode:'history'
 });
- authentication.useAuthentication(router);
+authentication.useAuthentication(router);
 
 export default router;

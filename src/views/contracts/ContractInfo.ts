@@ -22,11 +22,11 @@ export interface ContractPeroid {
  */
 export class ContractInfo {
   info?: GetContractResp;
-  peroids?: Array<ContractPeroid>;
+  periods?: Array<ContractPeroid>;
 
   constructor(contract: GetContractResp, periods: Array<ContractPeroid>) {
     this.info = contract;
-    this.peroids = periods;
+    this.periods = periods;
   }
 }
 
@@ -137,5 +137,43 @@ export class ContractCreator {
       newObj.startTime = obj.startTime ?? new Date();
     }
     return newObj;
+  }
+
+  static createEmptyContract(): GetContractResp {
+    return {
+      customerId: undefined,
+      contractMoney: 0,
+      id: undefined,
+      contractName: "",
+      contractNo: "",
+      customerName: "",
+      finishMoney: 0,
+      receiveMoney: 0,
+      signTime: new Date(),
+      unFinishMoney: 0,
+      unReceiveMoney: 0,
+      status: ""
+    };
+  }
+  static copyContract(obj: GetContractResp | undefined): GetContractResp {
+    let newObj = ContractCreator.createEmptyContract();
+    if (obj) {
+      ContractCreator.copyContractToObj(newObj, obj);
+    }
+    return newObj;
+  }
+  static copyContractToObj(to: GetContractResp, from: GetContractResp) {
+    to.customerId = from.customerId;
+    to.contractMoney = from.contractMoney;
+    to.id = from.id;
+    to.contractName = from.contractName;
+    to.contractNo = from.contractNo;
+    to.customerName = from.customerName;
+    to.finishMoney = from.finishMoney;
+    to.receiveMoney = from.receiveMoney;
+    to.signTime = from.signTime;
+    to.unFinishMoney = from.unFinishMoney;
+    to.unReceiveMoney = from.unReceiveMoney;
+    to.status = from.status;
   }
 }

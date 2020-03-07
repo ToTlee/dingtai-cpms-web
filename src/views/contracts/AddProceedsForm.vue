@@ -251,9 +251,6 @@ export default class AddProceedsForm extends ClientDataVue {
   display: inline-flex;
 }
 
-.item-input-form {
-}
-
 .item-input-form .el-form-item {
   margin-bottom: 2px;
 }
