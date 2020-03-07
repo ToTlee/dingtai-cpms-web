@@ -57,7 +57,6 @@ export default class ContractsStaticstic extends ClientDataVue {
       {
         name: "合同情况",
         type: "line",
-        barWidth: "60%",
         data: []
       }
     ]
