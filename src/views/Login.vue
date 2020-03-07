@@ -41,7 +41,7 @@ import {
   LoginReq,
   userApi,
   permissionApi
-} from "../client/data-provider";
+} from "@/client-api";
 import { mapMutations } from "vuex";
 
 export default {

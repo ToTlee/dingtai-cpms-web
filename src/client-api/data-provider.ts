@@ -6,7 +6,7 @@ import {
   LoginControllerApi,
   PermissionControllerApi,
   ContractControllerApi
-} from "./index";
+} from "./classes/index";
 import {
   CustomerControllerApi,
   ProjectQuotationControllerApi,
@@ -14,9 +14,7 @@ import {
   ContractInvoiceControllerApi,
   ContractPeriodControllerApi,
   RoleControllerApi
-} from "./api";
-
-export * from "./api";
+} from "./classes/api";
 
 const SERVER_PATH = "/admin".replace(/\/+$/, "");
 // const SERVER_PATH = "http://129.211.66.41:8080/admin".replace(/\/+$/, "");
@@ -35,5 +33,5 @@ export const customerApi = new CustomerControllerApi(configuraion, SERVER_PATH);
 export const quotationApi = new ProjectQuotationControllerApi(configuraion, SERVER_PATH);
 export const proceedsApi = new ContractReceivablesControllerApi(configuraion, SERVER_PATH);
 export const invoiceApi = new ContractInvoiceControllerApi(configuraion, SERVER_PATH);
-export const roleApi = new RoleControllerApi(configuraion,SERVER_PATH);
+export const roleApi = new RoleControllerApi(configuraion, SERVER_PATH);
 export const periodApi = new ContractPeriodControllerApi(configuraion, SERVER_PATH);

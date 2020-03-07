@@ -7,6 +7,7 @@
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
         <el-button type="primary" size="small" @click="editItem">编辑</el-button>
         <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
+        <el-button type="primary" size="small" @click="exportData">导出</el-button>
         <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </div>
 
@@ -37,8 +38,10 @@
 import Vue from "vue";
 
 import Component from "vue-class-component";
-import { DataListVue } from "../DataListVue";
+import { DataListVue } from "../data-view/DataListVue";
 import { Watch } from "vue-property-decorator";
+import { ExportOptions } from "./ExportOptions";
+
 @Component({
   components: {}
 })
@@ -46,13 +49,6 @@ export default class DataView extends Vue {
   queryString: string | number = "";
   info = { title: "操作面板" };
 
-  beforeRouteUpdate() {
-    console.log("21321re32142");
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
-  }
   async addItem() {
     let dataView: any = this.$refs.dataView;
     if (dataView.onAddItem) {
@@ -84,6 +80,8 @@ export default class DataView extends Vue {
       dataView.onEditItem();
     }
   }
+
+  exportData(options: ExportOptions) {}
 }
 </script>
 

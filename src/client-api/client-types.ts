@@ -1,6 +1,6 @@
 import Vue from "vue";
 import { Message } from "element-ui";
-import { Result, PageInfoGetContractResp } from "./api";
+import { Result, PageInfoGetContractResp } from "./classes/api";
 
 export interface ResResult<T> {
   /**

@@ -19,10 +19,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {
-  quotationApi,
-  GetProjectQuotationListResp
-} from "@/client/data-provider";
+import { quotationApi, GetProjectQuotationListResp } from "@/client-api";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 

@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import { Component, Emit, Prop, PropSync, Watch } from "vue-property-decorator";
 import {
   GetContractReceivablesResp,
@@ -90,7 +90,7 @@ import {
   periodApi,
   GetContractInvoiceResp,
   invoiceApi
-} from "@/client/data-provider";
+} from "@/client-api";
 import { ContractPeroid, ContractCreator, ContractInfo } from "./ContractInfo";
 
 @Component

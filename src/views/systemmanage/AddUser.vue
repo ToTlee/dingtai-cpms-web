@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import {
   userApi,
   AddUserReq,
@@ -63,7 +63,7 @@ import {
   roleApi,
   GetRoleInfoResp,
   PageInfoGetRoleInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";

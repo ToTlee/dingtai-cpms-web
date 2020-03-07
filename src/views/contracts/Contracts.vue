@@ -81,15 +81,15 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client/client-types";
-import { DataListVue } from "../DataListVue";
+import { ClientDataVue, PageInfo } from "@/client-api";
+import { DataListVue } from "../data-view/DataListVue";
 import {
   contractApi,
   GetContractResp,
   PageInfoGetContractResp,
   GetCustomerFollowResp,
   GetContractPeriodResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
@@ -97,6 +97,7 @@ import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
+import { ExportOptions } from "../data-view/ExportOptions";
 
 @Component({
   components: {
@@ -224,6 +225,8 @@ export default class Contracts extends DataListVue {
     } else if (command == "customer-info") {
     }
   }
+
+  onExport(options: ExportOptions) {}
 
   async onSearch(query: string): Promise<boolean> {
     if (!query || query == "") {

@@ -141,9 +141,9 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
 import { Component, Prop, Watch, PropSync } from "vue-property-decorator";
 import {
+  ClientDataVue,
   contractApi,
   proceedsApi,
   invoiceApi,
@@ -151,7 +151,7 @@ import {
   GetContractResp,
   GetContractPeriodResp,
   periodApi
-} from "../../client/data-provider";
+} from "@/client-api";
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 
 import AddProceedsForm from "./AddProceedsForm.vue";

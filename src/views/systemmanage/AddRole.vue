@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import {
   roleApi,
   AddRoleReq,
@@ -49,7 +49,7 @@ import {
   permissionApi,
   ZtreeResp,
   GetRoleInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { RoleCreator, RoleInfo } from "./RoleInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
