@@ -117,10 +117,11 @@ export default class Contracts extends DataListVue {
   addContractVisible: boolean = false;
   selectedItems: Array<GetContractResp> = [];
   currentContractInfo?: ContractInfo = {};
-  @Prop()
-  tagInfo?: any;
+  options: any = {
+    title: "合同管理",
+    showTools: true
+  };
   async mounted() {
-    this.tagInfo.title = "合同管理";
     await this.refreshData();
   }
 

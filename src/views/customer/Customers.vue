@@ -26,13 +26,13 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Customers extends ClientDataVue {
-  @Prop()
-  tagInfo?: any;
+  options: any = {
+    title: "客户管理"
+  };
 
   data?: GetCustomerResp[] = [];
   isLoading: boolean = false;
   async mounted() {
-    this.tagInfo.title = "客户管理";
     this.isLoading = true;
     let result = await customerApi.listCustomerUsingGET();
     let resultData = this.getClientData(result);

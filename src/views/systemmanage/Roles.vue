@@ -80,11 +80,10 @@ export default class Roles extends DataListVue {
   addRoleVisible: boolean = false;
   selectedItems: Array<GetRoleInfoResp> = [];
   currentRoleInfo?: RoleInfo = {};
-
-  @Prop()
-  tagInfo?: any;
+  options = {
+    title: "角色管理"
+  };
   async mounted() {
-    this.tagInfo.title = "角色管理";
     await this.refreshData();
   }
 

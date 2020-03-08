@@ -30,7 +30,7 @@
               <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">收款记录</el-dropdown-item>
               <el-dropdown-item icon="el-icon-s-order" command="invoice">发票记录</el-dropdown-item>
               <el-dropdown-item icon="el-icon-s-order" command="customer-info">客户资料</el-dropdown-item>
-            </el-dropdown-menu> -->
+            </el-dropdown-menu>-->
           </el-dropdown>
         </template>
       </el-table-column>
@@ -65,7 +65,7 @@ import { DataListVue } from "../data-view/DataListVue";
 import {
   quotationApi,
   GetQuotationInfoResp,
-  PageInfoGetQuotationInfoResp,
+  PageInfoGetQuotationInfoResp
 } from "@/client-api";
 import Component from "vue-class-component";
 
@@ -74,8 +74,7 @@ import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 
 @Component({
-  components: {
-  }
+  components: {}
 })
 export default class Quotations extends DataListVue {
   data: Array<GetQuotationInfoResp> = [];
@@ -87,10 +86,10 @@ export default class Quotations extends DataListVue {
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
-  @Prop()
-  tagInfo?: any;
+  options: any = {
+    title: "项目报价"
+  };
   async mounted() {
-    this.tagInfo.title = "项目报价";
     await this.refreshData();
   }
 
@@ -98,10 +97,11 @@ export default class Quotations extends DataListVue {
     this.isLoading = true;
     let vm = this;
 
-        let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-        quotationApi.listAllQuotationInfoUsingGET( 
-          vm.pageInfo.pageNum,
-          vm.pageInfo.pageSize)
+    let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
+      quotationApi.listAllQuotationInfoUsingGET(
+        vm.pageInfo.pageNum,
+        vm.pageInfo.pageSize
+      )
     );
     if (result) {
       this.pageInfo = result;
@@ -118,7 +118,7 @@ export default class Quotations extends DataListVue {
     this.isLoading = false;
   }
 
-    handleSelectionChange(selection: Array<GetQuotationInfoResp>) {
+  handleSelectionChange(selection: Array<GetQuotationInfoResp>) {
     this.selectedItems = selection;
   }
 

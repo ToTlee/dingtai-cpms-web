@@ -83,17 +83,15 @@ export default class Users extends DataListVue {
   addUserVisible: boolean = false;
   selectedItems: Array<GetUserInfoResp> = [];
   currentUserInfo?: UserInfo = {};
-
-  @Prop()
-  tagInfo?: any;
+  opotions = {
+    title: "用户管理"
+  };
   async mounted() {
-    this.tagInfo.title = "用户管理";
     await this.refreshData();
   }
   async refreshData() {
     this.isLoading = true;
     let vm = this;
-    debugger;
     let result = await this.getData<PageInfoGetUserInfoResp>(() =>
       userApi.listUserInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );

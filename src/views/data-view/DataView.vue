@@ -7,8 +7,13 @@
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
         <el-button type="primary" size="small" @click="editItem">编辑</el-button>
         <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
-        <el-button type="primary" size="small" @click="staticstic">统计</el-button>
-        <el-dropdown style="margin-left:10px;margin-right:10px" @command="exportData">
+        <el-button type="primary" size="small" @click="refresh">刷新</el-button>
+        <div style="margin-left:10px;margin-right:10px" v-if="showTools">
+          <el-button type="primary" size="small" @click="staticstic">统计</el-button>
+          <el-button type="primary" size="small" @click="exportData">导出</el-button>
+        </div>
+
+        <!-- <el-dropdown style="margin-left:10px;margin-right:10px" @command="exportData">
           <el-button type="primary" size="small">
             导出
             <i class="el-icon-arrow-down el-icon--right"></i>
@@ -16,10 +21,9 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="all">全部</el-dropdown-item>
             <el-dropdown-item command="currentPage">当前页</el-dropdown-item>
-            <!-- <el-dropdown-item command="selected">所选</el-dropdown-item> -->
+            <el-dropdown-item command="selected">所选</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
-        <el-button type="primary" size="small" @click="refresh">刷新</el-button>
+        </el-dropdown>-->
       </div>
 
       <div class="search-panel">
@@ -40,7 +44,7 @@
       </div>
     </div>
     <div class="contracts-content">
-      <router-view ref="dataView" :tagInfo="info"></router-view>
+      <router-view ref="dataView"></router-view>
     </div>
   </div>
 </template>
@@ -52,13 +56,15 @@ import Component from "vue-class-component";
 import { DataListVue } from "../data-view/DataListVue";
 import { Watch } from "vue-property-decorator";
 import { ExportOptions, ExportType } from "./ExportOptions";
+import VueRouter, { Route } from "vue-router";
 
 @Component({
   components: {}
 })
 export default class DataView extends Vue {
   queryString: string | number = "";
-  info = { title: "操作面板" };
+  info = { title: "操作面板", extraTools: false };
+  showTools: boolean = false;
 
   async addItem() {
     let dataView: any = this.$refs.dataView;
@@ -118,6 +124,14 @@ export default class DataView extends Vue {
       }
       dataView.onExport(options);
     }
+  }
+
+  @Watch("$route")
+  onRoute(newVal: Route) {
+    console.log(newVal);
+    this.$route;
+    this.showTools = newVal.meta.showTools;
+    this.info.title = newVal.name!;
   }
 }
 </script>
