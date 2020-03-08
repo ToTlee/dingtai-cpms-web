@@ -72,9 +72,10 @@ export class BaseAPI {
  * @extends {Error}
  */
 export class RequiredError extends Error {
+
     constructor(public field: string, msg?: string) {
         super(msg);
-        this.name = "RequiredError";
+        this.name = "RequiredError"
     }
 }
 
@@ -290,6 +291,110 @@ export interface AddCustomerFollowReq {
      * @memberof AddCustomerFollowReq
      */
     remark?: string;
+}
+
+/**
+ * 
+ * @export
+ * @interface AddCustomerReq
+ */
+export interface AddCustomerReq {
+    /**
+     * 账户
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    account?: string;
+    /**
+     * 地址
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    address?: string;
+    /**
+     * 开户行
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    bank?: string;
+    /**
+     * 开户名
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    bankName?: string;
+    /**
+     * 对接人
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    connector?: string;
+    /**
+     * 联系人
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    contacts?: string;
+    /**
+     * 统一社会信用码
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    creditCode?: string;
+    /**
+     * 客户名称
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    customerName?: string;
+    /**
+     * 发票内容
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    invoiceContent?: string;
+    /**
+     * 发票类型
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    invoiceType?: string;
+    /**
+     * 邮箱
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    mail?: string;
+    /**
+     * 手机号码
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    phone?: string;
+    /**
+     * 项目代号
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    projectTarget?: string;
+    /**
+     * 注册地址
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    registerAddress?: string;
+    /**
+     * 备注
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    remark?: string;
+    /**
+     * 联系电话
+     * @type {string}
+     * @memberof AddCustomerReq
+     */
+    tel?: string;
 }
 
 /**
@@ -1057,6 +1162,30 @@ export interface GetCustomerFollowResp {
  */
 export interface GetCustomerResp {
     /**
+     * 账户
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    account?: string;
+    /**
+     * 地址
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    address?: string;
+    /**
+     * 开户行
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    bank?: string;
+    /**
+     * 开户名
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    bankName?: string;
+    /**
      * 对接人
      * @type {string}
      * @memberof GetCustomerResp
@@ -1068,6 +1197,12 @@ export interface GetCustomerResp {
      * @memberof GetCustomerResp
      */
     contacts?: string;
+    /**
+     * 统一社会信用码
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    creditCode?: string;
     /**
      * 客户名称
      * @type {string}
@@ -1081,17 +1216,41 @@ export interface GetCustomerResp {
      */
     id?: number;
     /**
+     * 发票内容
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    invoiceContent?: string;
+    /**
+     * 发票类型
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    invoiceType?: string;
+    /**
      * 邮箱
      * @type {string}
      * @memberof GetCustomerResp
      */
     mail?: string;
     /**
+     * 手机号码
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    phone?: string;
+    /**
      * 项目代号
      * @type {string}
      * @memberof GetCustomerResp
      */
     projectTarget?: string;
+    /**
+     * 注册地址
+     * @type {string}
+     * @memberof GetCustomerResp
+     */
+    registerAddress?: string;
     /**
      * 备注
      * @type {string}
@@ -3815,6 +3974,116 @@ export interface UpdateContractReq {
 /**
  * 
  * @export
+ * @interface UpdateCustomerReq
+ */
+export interface UpdateCustomerReq {
+    /**
+     * 账户
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    account?: string;
+    /**
+     * 地址
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    address?: string;
+    /**
+     * 开户行
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    bank?: string;
+    /**
+     * 开户名
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    bankName?: string;
+    /**
+     * 对接人
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    connector?: string;
+    /**
+     * 联系人
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    contacts?: string;
+    /**
+     * 统一社会信用码
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    creditCode?: string;
+    /**
+     * 客户名称
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    customerName?: string;
+    /**
+     * 主键id
+     * @type {number}
+     * @memberof UpdateCustomerReq
+     */
+    id?: number;
+    /**
+     * 发票内容
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    invoiceContent?: string;
+    /**
+     * 发票类型
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    invoiceType?: string;
+    /**
+     * 邮箱
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    mail?: string;
+    /**
+     * 手机号码
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    phone?: string;
+    /**
+     * 项目代号
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    projectTarget?: string;
+    /**
+     * 注册地址
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    registerAddress?: string;
+    /**
+     * 备注
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    remark?: string;
+    /**
+     * 联系电话
+     * @type {string}
+     * @memberof UpdateCustomerReq
+     */
+    tel?: string;
+}
+
+/**
+ * 
+ * @export
  * @interface UpdatePwdReq
  */
 export interface UpdatePwdReq {
@@ -3963,7 +4232,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         addContractUsingPOST(addContractReq: AddContractReq, options: any = {}): FetchArgs {
             // verify required parameter 'addContractReq' is not null or undefined
             if (addContractReq === null || addContractReq === undefined) {
-                throw new RequiredError('addContractReq','Required parameter addContractReq was null or undefined when calling addContractUsingPOST.');
+                throw new RequiredError('addContractReq', 'Required parameter addContractReq was null or undefined when calling addContractUsingPOST.');
             }
             const localVarPath = `/contract/addContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -3978,7 +4247,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddContractReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(addContractReq || {}) : (addContractReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(addContractReq || {}) : (addContractReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -3995,7 +4264,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         deleteUserUsingPOST(contractId: number, options: any = {}): FetchArgs {
             // verify required parameter 'contractId' is not null or undefined
             if (contractId === null || contractId === undefined) {
-                throw new RequiredError('contractId','Required parameter contractId was null or undefined when calling deleteUserUsingPOST.');
+                throw new RequiredError('contractId', 'Required parameter contractId was null or undefined when calling deleteUserUsingPOST.');
             }
             const localVarPath = `/contract/deleteContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4085,7 +4354,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         getContractInvoiceUsingGET(contractId: number, options: any = {}): FetchArgs {
             // verify required parameter 'contractId' is not null or undefined
             if (contractId === null || contractId === undefined) {
-                throw new RequiredError('contractId','Required parameter contractId was null or undefined when calling getContractInvoiceUsingGET.');
+                throw new RequiredError('contractId', 'Required parameter contractId was null or undefined when calling getContractInvoiceUsingGET.');
             }
             const localVarPath = `/contract/getContractInvoice`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4117,7 +4386,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         getContractPeriodUsingGET(contractId: number, options: any = {}): FetchArgs {
             // verify required parameter 'contractId' is not null or undefined
             if (contractId === null || contractId === undefined) {
-                throw new RequiredError('contractId','Required parameter contractId was null or undefined when calling getContractPeriodUsingGET.');
+                throw new RequiredError('contractId', 'Required parameter contractId was null or undefined when calling getContractPeriodUsingGET.');
             }
             const localVarPath = `/contract/getContractPeriod`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4149,7 +4418,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         getContractReceivablesUsingGET(contractId: number, options: any = {}): FetchArgs {
             // verify required parameter 'contractId' is not null or undefined
             if (contractId === null || contractId === undefined) {
-                throw new RequiredError('contractId','Required parameter contractId was null or undefined when calling getContractReceivablesUsingGET.');
+                throw new RequiredError('contractId', 'Required parameter contractId was null or undefined when calling getContractReceivablesUsingGET.');
             }
             const localVarPath = `/contract/getContractReceivables`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4214,7 +4483,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         getContractUsingGET(id: number, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getContractUsingGET.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling getContractUsingGET.');
             }
             const localVarPath = `/contract/getContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4304,7 +4573,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
         updateContractUsingPOST(updateContractReq: UpdateContractReq, options: any = {}): FetchArgs {
             // verify required parameter 'updateContractReq' is not null or undefined
             if (updateContractReq === null || updateContractReq === undefined) {
-                throw new RequiredError('updateContractReq','Required parameter updateContractReq was null or undefined when calling updateContractUsingPOST.');
+                throw new RequiredError('updateContractReq', 'Required parameter updateContractReq was null or undefined when calling updateContractUsingPOST.');
             }
             const localVarPath = `/contract/updateContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4319,7 +4588,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateContractReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(updateContractReq || {}) : (updateContractReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(updateContractReq || {}) : (updateContractReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -4333,7 +4602,7 @@ export const ContractControllerApiFetchParamCreator = function (configuration?: 
  * ContractControllerApi - functional programming interface
  * @export
  */
-export const ContractControllerApiFp = function(configuration?: Configuration) {
+export const ContractControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -4821,7 +5090,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
         addContractInvoiceUsingPOST(addContractInvoiceReq: AddContractInvoiceReq, options: any = {}): FetchArgs {
             // verify required parameter 'addContractInvoiceReq' is not null or undefined
             if (addContractInvoiceReq === null || addContractInvoiceReq === undefined) {
-                throw new RequiredError('addContractInvoiceReq','Required parameter addContractInvoiceReq was null or undefined when calling addContractInvoiceUsingPOST.');
+                throw new RequiredError('addContractInvoiceReq', 'Required parameter addContractInvoiceReq was null or undefined when calling addContractInvoiceUsingPOST.');
             }
             const localVarPath = `/contractInvoice/addContractInvoice`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4836,7 +5105,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddContractInvoiceReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(addContractInvoiceReq || {}) : (addContractInvoiceReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(addContractInvoiceReq || {}) : (addContractInvoiceReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -4853,7 +5122,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
         deleteContractInvoiceUsingPOST(id: number, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling deleteContractInvoiceUsingPOST.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling deleteContractInvoiceUsingPOST.');
             }
             const localVarPath = `/contractInvoice/deleteContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4971,7 +5240,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
         updateContractInvoiceUsingPOST(updateContractInvoiceReq: UpdateContractInvoiceReq, options: any = {}): FetchArgs {
             // verify required parameter 'updateContractInvoiceReq' is not null or undefined
             if (updateContractInvoiceReq === null || updateContractInvoiceReq === undefined) {
-                throw new RequiredError('updateContractInvoiceReq','Required parameter updateContractInvoiceReq was null or undefined when calling updateContractInvoiceUsingPOST.');
+                throw new RequiredError('updateContractInvoiceReq', 'Required parameter updateContractInvoiceReq was null or undefined when calling updateContractInvoiceUsingPOST.');
             }
             const localVarPath = `/contractInvoice/updateContractInvoice`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -4986,7 +5255,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateContractInvoiceReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(updateContractInvoiceReq || {}) : (updateContractInvoiceReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(updateContractInvoiceReq || {}) : (updateContractInvoiceReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5000,7 +5269,7 @@ export const ContractInvoiceControllerApiFetchParamCreator = function (configura
  * ContractInvoiceControllerApi - functional programming interface
  * @export
  */
-export const ContractInvoiceControllerApiFp = function(configuration?: Configuration) {
+export const ContractInvoiceControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -5262,7 +5531,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
         addContractPeriodUsingPOST(addContractPeriodReq: AddContractPeriodReq, options: any = {}): FetchArgs {
             // verify required parameter 'addContractPeriodReq' is not null or undefined
             if (addContractPeriodReq === null || addContractPeriodReq === undefined) {
-                throw new RequiredError('addContractPeriodReq','Required parameter addContractPeriodReq was null or undefined when calling addContractPeriodUsingPOST.');
+                throw new RequiredError('addContractPeriodReq', 'Required parameter addContractPeriodReq was null or undefined when calling addContractPeriodUsingPOST.');
             }
             const localVarPath = `/contractPeriod/addContractPeriod`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5277,7 +5546,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddContractPeriodReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(addContractPeriodReq || {}) : (addContractPeriodReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(addContractPeriodReq || {}) : (addContractPeriodReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5294,7 +5563,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
         deleteContractPeriodUsingPOST(id: number, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling deleteContractPeriodUsingPOST.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling deleteContractPeriodUsingPOST.');
             }
             const localVarPath = `/contractPeriod/deleteContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5354,7 +5623,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
         updateContractPeriodUsingPOST(updateContractPeriodReq: UpdateContractPeriodReq, options: any = {}): FetchArgs {
             // verify required parameter 'updateContractPeriodReq' is not null or undefined
             if (updateContractPeriodReq === null || updateContractPeriodReq === undefined) {
-                throw new RequiredError('updateContractPeriodReq','Required parameter updateContractPeriodReq was null or undefined when calling updateContractPeriodUsingPOST.');
+                throw new RequiredError('updateContractPeriodReq', 'Required parameter updateContractPeriodReq was null or undefined when calling updateContractPeriodUsingPOST.');
             }
             const localVarPath = `/contractPeriod/updateContractPeriod`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5369,7 +5638,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateContractPeriodReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(updateContractPeriodReq || {}) : (updateContractPeriodReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(updateContractPeriodReq || {}) : (updateContractPeriodReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5383,7 +5652,7 @@ export const ContractPeriodControllerApiFetchParamCreator = function (configurat
  * ContractPeriodControllerApi - functional programming interface
  * @export
  */
-export const ContractPeriodControllerApiFp = function(configuration?: Configuration) {
+export const ContractPeriodControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -5586,7 +5855,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
         addContractReceivablesUsingPOST(addContractReceivablesReq: AddContractReceivablesReq, options: any = {}): FetchArgs {
             // verify required parameter 'addContractReceivablesReq' is not null or undefined
             if (addContractReceivablesReq === null || addContractReceivablesReq === undefined) {
-                throw new RequiredError('addContractReceivablesReq','Required parameter addContractReceivablesReq was null or undefined when calling addContractReceivablesUsingPOST.');
+                throw new RequiredError('addContractReceivablesReq', 'Required parameter addContractReceivablesReq was null or undefined when calling addContractReceivablesUsingPOST.');
             }
             const localVarPath = `/contractReceivables/addContractReceivables`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5601,7 +5870,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddContractReceivablesReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(addContractReceivablesReq || {}) : (addContractReceivablesReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(addContractReceivablesReq || {}) : (addContractReceivablesReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5618,7 +5887,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
         deleteContractReceivablesUsingPOST(id: number, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling deleteContractReceivablesUsingPOST.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling deleteContractReceivablesUsingPOST.');
             }
             const localVarPath = `/contractReceivables/deleteContract`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5731,7 +6000,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
         updateContractReceivablesUsingPOST(updateContractReceivablesReq: UpdateContractReceivablesReq, options: any = {}): FetchArgs {
             // verify required parameter 'updateContractReceivablesReq' is not null or undefined
             if (updateContractReceivablesReq === null || updateContractReceivablesReq === undefined) {
-                throw new RequiredError('updateContractReceivablesReq','Required parameter updateContractReceivablesReq was null or undefined when calling updateContractReceivablesUsingPOST.');
+                throw new RequiredError('updateContractReceivablesReq', 'Required parameter updateContractReceivablesReq was null or undefined when calling updateContractReceivablesUsingPOST.');
             }
             const localVarPath = `/contractReceivables/updateContractReceivables`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -5746,7 +6015,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateContractReceivablesReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(updateContractReceivablesReq || {}) : (updateContractReceivablesReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(updateContractReceivablesReq || {}) : (updateContractReceivablesReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -5760,7 +6029,7 @@ export const ContractReceivablesControllerApiFetchParamCreator = function (confi
  * ContractReceivablesControllerApi - functional programming interface
  * @export
  */
-export const ContractReceivablesControllerApiFp = function(configuration?: Configuration) {
+export const ContractReceivablesControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -6011,6 +6280,38 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
     return {
         /**
          * 
+         * @summary 新增客户
+         * @param {AddCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addCustomerUsingPOST(req: AddCustomerReq, options: any = {}): FetchArgs {
+            // verify required parameter 'req' is not null or undefined
+            if (req === null || req === undefined) {
+                throw new RequiredError('req', 'Required parameter req was null or undefined when calling addCustomerUsingPOST.');
+            }
+            const localVarPath = `/customer/addCustomer`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"AddCustomerReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(req || {}) : (req || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 删除客户
          * @param {number} customerId 客户id
          * @param {*} [options] Override http request option.
@@ -6019,7 +6320,7 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
         deleteCustomerUsingPOST(customerId: number, options: any = {}): FetchArgs {
             // verify required parameter 'customerId' is not null or undefined
             if (customerId === null || customerId === undefined) {
-                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling deleteCustomerUsingPOST.');
+                throw new RequiredError('customerId', 'Required parameter customerId was null or undefined when calling deleteCustomerUsingPOST.');
             }
             const localVarPath = `/customer/deleteCustomer`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6051,7 +6352,7 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
         getCustomerByContractNoUsingGET(contractNo: string, options: any = {}): FetchArgs {
             // verify required parameter 'contractNo' is not null or undefined
             if (contractNo === null || contractNo === undefined) {
-                throw new RequiredError('contractNo','Required parameter contractNo was null or undefined when calling getCustomerByContractNoUsingGET.');
+                throw new RequiredError('contractNo', 'Required parameter contractNo was null or undefined when calling getCustomerByContractNoUsingGET.');
             }
             const localVarPath = `/customer/getCustomerByContractNo`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6083,7 +6384,7 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
         getCustomerFollowUsingGET(customerId: number, options: any = {}): FetchArgs {
             // verify required parameter 'customerId' is not null or undefined
             if (customerId === null || customerId === undefined) {
-                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling getCustomerFollowUsingGET.');
+                throw new RequiredError('customerId', 'Required parameter customerId was null or undefined when calling getCustomerFollowUsingGET.');
             }
             const localVarPath = `/customer/getCustomerFollow`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6115,7 +6416,7 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
         getCustomerUsingGET(id: number, options: any = {}): FetchArgs {
             // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','Required parameter id was null or undefined when calling getCustomerUsingGET.');
+                throw new RequiredError('id', 'Required parameter id was null or undefined when calling getCustomerUsingGET.');
             }
             const localVarPath = `/customer/getCustomer`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6190,6 +6491,38 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 更新客户
+         * @param {UpdateCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCustomerUsingPOST(req: UpdateCustomerReq, options: any = {}): FetchArgs {
+            // verify required parameter 'req' is not null or undefined
+            if (req === null || req === undefined) {
+                throw new RequiredError('req', 'Required parameter req was null or undefined when calling updateCustomerUsingPOST.');
+            }
+            const localVarPath = `/customer/updateCustomer`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"UpdateCustomerReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(req || {}) : (req || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -6197,8 +6530,27 @@ export const CustomerControllerApiFetchParamCreator = function (configuration?: 
  * CustomerControllerApi - functional programming interface
  * @export
  */
-export const CustomerControllerApiFp = function(configuration?: Configuration) {
+export const CustomerControllerApiFp = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary 新增客户
+         * @param {AddCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addCustomerUsingPOST(req: AddCustomerReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+            const localVarFetchArgs = CustomerControllerApiFetchParamCreator(configuration).addCustomerUsingPOST(req, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
         /**
          * 
          * @summary 删除客户
@@ -6299,6 +6651,25 @@ export const CustomerControllerApiFp = function(configuration?: Configuration) {
                 });
             };
         },
+        /**
+         * 
+         * @summary 更新客户
+         * @param {UpdateCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCustomerUsingPOST(req: UpdateCustomerReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+            const localVarFetchArgs = CustomerControllerApiFetchParamCreator(configuration).updateCustomerUsingPOST(req, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
     }
 };
 
@@ -6308,6 +6679,16 @@ export const CustomerControllerApiFp = function(configuration?: Configuration) {
  */
 export const CustomerControllerApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
     return {
+        /**
+         * 
+         * @summary 新增客户
+         * @param {AddCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addCustomerUsingPOST(req: AddCustomerReq, options?: any) {
+            return CustomerControllerApiFp(configuration).addCustomerUsingPOST(req, options)(fetch, basePath);
+        },
         /**
          * 
          * @summary 删除客户
@@ -6363,6 +6744,16 @@ export const CustomerControllerApiFactory = function (configuration?: Configurat
         listCustomerUsingGET(pageCurrent?: number, pageSize?: number, orderBy?: string, descOrAsc?: string, pageBegin?: number, customerName?: string, options?: any) {
             return CustomerControllerApiFp(configuration).listCustomerUsingGET(pageCurrent, pageSize, orderBy, descOrAsc, pageBegin, customerName, options)(fetch, basePath);
         },
+        /**
+         * 
+         * @summary 更新客户
+         * @param {UpdateCustomerReq} req req
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCustomerUsingPOST(req: UpdateCustomerReq, options?: any) {
+            return CustomerControllerApiFp(configuration).updateCustomerUsingPOST(req, options)(fetch, basePath);
+        },
     };
 };
 
@@ -6373,6 +6764,18 @@ export const CustomerControllerApiFactory = function (configuration?: Configurat
  * @extends {BaseAPI}
  */
 export class CustomerControllerApi extends BaseAPI {
+    /**
+     * 
+     * @summary 新增客户
+     * @param {AddCustomerReq} req req
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerControllerApi
+     */
+    public addCustomerUsingPOST(req: AddCustomerReq, options?: any) {
+        return CustomerControllerApiFp(this.configuration).addCustomerUsingPOST(req, options)(this.fetch, this.basePath);
+    }
+
     /**
      * 
      * @summary 删除客户
@@ -6438,6 +6841,18 @@ export class CustomerControllerApi extends BaseAPI {
         return CustomerControllerApiFp(this.configuration).listCustomerUsingGET(pageCurrent, pageSize, orderBy, descOrAsc, pageBegin, customerName, options)(this.fetch, this.basePath);
     }
 
+    /**
+     * 
+     * @summary 更新客户
+     * @param {UpdateCustomerReq} req req
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerControllerApi
+     */
+    public updateCustomerUsingPOST(req: UpdateCustomerReq, options?: any) {
+        return CustomerControllerApiFp(this.configuration).updateCustomerUsingPOST(req, options)(this.fetch, this.basePath);
+    }
+
 }
 
 /**
@@ -6456,7 +6871,7 @@ export const CustomerFollowControllerApiFetchParamCreator = function (configurat
         addCustomerFollowUsingPOST(addCustomerFollowReq: AddCustomerFollowReq, options: any = {}): FetchArgs {
             // verify required parameter 'addCustomerFollowReq' is not null or undefined
             if (addCustomerFollowReq === null || addCustomerFollowReq === undefined) {
-                throw new RequiredError('addCustomerFollowReq','Required parameter addCustomerFollowReq was null or undefined when calling addCustomerFollowUsingPOST.');
+                throw new RequiredError('addCustomerFollowReq', 'Required parameter addCustomerFollowReq was null or undefined when calling addCustomerFollowUsingPOST.');
             }
             const localVarPath = `/customerfollow/addCustomerFollow`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6471,7 +6886,7 @@ export const CustomerFollowControllerApiFetchParamCreator = function (configurat
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddCustomerFollowReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(addCustomerFollowReq || {}) : (addCustomerFollowReq || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(addCustomerFollowReq || {}) : (addCustomerFollowReq || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -6485,7 +6900,7 @@ export const CustomerFollowControllerApiFetchParamCreator = function (configurat
  * CustomerFollowControllerApi - functional programming interface
  * @export
  */
-export const CustomerFollowControllerApiFp = function(configuration?: Configuration) {
+export const CustomerFollowControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -6588,7 +7003,7 @@ export const LoginControllerApiFetchParamCreator = function (configuration?: Con
         loginUsingPOST(request: LoginReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling loginUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling loginUsingPOST.');
             }
             const localVarPath = `/login/login`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6603,7 +7018,7 @@ export const LoginControllerApiFetchParamCreator = function (configuration?: Con
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"LoginReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -6640,7 +7055,7 @@ export const LoginControllerApiFetchParamCreator = function (configuration?: Con
  * LoginControllerApi - functional programming interface
  * @export
  */
-export const LoginControllerApiFp = function(configuration?: Configuration) {
+export const LoginControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -6839,7 +7254,7 @@ export const PermissionControllerApiFetchParamCreator = function (configuration?
  * PermissionControllerApi - functional programming interface
  * @export
  */
-export const PermissionControllerApiFp = function(configuration?: Configuration) {
+export const PermissionControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -6954,7 +7369,7 @@ export const QuotationCategoryControllerApiFetchParamCreator = function (configu
         addCategoryUsingPOST(request: AddProjectCategoryReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addCategoryUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addCategoryUsingPOST.');
             }
             const localVarPath = `/quotation/addCategory`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -6969,7 +7384,7 @@ export const QuotationCategoryControllerApiFetchParamCreator = function (configu
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddProjectCategoryReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7031,7 +7446,7 @@ export const QuotationCategoryControllerApiFetchParamCreator = function (configu
  * QuotationCategoryControllerApi - functional programming interface
  * @export
  */
-export const QuotationCategoryControllerApiFp = function(configuration?: Configuration) {
+export const QuotationCategoryControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -7164,7 +7579,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
         addDetailQuotationUsingPOST(request: AddDetailQuotationReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addDetailQuotationUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addDetailQuotationUsingPOST.');
             }
             const localVarPath = `/quotation/addDetailQuotation`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7179,7 +7594,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddDetailQuotationReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7196,7 +7611,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
         addQuotationUsingPOST(request: AddQuotationReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addQuotationUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addQuotationUsingPOST.');
             }
             const localVarPath = `/quotation/addQuotation`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7211,7 +7626,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddQuotationReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7228,7 +7643,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
         deleteQuotationUsingPOST(quotationId: number, options: any = {}): FetchArgs {
             // verify required parameter 'quotationId' is not null or undefined
             if (quotationId === null || quotationId === undefined) {
-                throw new RequiredError('quotationId','Required parameter quotationId was null or undefined when calling deleteQuotationUsingPOST.');
+                throw new RequiredError('quotationId', 'Required parameter quotationId was null or undefined when calling deleteQuotationUsingPOST.');
             }
             const localVarPath = `/quotation/deleteQuotation`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7250,6 +7665,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
                 options: localVarRequestOptions,
             };
         },
+
         /**
          * 
          * @summary 根据名称搜索项目报价
@@ -7358,7 +7774,7 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
  * QuotationControllerApi - functional programming interface
  * @export
  */
-export const QuotationControllerApiFp = function(configuration?: Configuration) {
+export const QuotationControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -7629,7 +8045,7 @@ export const QuotationExperimentControllerApiFetchParamCreator = function (confi
         addExperimentUsingPOST(request: AddQuotationExperimentReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addExperimentUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addExperimentUsingPOST.');
             }
             const localVarPath = `/quotation/addExperiment`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7644,7 +8060,7 @@ export const QuotationExperimentControllerApiFetchParamCreator = function (confi
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddQuotationExperimentReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7661,7 +8077,7 @@ export const QuotationExperimentControllerApiFetchParamCreator = function (confi
         queryExperimentByConditionUsingPOST(request: GetQuotationExperimentByConditonReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling queryExperimentByConditionUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling queryExperimentByConditionUsingPOST.');
             }
             const localVarPath = `/quotation/queryExperimentByCondition`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7676,7 +8092,7 @@ export const QuotationExperimentControllerApiFetchParamCreator = function (confi
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"GetQuotationExperimentByConditonReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7690,7 +8106,7 @@ export const QuotationExperimentControllerApiFetchParamCreator = function (confi
  * QuotationExperimentControllerApi - functional programming interface
  * @export
  */
-export const QuotationExperimentControllerApiFp = function(configuration?: Configuration) {
+export const QuotationExperimentControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -7811,7 +8227,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function (config
         addInventoryUsingPOST(request: AddQuotationInventoryReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addInventoryUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addInventoryUsingPOST.');
             }
             const localVarPath = `/quotation/addInventory`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7826,7 +8242,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function (config
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddQuotationInventoryReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7843,7 +8259,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function (config
         queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling queryInventoryByConditionUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling queryInventoryByConditionUsingPOST.');
             }
             const localVarPath = `/quotation/queryInventoryByCondition`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -7858,7 +8274,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function (config
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"GetQuotationInventoryByConditonReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -7872,7 +8288,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function (config
  * QuotationInventoryControllerApi - functional programming interface
  * @export
  */
-export const QuotationInventoryControllerApiFp = function(configuration?: Configuration) {
+export const QuotationInventoryControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -7993,7 +8409,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
         addUserUsingPOST(request: AddRoleReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addUserUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addUserUsingPOST.');
             }
             const localVarPath = `/role/addRole`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8008,7 +8424,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddRoleReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8025,7 +8441,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
         deleteRoleUsingPOST(roleId: number, options: any = {}): FetchArgs {
             // verify required parameter 'roleId' is not null or undefined
             if (roleId === null || roleId === undefined) {
-                throw new RequiredError('roleId','Required parameter roleId was null or undefined when calling deleteRoleUsingPOST.');
+                throw new RequiredError('roleId', 'Required parameter roleId was null or undefined when calling deleteRoleUsingPOST.');
             }
             const localVarPath = `/role/deleteRole`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8057,7 +8473,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
         getRoleInfoByRoleIdUsingGET(roleId: number, options: any = {}): FetchArgs {
             // verify required parameter 'roleId' is not null or undefined
             if (roleId === null || roleId === undefined) {
-                throw new RequiredError('roleId','Required parameter roleId was null or undefined when calling getRoleInfoByRoleIdUsingGET.');
+                throw new RequiredError('roleId', 'Required parameter roleId was null or undefined when calling getRoleInfoByRoleIdUsingGET.');
             }
             const localVarPath = `/role/getRoleInfoByRoleId`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8142,7 +8558,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
         selectUserNameByRoleUsingGET(roleName: string, options: any = {}): FetchArgs {
             // verify required parameter 'roleName' is not null or undefined
             if (roleName === null || roleName === undefined) {
-                throw new RequiredError('roleName','Required parameter roleName was null or undefined when calling selectUserNameByRoleUsingGET.');
+                throw new RequiredError('roleName', 'Required parameter roleName was null or undefined when calling selectUserNameByRoleUsingGET.');
             }
             const localVarPath = `/role/getUserNameByRole`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8174,7 +8590,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
         updateRoleUsingPOST(request: UpdateRoleReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling updateRoleUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling updateRoleUsingPOST.');
             }
             const localVarPath = `/role/updateRole`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8189,7 +8605,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateRoleReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8203,7 +8619,7 @@ export const RoleControllerApiFetchParamCreator = function (configuration?: Conf
  * RoleControllerApi - functional programming interface
  * @export
  */
-export const RoleControllerApiFp = function(configuration?: Configuration) {
+export const RoleControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -8503,7 +8919,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
         addUserUsingPOST1(request: AddUserReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling addUserUsingPOST1.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling addUserUsingPOST1.');
             }
             const localVarPath = `/user/addUser`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8518,7 +8934,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"AddUserReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8535,7 +8951,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
         deleteUserUsingPOST1(userId: number, options: any = {}): FetchArgs {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
-                throw new RequiredError('userId','Required parameter userId was null or undefined when calling deleteUserUsingPOST1.');
+                throw new RequiredError('userId', 'Required parameter userId was null or undefined when calling deleteUserUsingPOST1.');
             }
             const localVarPath = `/user/deleteUser`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8590,7 +9006,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
         getUserByUserIdUsingGET(userId: number, options: any = {}): FetchArgs {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
-                throw new RequiredError('userId','Required parameter userId was null or undefined when calling getUserByUserIdUsingGET.');
+                throw new RequiredError('userId', 'Required parameter userId was null or undefined when calling getUserByUserIdUsingGET.');
             }
             const localVarPath = `/user/getUserByUserId`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8685,7 +9101,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
         updatePasswordUsingPOST(request: UpdatePwdReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling updatePasswordUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling updatePasswordUsingPOST.');
             }
             const localVarPath = `/user/updatePassword`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8700,7 +9116,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdatePwdReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8717,7 +9133,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
         updateUserUsingPOST(request: UpdateUserReq, options: any = {}): FetchArgs {
             // verify required parameter 'request' is not null or undefined
             if (request === null || request === undefined) {
-                throw new RequiredError('request','Required parameter request was null or undefined when calling updateUserUsingPOST.');
+                throw new RequiredError('request', 'Required parameter request was null or undefined when calling updateUserUsingPOST.');
             }
             const localVarPath = `/user/updateUser`;
             const localVarUrlObj = url.parse(localVarPath, true);
@@ -8732,7 +9148,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
             const needsSerialization = (<any>"UpdateUserReq" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(request || {}) : (request || "");
+            localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : (request || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -8746,7 +9162,7 @@ export const UserControllerApiFetchParamCreator = function (configuration?: Conf
  * UserControllerApi - functional programming interface
  * @export
  */
-export const UserControllerApiFp = function(configuration?: Configuration) {
+export const UserControllerApiFp = function (configuration?: Configuration) {
     return {
         /**
          * 
