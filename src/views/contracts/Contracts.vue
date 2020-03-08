@@ -33,8 +33,7 @@
               </el-button>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">收款记录</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-s-order" command="invoice">发票记录</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">收款与发票</el-dropdown-item>
               <el-dropdown-item icon="el-icon-s-order" command="customer-info">客户资料</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
