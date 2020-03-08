@@ -130,11 +130,13 @@ export default class CustomerInfo extends ClientDataVue {
 
 .info-algin-left {
   text-align: left;
+  padding-right: 0px !important;
 }
 
 .info-algin-justify {
   text-align: justify;
   text-align-last: justify;
+  padding-right: 0px !important;
   color: gray;
 }
 
