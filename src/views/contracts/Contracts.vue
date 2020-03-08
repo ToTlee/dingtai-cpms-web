@@ -223,7 +223,7 @@ export default class Contracts extends DataListVue {
     this.currentInfo = row;
     if (command == "proceeds") {
       this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.contractName + "合同收款情况";
+      this.dialogTitle = row.contractName + "   收款情况";
     } else if (command == "customer-info") {
       this.dialogComponent = "customer-info";
       this.dialogTitle = "客户跟进信息";

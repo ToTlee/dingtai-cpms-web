@@ -1,5 +1,5 @@
 <template>
-  <div class="info-root">
+  <el-container class="info-root" v-loading="loading">
     <div class="info">
       <el-row class="info-row" :gutter="20" justify="space-between">
         <el-col :span="4" class="info-algin-justify">客户名称:</el-col>
@@ -33,7 +33,8 @@
       </el-row>
     </div>
     <div class="info-title">客户跟进情况</div>
-    <el-timeline class="info-timeline">
+    <div v-if="customerFollow.length == 0" style="text-align:left;margin-left:8px">无</div>
+    <el-timeline class="info-timeline" v-if="customerFollow.length > 0">
       <el-timeline-item
         v-for="(follow, index) in customerFollow"
         :key="index"
@@ -46,7 +47,7 @@
         </div>
       </el-timeline-item>
     </el-timeline>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -66,6 +67,7 @@ export default class CustomerInfo extends ClientDataVue {
   contractInfo2?: GetContractResp;
   customerInfo: GetCustomerResp = {};
   customerFollow: Array<GetCustomerFollowResp> = [];
+  loading = false;
   get customerId() {
     if (this.contractInfo2) {
       return this.contractInfo2.customerId;
@@ -82,6 +84,17 @@ export default class CustomerInfo extends ClientDataVue {
     return "无";
   }
   async mounted() {
+    await this.refreshData();
+  }
+
+  @Watch("info")
+  async onInfoChanged() {
+    this.loading = true;
+    await this.refreshData();
+    this.loading = false;
+  }
+
+  private async refreshData() {
     if (this.customerId) {
       await this.getCustomerInfo();
       await this.getCustomerFollow();
