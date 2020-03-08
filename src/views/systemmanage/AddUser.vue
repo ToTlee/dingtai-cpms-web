@@ -54,7 +54,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import {
   userApi,
   AddUserReq,
@@ -63,7 +63,7 @@ import {
   roleApi,
   GetRoleInfoResp,
   PageInfoGetRoleInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { UserCreator, UserInfo } from "./UserInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
@@ -102,7 +102,14 @@ export default class AddUser extends ClientDataVue {
   async saveUser() {
     let currentInfo = this.userInfo.info!;
     if (this.info) {
-      let result = await userApi.updateUserUsingPOST(currentInfo!);
+      let data: UpdateUserReq = {
+        id: currentInfo.id!,
+        mobile: currentInfo.mobile!,
+        email: currentInfo.email!,
+        realName: currentInfo.realName!,
+        roleId: currentInfo.roleId!
+      };
+      let result = await userApi.updateUserUsingPOST(data);
       if (result.status == 0) {
         this.$message.success("修改成功");
         this.submit();

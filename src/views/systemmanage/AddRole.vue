@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import {
   roleApi,
   AddRoleReq,
@@ -49,7 +49,7 @@ import {
   permissionApi,
   ZtreeResp,
   GetRoleInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { RoleCreator, RoleInfo } from "./RoleInfo";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
@@ -83,6 +83,7 @@ export default class AddRole extends ClientDataVue {
       this.permissionIdList.forEach(item => {});
     }
     let info = new RoleInfo(RoleCreator.createEmptyRole());
+    debugger;
     if (this.info) {
       //编辑信息
       info.info = RoleCreator.copyRole(this.info.info);
@@ -133,7 +134,7 @@ export default class AddRole extends ClientDataVue {
     if (this.info) {
       //修改
       let data: UpdateRoleReq = {
-        id: currentInfo.id,
+        id: currentInfo.id!,
         roleName: currentInfo.roleName!,
         roleDesc: currentInfo.roleDesc!,
         permissionIds: ref.getCheckedKeys()
