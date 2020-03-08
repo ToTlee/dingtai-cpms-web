@@ -125,21 +125,23 @@ import { Emit, Prop, PropSync } from "vue-property-decorator";
 @Component
 export default class AddCustomer extends ClientDataVue {
   @Prop({ default: undefined })
-  info?: CustomerInfo;
+  selectedInfo?: CustomerInfo;
   async mounted() {
-    if (this.info) {
+    if (this.selectedInfo) {
       //编辑信息
-      let result = await customerApi.getCustomerUsingGET(this.info.info!.id!);
-      this.info.info = result.data;
+      let result = await customerApi.getCustomerUsingGET(
+        this.selectedInfo.info!.id!
+      );
+      this.selectedInfo.info = result.data;
     }
-    return ClientDataVue.observable(this.info);
+    return ClientDataVue.observable(this.selectedInfo);
   }
   isSearching = false;
   get customerInfo(): CustomerInfo {
     let info = new CustomerInfo(CustomerCreator.createEmptyCustomer());
-    if (this.info) {
+    if (this.selectedInfo) {
       //编辑信息
-      info.info = CustomerCreator.copyCustomer(this.info.info);
+      info.info = CustomerCreator.copyCustomer(this.selectedInfo.info);
     }
     return ClientDataVue.observable(info);
   }
@@ -154,8 +156,9 @@ export default class AddCustomer extends ClientDataVue {
 
   async saveCustomer() {
     let currentInfo = this.customerInfo.info!;
-    if (this.info) {
+    if (this.selectedInfo) {
       let data: UpdateCustomerReq = {
+        id: currentInfo.id!,
         customerName: currentInfo.customerName,
         contacts: currentInfo.contacts,
         mail: currentInfo.mail,
@@ -192,6 +195,7 @@ export default class AddCustomer extends ClientDataVue {
         connector: currentInfo.connector,
         registerAddress: currentInfo.registerAddress,
         account: currentInfo.account,
+
         invoiceType: currentInfo.invoiceType,
         invoiceContent: currentInfo.invoiceContent,
         bank: currentInfo.bank,

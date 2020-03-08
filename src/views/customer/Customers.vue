@@ -57,7 +57,7 @@
       :show-close="false"
     >
       <add-customer-form
-        :info="currentCustomerInfo"
+        :selectedInfo="currentCustomerInfo"
         @submit="submitCustomer"
         @cancel="cancleAddCustomer"
       ></add-customer-form>
