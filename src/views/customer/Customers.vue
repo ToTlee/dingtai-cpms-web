@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
-import { customerApi, GetCustomerResp } from "@/client/data-provider";
+import { ClientDataVue } from "@/client-api";
+import { customerApi, GetCustomerResp } from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
 
 @Component

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
+import { ClientDataVue } from "@/client-api";
 import { Component } from "vue-property-decorator";
 import Customers from "./Customers.vue";
 

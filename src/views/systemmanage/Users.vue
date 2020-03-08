@@ -55,14 +55,14 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client/client-types";
+import { ClientDataVue, PageInfo } from "@/client-api";
 import {
   userApi,
   GetUserInfoResp,
   PageInfoGetUserInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
-import { DataListVue } from "../DataListVue";
+import { DataListVue } from "../data-view/DataListVue";
 import { UserInfo } from "./UserInfo";
 import AddUser from "./AddUser.vue";
 import Overview from "../overview/Overview.vue";

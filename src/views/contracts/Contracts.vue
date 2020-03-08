@@ -81,27 +81,30 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client/client-types";
-import { DataListVue } from "../DataListVue";
+import { ClientDataVue, PageInfo } from "@/client-api";
+import { DataListVue } from "../data-view/DataListVue";
 import {
   contractApi,
   GetContractResp,
   PageInfoGetContractResp,
   GetCustomerFollowResp,
   GetContractPeriodResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
+import ContractsStaticstic from "./ContractsStaticstic.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
+import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 
 @Component({
   components: {
     "proceeds-record": ContractsProceedsRecord,
-    "add-contract-form": AddContractForm
+    "add-contract-form": AddContractForm,
+    staticstic: ContractsStaticstic
   }
 })
 export default class Contracts extends DataListVue {
@@ -223,6 +226,32 @@ export default class Contracts extends DataListVue {
     } else if (command == "invoice") {
     } else if (command == "customer-info") {
     }
+  }
+
+  async onExport(options: ExportOptions) {
+    switch (options.Type) {
+      case ExportType.All:
+        break;
+      case ExportType.CurrentPage:
+        options.pageOptions.pageCurrent = this.pageInfo.pageNum!;
+        options.pageOptions.pageSize = this.pageInfo.pageSize!;
+        break;
+      case ExportType.Selected:
+        break;
+      default:
+        break;
+    }
+    let pageOp = options.pageOptions.toParameters();
+    let result = await contractApi.exportContractUsingGET(...pageOp);
+    if (result.status == 200) {
+      window.location.href = result.url;
+    }
+  }
+
+  onStaticstic() {
+    this.dialogComponent = "staticstic";
+    this.dialogTitle = "合同统计信息";
+    this.dialogTableVisible = true;
   }
 
   async onSearch(query: string): Promise<boolean> {

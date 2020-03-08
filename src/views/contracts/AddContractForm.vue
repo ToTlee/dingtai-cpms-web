@@ -107,7 +107,6 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
 import {
   contractApi,
   customerApi,
@@ -118,12 +117,14 @@ import {
   GetCustomerResp,
   PageInfoGetCustomerResp,
   AddContractReq,
-  AddContractPeriodReq
-} from "@/client/data-provider";
+  AddContractPeriodReq,
+  ClientDataVue
+} from "@/client-api";
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 import AddPeriodForm from "./AddPeriodForm.vue";
 import Component, { createDecorator } from "vue-class-component";
 import { Emit, Prop, PropSync } from "vue-property-decorator";
+import ArrayUtils from "@/utils/arrayUtils";
 
 @Component({
   components: {
@@ -138,9 +139,11 @@ export default class AddContractForm extends ClientDataVue {
   customers: Array<GetCustomerResp> = [];
 
   currentPeroid?: GetContractPeriodResp = {};
+
   get contractInfo(): ContractInfo {
     let info = new ContractInfo(ContractCreator.createEmptyContract(), []);
     if (this.info) {
+      let vm = this;
       //编辑信息
       info.info = ContractCreator.copyContract(this.info.info);
       this.info.periods?.forEach(p => {
@@ -264,10 +267,7 @@ export default class AddContractForm extends ClientDataVue {
     let cinfo = this.contractInfo.info!;
     if (this.info) {
       //编辑
-      result = await this.commitContract(
-        () => contractApi.updateContractUsingPOST(vm.contractInfo.info!),
-        data => periodApi.updateContractPeriodUsingPOST(data)
-      );
+      result = await this.updateContract();
     } else {
       //添加
       let data: AddContractReq = {
@@ -313,16 +313,27 @@ export default class AddContractForm extends ClientDataVue {
       .catch(() => {});
   }
 
-  private async commitContract(
-    contractCallback: (...para: any) => Promise<Result>,
-    periodCallback: (...para: any) => Promise<Result>
-  ): Promise<boolean> {
+  private async updateContract(): Promise<boolean> {
     let data = this.contractInfo;
-    let result = await this.requestWithoutResult(contractCallback);
+    let result = await this.requestWithoutResult(() =>
+      contractApi.updateContractUsingPOST(data.info!)
+    );
     if (result && data.periods) {
+      let hasedPeriods = ArrayUtils.toSet(this.info!.periods!, p => p.info.id);
       for (let i = 0; i < data.periods.length; i++) {
         try {
-          await this.requestWithoutResult(periodCallback, data.periods[i].info);
+          let period = data.periods[i];
+          if (hasedPeriods.has(period.info.id)) {
+            period.info.contractId = data.info!.id;
+            await this.requestWithoutResult(() =>
+              periodApi.updateContractPeriodUsingPOST(period.info)
+            );
+          } else {
+            data.periods[i].info.contractId = data.info!.id;
+            await this.requestWithoutResult(() =>
+              periodApi.addContractPeriodUsingPOST(period.info)
+            );
+          }
         } catch (error) {
           console.log(error);
         }

@@ -47,8 +47,7 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
-import { GetContractPeriodResp } from "@/client/api";
+import { GetContractPeriodResp, ClientDataVue } from "@/client-api";
 import { ContractCreator } from "./ContractInfo";
 import { Component, Emit, Prop } from "vue-property-decorator";
 @Component

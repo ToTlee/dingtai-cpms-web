@@ -7,9 +7,9 @@ import {
   GetContractInvoiceResp,
   Result,
   periodApi
-} from "@/client/data-provider";
+} from "@/client-api";
 
-import { getClientData } from "@/client/client-types";
+import { getClientData } from "@/client-api";
 
 export interface ContractPeroid {
   info: GetContractPeriodResp;

@@ -37,4 +37,9 @@ export default {
   width: 12;
   height: 12;
 }
+
+.echarts {
+  width: 100%;
+  height: 100%;
+}
 </style>

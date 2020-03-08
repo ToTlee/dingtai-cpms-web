@@ -1,12 +1,24 @@
 <!-- 合同管理模块 -->
 <template>
   <div class="view-root">
-    <div class="page-title">{{info.title}}</div>
+    <div class="page-title">{{ info.title }}</div>
     <div class="contracts-tools">
       <div class="function-panel">
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
         <el-button type="primary" size="small" @click="editItem">编辑</el-button>
         <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
+        <el-button type="primary" size="small" @click="staticstic">统计</el-button>
+        <el-dropdown style="margin-left:10px;margin-right:10px" @command="exportData">
+          <el-button type="primary" size="small">
+            导出
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="all">全部</el-dropdown-item>
+            <el-dropdown-item command="currentPage">当前页</el-dropdown-item>
+            <!-- <el-dropdown-item command="selected">所选</el-dropdown-item> -->
+          </el-dropdown-menu>
+        </el-dropdown>
         <el-button type="primary" size="small" @click="refresh">刷新</el-button>
       </div>
 
@@ -33,12 +45,14 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 
 import Component from "vue-class-component";
-import { DataListVue } from "../DataListVue";
+import { DataListVue } from "../data-view/DataListVue";
 import { Watch } from "vue-property-decorator";
+import { ExportOptions, ExportType } from "./ExportOptions";
+
 @Component({
   components: {}
 })
@@ -46,13 +60,6 @@ export default class DataView extends Vue {
   queryString: string | number = "";
   info = { title: "操作面板" };
 
-  beforeRouteUpdate() {
-    console.log("21321re32142");
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
-  }
   async addItem() {
     let dataView: any = this.$refs.dataView;
     if (dataView.onAddItem) {
@@ -82,6 +89,34 @@ export default class DataView extends Vue {
     let dataView: any = this.$refs.dataView;
     if (dataView.onEditItem) {
       dataView.onEditItem();
+    }
+  }
+
+  staticstic() {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onStaticstic) {
+      dataView.onStaticstic();
+    }
+  }
+
+  exportData(type: string) {
+    let dataView: any = this.$refs.dataView;
+    if (dataView.onExport) {
+      let options = new ExportOptions();
+      switch (type) {
+        case "all":
+          options.Type = ExportType.All;
+          break;
+        case "currentPage":
+          options.Type = ExportType.CurrentPage;
+          break;
+        case "selected":
+          options.Type = ExportType.Selected;
+          break;
+        default:
+          break;
+      }
+      dataView.onExport(options);
     }
   }
 }

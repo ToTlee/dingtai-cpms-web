@@ -70,7 +70,7 @@ import {
   LoginControllerApiFetchParamCreator,
   LoginReq,
   UpdatePwdReq
-} from "../../client/data-provider";
+} from "@/client-api";
 import { mapMutations } from "vuex";
 export default {
   data() {
