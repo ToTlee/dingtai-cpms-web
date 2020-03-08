@@ -80,9 +80,20 @@ export class ClientDataVue extends Vue {
       return undefined;
     }
   }
-  async requestWithoutResult(callback: (...para: any) => Promise<Result>, ...para: any): Promise<boolean> {
+  async requestWithoutResult(callback: (...para: any) => Promise<Result>, error?: string, ...para: any): Promise<boolean> {
     let result = await callback(para);
     let resultData = getClientData(result);
+    if (!resultData.successed) {
+      let msg = "";
+      if (error) {
+        msg += "<strong>" + error + "</strong><br/>";
+      }
+      this.$notify.error({
+        title: "请求出错",
+        message: msg + resultData.message ?? "未知错误",
+        duration: 0
+      });
+    }
     return resultData.successed;
   }
 }

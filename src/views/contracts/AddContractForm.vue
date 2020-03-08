@@ -325,13 +325,15 @@ export default class AddContractForm extends ClientDataVue {
           let period = data.periods[i];
           if (hasedPeriods.has(period.info.id)) {
             period.info.contractId = data.info!.id;
-            await this.requestWithoutResult(() =>
-              periodApi.updateContractPeriodUsingPOST(period.info)
+            await this.requestWithoutResult(
+              () => periodApi.updateContractPeriodUsingPOST(period.info),
+              period.info.periodName
             );
           } else {
             data.periods[i].info.contractId = data.info!.id;
-            await this.requestWithoutResult(() =>
-              periodApi.addContractPeriodUsingPOST(period.info)
+            await this.requestWithoutResult(
+              () => periodApi.addContractPeriodUsingPOST(period.info),
+              period.info.periodName
             );
           }
         } catch (error) {

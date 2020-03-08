@@ -226,7 +226,7 @@ export default class Contracts extends DataListVue {
       this.dialogTitle = row.contractName + "   收款情况";
     } else if (command == "customer-info") {
       this.dialogComponent = "customer-info";
-      this.dialogTitle = "客户跟进信息";
+      this.dialogTitle = "客户信息";
     }
     this.dialogTableVisible = true;
   }
