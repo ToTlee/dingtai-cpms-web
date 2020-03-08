@@ -1,12 +1,6 @@
-import {
-  userApi,
-  Result,
-  GetUserInfoResp,
-  UpdatePwdReq
-} from "@/client/data-provider";
+import { userApi, Result, GetUserInfoResp, UpdatePwdReq } from "@/client-api";
 
-import { getClientData } from "@/client/client-types";
-
+import { getClientData } from "@/client-api";
 
 /**
  * 用户信息
@@ -29,8 +23,7 @@ export class PassWordInfo {
 
 export class UserCreator {
   static async get(userInfo: GetUserInfoResp): Promise<UserInfo> {
-
-    let info = await this.getData<GetUserInfoResp>(() => userApi.getUserByUserIdUsingGET(userInfo.id!)) ?? {};
+    let info = (await this.getData<GetUserInfoResp>(() => userApi.getUserByUserIdUsingGET(userInfo.id!))) ?? {};
     return new UserInfo(info);
   }
   static async getData<T>(callback: () => Promise<Result>): Promise<T | undefined> {
@@ -66,5 +59,3 @@ export class UserCreator {
     return newObj;
   }
 }
-
-

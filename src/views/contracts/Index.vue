@@ -47,7 +47,7 @@ import Contracts from "./Contracts.vue";
 import AddContractForm from "./AddContractForm.vue";
 import Component from "vue-class-component";
 import { ContractInfo } from "./ContractInfo";
-import { DataListVue } from "../DataListVue";
+import { DataListVue } from "../data-view/DataListVue";
 @Component({
   components: {
     Contracts,

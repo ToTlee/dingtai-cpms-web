@@ -1,55 +1,49 @@
-import {
-    roleApi,
-    Result,
-    GetRoleInfoResp
-} from "@/client/data-provider";
+import { roleApi, Result, GetRoleInfoResp } from "@/client-api";
 
-import { getClientData } from "@/client/client-types";
-
+import { getClientData } from "@/client-api";
 
 /**
  * 用户信息
  */
 export class RoleInfo {
-    info?: GetRoleInfoResp;
+  info?: GetRoleInfoResp;
 
-    constructor(Role: GetRoleInfoResp) {
-        this.info = Role;
-    }
+  constructor(Role: GetRoleInfoResp) {
+    this.info = Role;
+  }
 }
 
 export class RoleCreator {
-    static async get(roleInfo: GetRoleInfoResp): Promise<RoleInfo> {
+  static async get(roleInfo: GetRoleInfoResp): Promise<RoleInfo> {
+    let info = (await this.getData<GetRoleInfoResp>(() => roleApi.getRoleInfoByRoleIdUsingGET(roleInfo.id!))) ?? {};
+    return new RoleInfo(info);
+  }
+  static async getData<T>(callback: () => Promise<Result>): Promise<T | undefined> {
+    let result = await callback();
+    let resultData = getClientData<T>(result);
+    if (resultData.successed && resultData.data != undefined) {
+      return resultData.data;
+    } else {
+      return undefined;
+    }
+  }
 
-        let info = await this.getData<GetRoleInfoResp>(() => roleApi.getRoleInfoByRoleIdUsingGET(roleInfo.id!)) ?? {};
-        return new RoleInfo(info);
+  static createEmptyRole(): GetRoleInfoResp {
+    return {
+      id: 0,
+      roleName: "",
+      roleDesc: "",
+      permissionIdList: []
+    };
+  }
+  static copyRole(obj: GetRoleInfoResp | undefined): GetRoleInfoResp {
+    let newObj = RoleCreator.createEmptyRole();
+    if (obj) {
+      newObj.roleName = obj.roleName;
+      newObj.roleDesc = obj.roleDesc;
+      newObj.id = obj.id;
+      newObj.permissionIdList = obj.permissionIdList;
     }
-    static async getData<T>(callback: () => Promise<Result>): Promise<T | undefined> {
-        let result = await callback();
-        let resultData = getClientData<T>(result);
-        if (resultData.successed && resultData.data != undefined) {
-            return resultData.data;
-        } else {
-            return undefined;
-        }
-    }
-
-    static createEmptyRole(): GetRoleInfoResp {
-        return {
-            id: 0,
-            roleName: "",
-            roleDesc: "",
-            permissionIdList: []
-        };
-    }
-    static copyRole(obj: GetRoleInfoResp | undefined): GetRoleInfoResp {
-        let newObj = RoleCreator.createEmptyRole();
-        if (obj) {
-            newObj.roleName = obj.roleName;
-            newObj.roleDesc = obj.roleDesc;
-            newObj.id = obj.id;
-            newObj.permissionIdList = obj.permissionIdList;
-        }
-        return newObj;
-    }
+    return newObj;
+  }
 }

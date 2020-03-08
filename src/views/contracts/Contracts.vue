@@ -33,8 +33,7 @@
               </el-button>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">收款记录</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-s-order" command="invoice">发票记录</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">收款与发票</el-dropdown-item>
               <el-dropdown-item icon="el-icon-s-order" command="customer-info">客户资料</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -81,27 +80,32 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client/client-types";
-import { DataListVue } from "../DataListVue";
+import { ClientDataVue, PageInfo } from "@/client-api";
+import { DataListVue } from "../data-view/DataListVue";
 import {
   contractApi,
   GetContractResp,
   PageInfoGetContractResp,
   GetCustomerFollowResp,
   GetContractPeriodResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
+import CustomerInfo from "../customer/CustomerInfo.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
+import ContractsStaticstic from "./ContractsStaticstic.vue";
 import AddContractForm from "./AddContractForm.vue";
 import { ContractInfo } from "./ContractInfo";
 import { Emit, Prop } from "vue-property-decorator";
+import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 
 @Component({
   components: {
     "proceeds-record": ContractsProceedsRecord,
-    "add-contract-form": AddContractForm
+    "add-contract-form": AddContractForm,
+    staticstic: ContractsStaticstic,
+    "customer-info": CustomerInfo
   }
 })
 export default class Contracts extends DataListVue {
@@ -115,10 +119,11 @@ export default class Contracts extends DataListVue {
   addContractVisible: boolean = false;
   selectedItems: Array<GetContractResp> = [];
   currentContractInfo?: ContractInfo = {};
-  @Prop()
-  tagInfo?: any;
+  options: any = {
+    title: "合同管理",
+    showTools: true
+  };
   async mounted() {
-    this.tagInfo.title = "合同管理";
     await this.refreshData();
   }
 
@@ -218,11 +223,38 @@ export default class Contracts extends DataListVue {
     this.currentInfo = row;
     if (command == "proceeds") {
       this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.contractName + "合同收款情况";
-      this.dialogTableVisible = true;
-    } else if (command == "invoice") {
+      this.dialogTitle = row.contractName + "   收款情况";
     } else if (command == "customer-info") {
+      this.dialogComponent = "customer-info";
+      this.dialogTitle = "客户信息";
     }
+    this.dialogTableVisible = true;
+  }
+
+  async onExport(options: ExportOptions) {
+    switch (options.Type) {
+      case ExportType.All:
+        break;
+      case ExportType.CurrentPage:
+        options.pageOptions.pageCurrent = this.pageInfo.pageNum!;
+        options.pageOptions.pageSize = this.pageInfo.pageSize!;
+        break;
+      case ExportType.Selected:
+        break;
+      default:
+        break;
+    }
+    let pageOp = options.pageOptions.toParameters();
+    let result = await contractApi.exportContractUsingGET(...pageOp);
+    if (result.status == 200) {
+      window.location.href = result.url;
+    }
+  }
+
+  onStaticstic() {
+    this.dialogComponent = "staticstic";
+    this.dialogTitle = "合同统计信息";
+    this.dialogTableVisible = true;
   }
 
   async onSearch(query: string): Promise<boolean> {

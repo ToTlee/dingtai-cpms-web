@@ -55,14 +55,14 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client/client-types";
+import { ClientDataVue, PageInfo } from "@/client-api";
 import {
   userApi,
   GetUserInfoResp,
   PageInfoGetUserInfoResp
-} from "@/client/data-provider";
+} from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
-import { DataListVue } from "../DataListVue";
+import { DataListVue } from "../data-view/DataListVue";
 import { UserInfo } from "./UserInfo";
 import AddUser from "./AddUser.vue";
 import Overview from "../overview/Overview.vue";
@@ -83,17 +83,15 @@ export default class Users extends DataListVue {
   addUserVisible: boolean = false;
   selectedItems: Array<GetUserInfoResp> = [];
   currentUserInfo?: UserInfo = {};
-
-  @Prop()
-  tagInfo?: any;
+  opotions = {
+    title: "用户管理"
+  };
   async mounted() {
-    this.tagInfo.title = "用户管理";
     await this.refreshData();
   }
   async refreshData() {
     this.isLoading = true;
     let vm = this;
-    debugger;
     let result = await this.getData<PageInfoGetUserInfoResp>(() =>
       userApi.listUserInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
@@ -170,18 +168,6 @@ export default class Users extends DataListVue {
 
   cancleAddUser() {
     this.addUserVisible = false;
-  }
-
-  openInfo(command: string, row: GetUserInfoResp) {
-    let component = Overview;
-    this.currentInfo = row;
-    if (command == "proceeds") {
-      this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.userName + "用户情况";
-      this.dialogTableVisible = true;
-    } else if (command == "invoice") {
-    } else if (command == "customer-info") {
-    }
   }
 
   async onSearch(query: string): Promise<boolean> {

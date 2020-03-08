@@ -41,7 +41,7 @@ import {
   LoginReq,
   userApi,
   permissionApi
-} from "../client/data-provider";
+} from "@/client-api";
 import { mapMutations } from "vuex";
 
 export default {
@@ -89,7 +89,11 @@ export default {
           token: this.userName
         };
         this.CHANGE_LOGIN(this.$store.state, userInfo);
-        sessionStorage.setItem("userName", this.userName);
+        let loginUserResult = await userApi.getLoginUserInfoUsingGET();
+        if (loginUserResult.status == 0 && loginUserResult.data) {
+          sessionStorage.setItem("realName", loginUserResult.data.realName);
+        }
+
         let permResult = await permissionApi.getUserPermissionListUsingGET();
         if (permResult.status == 0) {
           sessionStorage.setItem("perms", JSON.stringify(permResult.data));

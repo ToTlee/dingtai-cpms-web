@@ -22,16 +22,19 @@ const routes = [
           {
             path: "contracts",
             name: "合同管理",
+            meta: {
+              showTools: true
+            },
             component: () => import("../views/contracts/Contracts.vue")
           },
           {
             path: "quotation",
-            name: "项目报价",
+            name: "报价管理",
             component: () => import("../views/quotation/QuotationList.vue")
           },
           {
             path: "customers",
-            name: "客户资料",
+            name: "客户管理",
             component: () => import("../views/customer/Customers.vue")
           },
           {
@@ -45,8 +48,7 @@ const routes = [
             component: () => import("../views/systemmanage/Roles.vue")
           }
         ]
-      },
-
+      }
     ]
   },
 

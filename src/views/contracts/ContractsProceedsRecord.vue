@@ -70,11 +70,7 @@
                       type="text"
                       v-if="item.invoice != undefined"
                       @click="showInvoiceInfo(item)"
-                    >
-                      {{
-                      item.invoice.invoiceNo
-                      }}
-                    </el-button>
+                    >{{ item.invoice.invoiceNo }}</el-button>
                     <el-button
                       type="text"
                       v-if="item.invoice == undefined"
@@ -110,7 +106,7 @@
         </el-timeline-item>
         <el-timeline-item hide-timestamp type="warning" v-if="contractInfo.status != '已完成'">
           <div class="inline-panel-center">
-            <span style="font-weight:bold">合同款项待收取</span>
+            <span style="font-weight:bold">没有合同分期信息</span>
             <!-- <el-tooltip content="添加合同款项" placement="right">
               <span class="add-button">
                 <i class="el-icon-circle-plus" @click="addItem"></i>
@@ -128,7 +124,7 @@
             >
               <add-proceeds-form
                 :contractId="contractInfo.id"
-                :period="currentEditPeriod"
+                :period="currentEditPeriod ? currentEditPeriod : {}"
                 @cancel="cancleAdd($event)"
                 @submit="submitAddItem"
               ></add-proceeds-form>
@@ -141,9 +137,9 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue } from "@/client/client-types";
 import { Component, Prop, Watch, PropSync } from "vue-property-decorator";
 import {
+  ClientDataVue,
   contractApi,
   proceedsApi,
   invoiceApi,
@@ -151,7 +147,7 @@ import {
   GetContractResp,
   GetContractPeriodResp,
   periodApi
-} from "../../client/data-provider";
+} from "@/client-api";
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 
 import AddProceedsForm from "./AddProceedsForm.vue";
