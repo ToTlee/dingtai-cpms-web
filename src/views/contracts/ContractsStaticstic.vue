@@ -13,7 +13,7 @@ import {
 } from "@/client-api";
 import Component from "vue-class-component";
 import ECharts from "vue-echarts";
-import "echarts";
+import "echarts/lib/chart/line";
 import ArrayUtils from "../../utils/arrayUtils";
 @Component({
   components: {
@@ -45,7 +45,10 @@ export default class ContractsStaticstic extends ClientDataVue {
     },
     xAxis: [
       {
-        type: "time"
+        type: "time",
+        splitLine: {
+          show: false
+        }
       }
     ],
     yAxis: [
