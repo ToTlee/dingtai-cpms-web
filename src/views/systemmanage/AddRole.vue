@@ -128,43 +128,39 @@ export default class AddRole extends ClientDataVue {
   cancel() {}
 
   async saveRole() {
-    let vm = this;
-    let result = false;
     const ref = <Tree>this.$refs.tree;
-    let cinfo = this.roleInfo.info!;
-    cinfo.permissionIdList = ref.getCheckedKeys();
+    let currentInfo = this.roleInfo.info!;
+    currentInfo.permissionIdList = ref.getCheckedKeys();
     if (this.info) {
+      //修改
       let data: UpdateRoleReq = {
-        id: cinfo.id!,
-        roleName: cinfo.roleName!,
-        roleDesc: cinfo.roleDesc!,
+        id: currentInfo.id!,
+        roleName: currentInfo.roleName!,
+        roleDesc: currentInfo.roleDesc!,
         permissionIds: ref.getCheckedKeys()
       };
-      result = await this.commitRole(() => roleApi.updateRoleUsingPOST(data!));
-      if (result) {
+      let result = await roleApi.updateRoleUsingPOST(data!);
+      if (result.status == 0) {
         this.$message.success("修改成功");
         this.submit();
       } else {
-        this.$message.success("修改失败");
+        this.$message.error(result.msg!);
       }
     } else {
       //添加
-
       let data: AddRoleReq = {
-        roleName: cinfo.roleName!,
-        roleDesc: cinfo.roleDesc!,
+        roleName: currentInfo.roleName!,
+        roleDesc: currentInfo.roleDesc!,
         permissionIds: ref.getCheckedKeys()
       };
 
-      result = await this.requestWithoutResult(() =>
-        roleApi.addUserUsingPOST(data)
-      );
-    }
-    if (result) {
-      this.$message.success("添加成功");
-      this.submit();
-    } else {
-      this.$message.success("添加失败");
+      let result = await roleApi.addUserUsingPOST(data);
+      if (result.status == 0) {
+        this.$message.success("添加成功");
+        this.submit();
+      } else {
+        this.$message.error(result.msg!);
+      }
     }
   }
 

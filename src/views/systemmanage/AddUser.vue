@@ -100,46 +100,38 @@ export default class AddUser extends ClientDataVue {
   cancel() {}
 
   async saveUser() {
-    let vm = this;
-    let result = false;
-    let cinfo = this.userInfo.info!;
-
+    let currentInfo = this.userInfo.info!;
     if (this.info) {
-      let updateInfo: UpdateUserReq = {
-        id: cinfo.id!,
-        email: cinfo.email!,
-        mobile: cinfo.mobile!,
-        realName: cinfo.realName!,
-        roleId: cinfo.roleId!
+      let data: UpdateUserReq = {
+        id: currentInfo.id!,
+        mobile: currentInfo.mobile!,
+        email: currentInfo.email!,
+        realName: currentInfo.realName!,
+        roleId: currentInfo.roleId!
       };
-      result = await this.commitUser(() =>
-        userApi.updateUserUsingPOST(updateInfo)
-      );
-      debugger;
-      if (result) {
+      let result = await userApi.updateUserUsingPOST(data);
+      if (result.status == 0) {
         this.$message.success("修改成功");
         this.submit();
       } else {
-        this.$message.success("修改失败");
+        this.$message.error(result.msg!);
       }
     } else {
       //添加
       let data: AddUserReq = {
-        userName: cinfo.userName!,
-        mobile: cinfo.mobile!,
-        email: cinfo.email!,
-        realName: cinfo.realName!,
-        roleId: cinfo.roleId!
+        userName: currentInfo.userName!,
+        mobile: currentInfo.mobile!,
+        email: currentInfo.email!,
+        realName: currentInfo.realName!,
+        roleId: currentInfo.roleId!
       };
 
-      result = await this.requestWithoutResult(() =>
-        userApi.addUserUsingPOST1(data)
-      );
-      if (result) {
+      let result = await userApi.addUserUsingPOST1(data);
+      if (result.status == 0) {
         this.$message.success("添加成功");
         this.submit();
       } else {
-        this.$message.success("添加失败");
+        this.$message.error(result.msg!);
       }
     }
   }

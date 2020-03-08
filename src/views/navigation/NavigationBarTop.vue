@@ -6,7 +6,7 @@
       <el-dropdown style="height: 40px;">
         <span class="el-dropdown-link">
           <i class="el-icon-user-" style="color:white"></i>
-          {{userName}}
+          {{realName}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       appName: appConstants.APP_NAME,
-      userName: sessionStorage.getItem("userName"),
+      realName: sessionStorage.getItem("realName"),
       dialogFormVisible: false,
       form: {
         oldPassword: "",
