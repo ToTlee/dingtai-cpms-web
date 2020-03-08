@@ -27,7 +27,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="统一社会信用吗:" required>
-            <el-input v-model="customerInfo.info.credit_code"></el-input>
+            <el-input v-model="customerInfo.info.creditCode"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -48,14 +48,14 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="发票内容:" required>
-            <el-input v-model="customerInfo.info.invoice_content"></el-input>
+            <el-input v-model="customerInfo.info.invoiceContent"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="发票类型:" required>
-            <el-input v-model="customerInfo.info.invoice_type"></el-input>
+            <el-input v-model="customerInfo.info.invoiceType"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -69,7 +69,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="注册地址:" required>
-            <el-input v-model="customerInfo.info.register_address"></el-input>
+            <el-input v-model="customerInfo.info.registerAddress"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -90,7 +90,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="备注:" required>
-            <el-input v-model="customerInfo.info.connector"></el-input>
+            <el-input v-model="customerInfo.info.remark"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -116,9 +116,7 @@ import {
   AddCustomerReq,
   UpdateCustomerReq,
   Result,
-  roleApi,
-  GetRoleInfoResp,
-  PageInfoGetRoleInfoResp
+  roleApi
 } from "@/client-api";
 import { CustomerCreator, CustomerInfo } from "./CustomerInfo";
 import Component, { createDecorator } from "vue-class-component";
@@ -128,18 +126,21 @@ import { Emit, Prop, PropSync } from "vue-property-decorator";
 export default class AddCustomer extends ClientDataVue {
   @Prop({ default: undefined })
   info?: CustomerInfo;
-  allRoles?: Array<GetRoleInfoResp> = [];
   async mounted() {
     if (this.info) {
       //编辑信息
       let result = await customerApi.getCustomerUsingGET(this.info.info!.id!);
       this.info.info = result.data;
-      debugger;
     }
+    return ClientDataVue.observable(this.info);
   }
   isSearching = false;
   get customerInfo(): CustomerInfo {
     let info = new CustomerInfo(CustomerCreator.createEmptyCustomer());
+    if (this.info) {
+      //编辑信息
+      info.info = CustomerCreator.copyCustomer(this.info.info);
+    }
     return ClientDataVue.observable(info);
   }
 

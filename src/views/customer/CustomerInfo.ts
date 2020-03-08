@@ -48,5 +48,20 @@ export class CustomerCreator {
     static copyCustomerToObj(to: GetCustomerResp, from: GetCustomerResp) {
         to.id = from.id;
         to.customerName = from.customerName;
+        to.contacts = from.contacts;
+        to.mail = from.mail;
+        to.tel = from.tel;
+        to.remark = from.remark;
+        to.projectTarget = from.projectTarget;
+        to.connector = from.connector;
+        to.registerAddress = from.registerAddress;
+        to.account = from.account;
+        to.invoiceType = from.invoiceType;
+        to.invoiceContent = from.invoiceContent;
+        to.bank = from.bank;
+        to.creditCode = from.creditCode;
+        to.bankName = from.bankName;
+        to.address = from.address;
+        to.phone = from.phone
     }
 }
