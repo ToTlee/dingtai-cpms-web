@@ -71,10 +71,20 @@ export class ClientDataVue extends Vue {
     return result;
   }
 
-  async getData<T>(callback: (...para: any) => Promise<Result>, ...para: any): Promise<T | undefined> {
+  async getData<T>(callback: (...para: any) => Promise<Result>, error?, ...para: any): Promise<T | undefined> {
     let result = await callback(para);
     let resultData = getClientData<T>(result);
-    if (resultData.successed && resultData.data != undefined) {
+    if (!resultData.successed) {
+      let msg = "";
+      if (error) {
+        msg += "<strong>" + error + "</strong><br/>";
+      }
+      this.$notify.error({
+        title: "请求出错",
+        message: msg + resultData.message ?? "未知错误",
+        duration: 0
+      });
+    } else if (resultData.data != undefined) {
       return resultData.data;
     } else {
       return undefined;
