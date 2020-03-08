@@ -7220,6 +7220,38 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
         },
         /**
          * 
+         * @summary 根据报价Id删除报价
+         * @param {number} quotationId 报价id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteQuotationUsingPOST(quotationId: number, options: any = {}): FetchArgs {
+            // verify required parameter 'quotationId' is not null or undefined
+            if (quotationId === null || quotationId === undefined) {
+                throw new RequiredError('quotationId','Required parameter quotationId was null or undefined when calling deleteQuotationUsingPOST.');
+            }
+            const localVarPath = `/quotation/deleteQuotation`;
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (quotationId !== undefined) {
+                localVarQueryParameter['quotationId'] = quotationId;
+            }
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 根据名称搜索项目报价
          * @param {number} [pageCurrent] 当前页
          * @param {number} [pageSize] 每页数量
@@ -7368,6 +7400,25 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
         },
         /**
          * 
+         * @summary 根据报价Id删除报价
+         * @param {number} quotationId 报价id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteQuotationUsingPOST(quotationId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+            const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).deleteQuotationUsingPOST(quotationId, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * 
          * @summary 根据名称搜索项目报价
          * @param {number} [pageCurrent] 当前页
          * @param {number} [pageSize] 每页数量
@@ -7444,6 +7495,16 @@ export const QuotationControllerApiFactory = function (configuration?: Configura
         },
         /**
          * 
+         * @summary 根据报价Id删除报价
+         * @param {number} quotationId 报价id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteQuotationUsingPOST(quotationId: number, options?: any) {
+            return QuotationControllerApiFp(configuration).deleteQuotationUsingPOST(quotationId, options)(fetch, basePath);
+        },
+        /**
+         * 
          * @summary 根据名称搜索项目报价
          * @param {number} [pageCurrent] 当前页
          * @param {number} [pageSize] 每页数量
@@ -7503,6 +7564,18 @@ export class QuotationControllerApi extends BaseAPI {
      */
     public addQuotationUsingPOST(request: AddQuotationReq, options?: any) {
         return QuotationControllerApiFp(this.configuration).addQuotationUsingPOST(request, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * 
+     * @summary 根据报价Id删除报价
+     * @param {number} quotationId 报价id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof QuotationControllerApi
+     */
+    public deleteQuotationUsingPOST(quotationId: number, options?: any) {
+        return QuotationControllerApiFp(this.configuration).deleteQuotationUsingPOST(quotationId, options)(this.fetch, this.basePath);
     }
 
     /**

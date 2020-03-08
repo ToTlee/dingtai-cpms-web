@@ -146,23 +146,24 @@ export default class Quotations extends DataListVue {
     // }
   }
   onDeleteItem() {
-    // let vm = this;
-    // if (this.selectedItems.length == 0) return;
-    // this.$msgbox
-    //   .confirm("是否确定删除选中的报价?")
-    //   .then(async () => {
-    //     for (let i = 0; i < vm.selectedItems.length; i++) {
-    //       const element = vm.selectedItems[i];
-    //       await vm.requestWithoutResult(() =>
-    //         contractApi.deleteUserUsingPOST(element.id!)
-    //       );
-    //       vm.data.splice(vm.data.indexOf(element), 1);
-    //     }
-    //     vm.$message.success(
-    //       "成功删除" + this.selectedItems.length + "个合同！"
-    //     );
-    //   })
-    //   .catch();
+    let vm = this;
+    if (this.selectedItems.length == 0) return;
+    this.$msgbox
+      .confirm("是否确定删除选中的报价?")
+      .then(async () => {
+        for (let i = 0; i < vm.selectedItems.length; i++) {
+          const element = vm.selectedItems[i];
+          await vm.requestWithoutResult(() =>
+            // contractApi.deleteUserUsingPOST(element.id!)
+            quotationApi.deleteQuotationUsingPOST(element.id!)
+          );
+          vm.data.splice(vm.data.indexOf(element), 1);
+        }
+        vm.$message.success(
+          "成功删除" + this.selectedItems.length + "个报价！"
+        );
+      })
+      .catch();
   }
 
   onRefresh(): void {
