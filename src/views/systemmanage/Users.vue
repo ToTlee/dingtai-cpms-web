@@ -170,18 +170,6 @@ export default class Users extends DataListVue {
     this.addUserVisible = false;
   }
 
-  openInfo(command: string, row: GetUserInfoResp) {
-    let component = Overview;
-    this.currentInfo = row;
-    if (command == "proceeds") {
-      this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.userName + "用户情况";
-      this.dialogTableVisible = true;
-    } else if (command == "invoice") {
-    } else if (command == "customer-info") {
-    }
-  }
-
   async onSearch(query: string): Promise<boolean> {
     if (!query || query == "") {
       await this.refreshData();
