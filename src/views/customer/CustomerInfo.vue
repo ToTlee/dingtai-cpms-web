@@ -1,35 +1,61 @@
 <template>
   <el-container class="info-root" v-loading="loading">
+    <div class="info-title">Sponsor资料</div>
     <div class="info">
-      <el-row class="info-row" :gutter="20" justify="space-between">
-        <el-col :span="4" class="info-algin-justify">客户名称:</el-col>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="4" class="info-algin-justify">供应商名称:</el-col>
         <el-col
           :span="8"
           class="info-algin-left"
           style="font-weight:bold"
         >{{customerInfo.customerName}}</el-col>
-        <el-col :span="5" class="info-algin-justify">项目类型/靶点:</el-col>
-        <el-col :span="7" class="info-algin-left">{{customerInfo.projectTarget}}</el-col>
       </el-row>
-      <el-row class="info-row" :gutter="20" justify="space-between">
-        <el-col :span="4" class="info-algin-justify">联系人:</el-col>
-        <el-col :span="8" class="info-algin-left">{{customerInfo.contacts}}</el-col>
-        <el-col :span="4" class="info-algin-justify">电话:</el-col>
-        <el-col :span="8" class="info-algin-left">{{customerInfo.tel}}</el-col>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">联系人:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.contacts}}</el-col>
+        <el-col :span="3" class="info-algin-justify">联系电话:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.phone}}</el-col>
       </el-row>
-      <el-row class="info-row" :gutter="20" justify="space-between">
-        <el-col :span="4" class="info-algin-justify">地址:</el-col>
-        <el-col :span="8" class="info-algin-left">{{customerInfo.address}}</el-col>
-        <el-col :span="4" class="info-algin-justify">对接人:</el-col>
-        <el-col :span="8" class="info-algin-left">{{customerInfo.connector}}</el-col>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">地址:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.address}}</el-col>
+        <el-col :span="3" class="info-algin-justify">对接人:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.connector}}</el-col>
       </el-row>
-      <el-row class="info-row" :gutter="20" justify="space-between">
-        <el-col :span="4" class="info-algin-justify">备注:</el-col>
-        <el-col :span="8" class="info-algin-left">{{customerInfo.remark}}</el-col>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">备注:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.remark}}</el-col>
       </el-row>
-      <el-row class="info-row" :gutter="20" justify="space-between">
-        <el-col :span="5" class="info-algin-justify">最后一次更新:</el-col>
-        <el-col :span="7" class="info-algin-left">{{lastUpdateDate}}</el-col>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="4" class="info-algin-justify">最后一次更新:</el-col>
+        <el-col :span="8" class="info-algin-left">{{lastUpdateDate}}</el-col>
+      </el-row>
+    </div>
+    <div class="info-title">开票信息</div>
+    <div class="info">
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">开户名:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.bankName}}</el-col>
+        <el-col :span="2" class="info-algin-justify">税号:</el-col>
+        <el-col :span="10" class="info-algin-left">{{customerInfo.creditCode}}</el-col>
+      </el-row>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">开户行:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.bank}}</el-col>
+        <el-col :span="2" class="info-algin-justify">电话:</el-col>
+        <el-col :span="10" class="info-algin-left">{{customerInfo.tel}}</el-col>
+      </el-row>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">注册地址:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.registerAddress}}</el-col>
+        <el-col :span="2" class="info-algin-justify">账号:</el-col>
+        <el-col :span="10" class="info-algin-left">{{customerInfo.account}}</el-col>
+      </el-row>
+      <el-row class="info-row" :gutter="20">
+        <el-col :span="3" class="info-algin-justify">发票类容:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.invoiceContent}}</el-col>
+        <el-col :span="3" class="info-algin-justify">发票类型:</el-col>
+        <el-col :span="9" class="info-algin-left">{{customerInfo.invoiceType}}</el-col>
       </el-row>
     </div>
     <div class="info-title">客户跟进情况</div>
@@ -144,6 +170,7 @@ export default class CustomerInfo extends ClientDataVue {
 .info-algin-left {
   text-align: left;
   padding-right: 0px !important;
+  min-height: 1px;
 }
 
 .info-algin-justify {

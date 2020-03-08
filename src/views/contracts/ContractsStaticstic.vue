@@ -19,6 +19,7 @@ export default class ContractsStaticstic extends ClientDataVue {
 
   mounted() {
     chart = echarts.init(this.$refs.chart as HTMLDivElement);
+    window.addEventListener("resize", () => chart?.resize());
     this.refreshData();
   }
 
