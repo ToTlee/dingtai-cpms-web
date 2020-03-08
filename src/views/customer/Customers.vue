@@ -11,9 +11,9 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column type="index" label="序号" width="60px" sortable></el-table-column>
-      <el-table-column prop="projectTarget" label="项目代号" sortable></el-table-column>
-      <el-table-column prop="customerName" label="客户名称" sortable></el-table-column>
+      <el-table-column type="index" label="序号" width="60px" min-width="100px" sortable></el-table-column>
+      <el-table-column prop="projectTarget" label="项目代号" min-width="100px" sortable></el-table-column>
+      <el-table-column prop="customerName" label="客户名称" min-width="100px" sortable></el-table-column>
       <el-table-column prop="contacts" label="联系人"></el-table-column>
       <el-table-column prop="tel" label="联系电话"></el-table-column>
       <el-table-column prop="mail" label="邮箱地址"></el-table-column>

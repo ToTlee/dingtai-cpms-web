@@ -12,22 +12,22 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="序号" fixed></el-table-column>
-      <el-table-column prop="contractNo" label="合同编号" fixed sortable></el-table-column>
-      <el-table-column prop="customerName" label="客户名称" fixed sortable></el-table-column>
-      <el-table-column prop="contractName" label="合同名称" sortable></el-table-column>
-      <el-table-column prop="signTime" label="签订日期" sortable></el-table-column>
-      <el-table-column prop="contractMoney" label="合同金额" sortable></el-table-column>
-      <el-table-column prop="finishMoney" label="已完成金额" sortable></el-table-column>
-      <el-table-column prop="receiveMoney" label="已收款金额" sortable></el-table-column>
-      <el-table-column prop="unFinishMoney" label="未完成金额" sortable></el-table-column>
-      <el-table-column prop="unReceiveMoney" label="未收款金额" sortable></el-table-column>
-      <el-table-column prop="status" label="完成情况" sortable></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column type="index" label="序号" width="55" fixed></el-table-column>
+      <el-table-column prop="contractNo" label="合同编号" min-width="120px" fixed sortable></el-table-column>
+      <el-table-column prop="customerName" label="客户名称" min-width="120px" fixed sortable></el-table-column>
+      <el-table-column prop="contractName" label="合同名称" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="signTime" label="签订日期" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="contractMoney" label="合同金额" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="finishMoney" label="已完成金额" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="receiveMoney" label="已收款金额" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="unFinishMoney" label="未完成金额" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="unReceiveMoney" label="未收款金额" min-width="120px" sortable></el-table-column>
+      <el-table-column prop="status" label="完成情况" min-width="120px" sortable></el-table-column>
+      <el-table-column label="操作" fixed="right" width="100">
         <template slot-scope="scope">
-          <el-dropdown szie="medium" @command="openInfo($event, scope.row)">
+          <el-dropdown szie="small" @command="openInfo($event, scope.row)">
             <span class="el-dropdown-link">
-              <el-button size="medium" type="primary">
+              <el-button size="small" type="primary">
                 查看
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
