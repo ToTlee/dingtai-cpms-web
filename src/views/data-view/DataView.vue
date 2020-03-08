@@ -128,7 +128,6 @@ export default class DataView extends Vue {
 
   @Watch("$route")
   onRoute(newVal: Route) {
-    console.log(newVal);
     this.$route;
     this.showTools = newVal.meta.showTools;
     this.info.title = newVal.name!;

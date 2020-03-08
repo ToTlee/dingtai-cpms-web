@@ -92,6 +92,7 @@ import {
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
+import CustomerInfo from "../customer/CustomerInfo.vue";
 import ContractsProceedsRecord from "./ContractsProceedsRecord.vue";
 import ContractsStaticstic from "./ContractsStaticstic.vue";
 import AddContractForm from "./AddContractForm.vue";
@@ -103,7 +104,8 @@ import { ExportOptions, ExportType } from "../data-view/ExportOptions";
   components: {
     "proceeds-record": ContractsProceedsRecord,
     "add-contract-form": AddContractForm,
-    staticstic: ContractsStaticstic
+    staticstic: ContractsStaticstic,
+    "customer-info": CustomerInfo
   }
 })
 export default class Contracts extends DataListVue {
@@ -221,11 +223,12 @@ export default class Contracts extends DataListVue {
     this.currentInfo = row;
     if (command == "proceeds") {
       this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.contractName + "合同收款情况";
-      this.dialogTableVisible = true;
-    } else if (command == "invoice") {
+      this.dialogTitle = row.contractName + "   收款情况";
     } else if (command == "customer-info") {
+      this.dialogComponent = "customer-info";
+      this.dialogTitle = "客户跟进信息";
     }
+    this.dialogTableVisible = true;
   }
 
   async onExport(options: ExportOptions) {

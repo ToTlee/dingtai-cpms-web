@@ -18,7 +18,11 @@
         <span class="info-item-label">已收款:</span>
         {{ contractSummary.recievedMoney }}元
       </div>
-      <el-button class="info-item" type="text" @click="showDetail">{{ showDetailInfo ? "收起" : "更多" }}</el-button>
+      <el-button
+        class="info-item"
+        type="text"
+        @click="showDetail"
+      >{{ showDetailInfo ? "收起" : "更多" }}</el-button>
       <div style="flex:1;text-align:right;">
         <!-- <el-tooltip content="添加合同款项" placement="bottom">
           <el-button type="text" @click="addItem">添加</el-button>
@@ -62,10 +66,16 @@
                   <div class="info-list-item">收款人: {{ item.proceed.receivePerson }}</div>
                   <div class="info-list-item">
                     发票编号:
-                    <el-button type="text" v-if="item.invoice != undefined" @click="showInvoiceInfo(item)">
-                      {{ item.invoice.invoiceNo }}
-                    </el-button>
-                    <el-button type="text" v-if="item.invoice == undefined" @click="addItem(item)">未开发票</el-button>
+                    <el-button
+                      type="text"
+                      v-if="item.invoice != undefined"
+                      @click="showInvoiceInfo(item)"
+                    >{{ item.invoice.invoiceNo }}</el-button>
+                    <el-button
+                      type="text"
+                      v-if="item.invoice == undefined"
+                      @click="addItem(item)"
+                    >未开发票</el-button>
                   </div>
                 </div>
                 <div>备注: {{ item.remark }}</div>
@@ -96,7 +106,7 @@
         </el-timeline-item>
         <el-timeline-item hide-timestamp type="warning" v-if="contractInfo.status != '已完成'">
           <div class="inline-panel-center">
-            <span style="font-weight:bold">合同款项待收取</span>
+            <span style="font-weight:bold">没有合同分期信息</span>
             <!-- <el-tooltip content="添加合同款项" placement="right">
               <span class="add-button">
                 <i class="el-icon-circle-plus" @click="addItem"></i>
@@ -214,7 +224,9 @@ export default class ContractsProceedsRecord extends ClientDataVue {
     })
       .then(() => {
         if (item.proceed && item.proceed.id) {
-          let result = proceedsApi.deleteContractReceivablesUsingPOST(item.proceed.id!);
+          let result = proceedsApi.deleteContractReceivablesUsingPOST(
+            item.proceed.id!
+          );
           result.then(r => {
             let resultValue = this.getClientData(r);
             if (resultValue.successed) {
