@@ -166,6 +166,12 @@ export interface AddContractPeriodReq {
      */
     periodName?: string;
     /**
+     * 备注
+     * @type {string}
+     * @memberof AddContractPeriodReq
+     */
+    remark?: string;
+    /**
      * 开始时间
      * @type {Date}
      * @memberof AddContractPeriodReq
@@ -941,6 +947,12 @@ export interface GetContractPeriodResp {
      * @memberof GetContractPeriodResp
      */
     periodName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetContractPeriodResp
+     */
+    remark?: string;
     /**
      * 
      * @type {Date}
@@ -3288,6 +3300,38 @@ export interface ResultListGetContractInvoiceResp {
 /**
  * 
  * @export
+ * @interface ResultListGetContractPeriodResp
+ */
+export interface ResultListGetContractPeriodResp {
+    /**
+     * 
+     * @type {Array<GetContractPeriodResp>}
+     * @memberof ResultListGetContractPeriodResp
+     */
+    data?: Array<GetContractPeriodResp>;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResultListGetContractPeriodResp
+     */
+    msg?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ResultListGetContractPeriodResp
+     */
+    respTime?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ResultListGetContractPeriodResp
+     */
+    status?: number;
+}
+
+/**
+ * 
+ * @export
  * @interface ResultListGetContractReceivablesResp
  */
 export interface ResultListGetContractReceivablesResp {
@@ -3863,6 +3907,12 @@ export interface UpdateContractPeriodReq {
      * @memberof UpdateContractPeriodReq
      */
     periodName?: string;
+    /**
+     * 备注
+     * @type {string}
+     * @memberof UpdateContractPeriodReq
+     */
+    remark?: string;
     /**
      * 开始时间
      * @type {Date}
@@ -4693,7 +4743,7 @@ export const ContractControllerApiFp = function (configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContractPeriodUsingGET(contractId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultListGetCustomerFollowResp> {
+        getContractPeriodUsingGET(contractId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultListGetContractPeriodResp> {
             const localVarFetchArgs = ContractControllerApiFetchParamCreator(configuration).getContractPeriodUsingGET(contractId, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -7665,7 +7715,6 @@ export const QuotationControllerApiFetchParamCreator = function (configuration?:
                 options: localVarRequestOptions,
             };
         },
-
         /**
          * 
          * @summary 根据名称搜索项目报价
