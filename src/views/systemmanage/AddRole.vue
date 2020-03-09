@@ -130,6 +130,7 @@ export default class AddRole extends ClientDataVue {
   async saveRole() {
     const ref = <Tree>this.$refs.tree;
     let currentInfo = this.roleInfo.info!;
+    let result = false;
     currentInfo.permissionIdList = ref.getCheckedKeys();
     if (this.info) {
       //修改
@@ -139,12 +140,12 @@ export default class AddRole extends ClientDataVue {
         roleDesc: currentInfo.roleDesc!,
         permissionIds: ref.getCheckedKeys()
       };
-      let result = await roleApi.updateRoleUsingPOST(data!);
-      if (result.status == 0) {
-        this.$message.success("修改成功");
+      result = await this.requestWithoutResult(() =>
+        roleApi.updateRoleUsingPOST(data)
+      );
+      if (result) {
+        this.$message.success("操作成功");
         this.submit();
-      } else {
-        this.$message.error(result.msg!);
       }
     } else {
       //添加
@@ -154,12 +155,12 @@ export default class AddRole extends ClientDataVue {
         permissionIds: ref.getCheckedKeys()
       };
 
-      let result = await roleApi.addUserUsingPOST(data);
-      if (result.status == 0) {
-        this.$message.success("添加成功");
+      result = await this.requestWithoutResult(() =>
+        roleApi.addUserUsingPOST(data)
+      );
+      if (result) {
+        this.$message.success("操作成功");
         this.submit();
-      } else {
-        this.$message.error(result.msg!);
       }
     }
   }
