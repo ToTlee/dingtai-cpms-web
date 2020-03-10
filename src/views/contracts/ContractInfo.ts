@@ -122,7 +122,8 @@ export class ContractCreator {
       periodContent: "",
       periodMoney: 0,
       periodName: "",
-      startTime: new Date()
+      startTime: new Date(),
+      remark: ""
     };
   }
   static copyPeriod(obj: GetContractPeriodResp | undefined): GetContractPeriodResp {
@@ -135,6 +136,7 @@ export class ContractCreator {
       newObj.periodMoney = obj.periodMoney ?? 0;
       newObj.periodName = obj.periodName ?? "";
       newObj.startTime = obj.startTime ?? new Date();
+      newObj.remark = obj.remark ?? "";
     }
     return newObj;
   }

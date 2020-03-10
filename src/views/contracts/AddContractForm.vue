@@ -47,9 +47,6 @@
       <el-form-item label="合同金额:" required>
         <el-input v-model="contractInfo.info.contractMoney" placeholder="单位: 元"></el-input>
       </el-form-item>
-      <el-form-item label="备注:">
-        <el-input type="textarea"></el-input>
-      </el-form-item>
       <div class="info-header">合同分期</div>
       <el-form-item :label="'合同共分 '+contractInfo.periods.length+' 期'">
         <div v-if="contractInfo.periods.length == 0">

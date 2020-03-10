@@ -101,6 +101,7 @@ export default class AddUser extends ClientDataVue {
 
   async saveUser() {
     let currentInfo = this.userInfo.info!;
+    let result = false;
     if (this.info) {
       let data: UpdateUserReq = {
         id: currentInfo.id!,
@@ -109,12 +110,12 @@ export default class AddUser extends ClientDataVue {
         realName: currentInfo.realName!,
         roleId: currentInfo.roleId!
       };
-      let result = await userApi.updateUserUsingPOST(data);
-      if (result.status == 0) {
-        this.$message.success("修改成功");
+      result = await this.requestWithoutResult(() =>
+        userApi.updateUserUsingPOST(data)
+      );
+      if (result) {
+        this.$message.success("操作成功");
         this.submit();
-      } else {
-        this.$message.error(result.msg!);
       }
     } else {
       //添加
@@ -126,12 +127,12 @@ export default class AddUser extends ClientDataVue {
         roleId: currentInfo.roleId!
       };
 
-      let result = await userApi.addUserUsingPOST1(data);
-      if (result.status == 0) {
-        this.$message.success("添加成功");
+      result = await this.requestWithoutResult(() =>
+        userApi.addUserUsingPOST1(data)
+      );
+      if (result) {
+        this.$message.success("操作成功");
         this.submit();
-      } else {
-        this.$message.error(result.msg!);
       }
     }
   }

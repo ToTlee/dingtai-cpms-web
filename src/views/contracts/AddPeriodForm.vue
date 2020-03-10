@@ -18,11 +18,6 @@
           <el-input v-model="info.periodContent"></el-input>
         </el-form-item>
       </el-col>
-      <el-col :span="12">
-        <el-form-item label="状态:" required>
-          <el-input v-model="info.status"></el-input>
-        </el-form-item>
-      </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
@@ -37,7 +32,7 @@
       </el-col>
     </el-row>
     <el-form-item label="备注:">
-      <el-input type="textarea"></el-input>
+      <el-input type="textarea" v-model="info.remark"></el-input>
     </el-form-item>
     <el-form-item style="text-align: center;" size="normal">
       <el-button @click="cancel">取消</el-button>
