@@ -263,6 +263,9 @@ export default class Quotations extends DataListVue {
 .el-table .group-row {
   background: #ccdcf8 !important;
 }
+.el-table .cell {
+  white-space: pre-line;
+}
 </style>
 
 <style lang="scss" scoped>
