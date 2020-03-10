@@ -10,6 +10,7 @@
       row-key="id"
       :data="data"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      :row-class-name="tableRowClassName"
       default-expand-all
       border
       @selection-change="handleSelectionChange"
@@ -86,7 +87,7 @@ import ArrayUtils from "../../utils/arrayUtils";
 })
 export default class Quotations extends DataListVue {
   data: Array<GetQuotationInfoResp> = [];
-  pageInfo: PageInfo = { pageSize: 10, pageNum: 1, total: 0, pages: 0 };
+  pageInfo: PageInfo = { pageSize: 50, pageNum: 1, total: 0, pages: 0 };
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
@@ -134,30 +135,14 @@ export default class Quotations extends DataListVue {
     } else {
       this.data = [];
     }
-    // } else {
-    //   this.$message.error(result.msg as string);
-    // }
-    // let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-    //   quotationApi.listAllQuotationInfoUsingGET(
-    //     vm.pageInfo.pageNum,
-    //     vm.pageInfo.pageSize
-    //   )
-    // );
-    // if (result) {
-    //   this.pageInfo = result;
-    //   let list = result.list;
-    //   if (list) {
-    //     list.sort((a, b) => a.id! - b.id!);
-    //   } else {
-    //     list = [];
-    //   }
-    //   this.data = list;
-    // } else {
-    //   this.data = [];
-    // }
     this.isLoading = false;
   }
-
+  tableRowClassName({ row, rowIndex }) {
+    if (row.children) {
+      return "group-row";
+    }
+    return "";
+  }
   handleSelectionChange(selection: Array<GetQuotationInfoResp>) {
     this.selectedItems = selection;
   }
@@ -274,6 +259,11 @@ export default class Quotations extends DataListVue {
   }
 }
 </script>
+<style>
+.el-table .group-row {
+  background: #ccdcf8 !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .quotations-panel {
