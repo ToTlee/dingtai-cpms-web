@@ -59,10 +59,18 @@ export const getClientData = function<T>(reResult: ResResult<T>) {
 };
 
 export class ClientDataVue extends Vue {
-  getClientData<T>(reResult: ResResult<T>): DataResult<T> {
+  getClientData<T>(reResult: ResResult<T>, error?: string): DataResult<T> {
     let result = getClientData(reResult);
     if (!result.successed) {
-      this.$message.error(reResult.msg as string);
+      let msg = "";
+      if (error) {
+        msg += "<strong>" + error + "</strong><br/>";
+      }
+      this.$notify.error({
+        title: "请求出错",
+        message: msg + result.message ?? "未知错误",
+        duration: 0
+      });
       if (result.code == 401) {
         var router: any = this.$router;
         router.clearLogin();
@@ -73,18 +81,8 @@ export class ClientDataVue extends Vue {
 
   async getData<T>(callback: (...para: any) => Promise<Result>, error?, ...para: any): Promise<T | undefined> {
     let result = await callback(para);
-    let resultData = getClientData<T>(result);
-    if (!resultData.successed) {
-      let msg = "";
-      if (error) {
-        msg += "<strong>" + error + "</strong><br/>";
-      }
-      this.$notify.error({
-        title: "请求出错",
-        message: msg + resultData.message ?? "未知错误",
-        duration: 0
-      });
-    } else if (resultData.data != undefined) {
+    let resultData = this.getClientData<T>(result);
+    if (resultData.data != undefined) {
       return resultData.data;
     } else {
       return undefined;
@@ -92,18 +90,7 @@ export class ClientDataVue extends Vue {
   }
   async requestWithoutResult(callback: (...para: any) => Promise<Result>, error?: string, ...para: any): Promise<boolean> {
     let result = await callback(para);
-    let resultData = getClientData(result);
-    if (!resultData.successed) {
-      let msg = "";
-      if (error) {
-        msg += "<strong>" + error + "</strong><br/>";
-      }
-      this.$notify.error({
-        title: "请求出错",
-        message: msg + resultData.message ?? "未知错误",
-        duration: 0
-      });
-    }
+    let resultData = this.getClientData(result);
     return resultData.successed;
   }
 }

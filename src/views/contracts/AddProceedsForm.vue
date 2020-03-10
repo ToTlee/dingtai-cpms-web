@@ -99,12 +99,14 @@ export default class AddProceedsForm extends ClientDataVue {
   period?: ContractPeroid;
   @Prop()
   contractId?: number;
-  periodId?: number = this.period?.info.id;
+  periodId?: number = this.period?.info?.id;
   editingInvoice: boolean = true;
 
   get info(): ContractPeroid {
     let contractPeroid: ContractPeroid = {
-      info: ContractCreator.createEmptyPeriod()
+      info: ContractCreator.createEmptyPeriod(),
+      proceed: ContractCreator.createEmptyProceed(),
+      invoice: ContractCreator.createEmptyInvoice()
     };
     contractPeroid.info.contractId = this.contractId;
     if (this.period) {
@@ -178,21 +180,19 @@ export default class AddProceedsForm extends ClientDataVue {
 
   async saveProceed(proceed: GetContractReceivablesResp): Promise<boolean> {
     if (this.period?.proceed) {
-      let dataResult = await proceedsApi.updateContractReceivablesUsingPOST(
-        this.info.proceed!
+      let result = await this.requestWithoutResult(() =>
+        proceedsApi.updateContractReceivablesUsingPOST(this.info.proceed!)
       );
-      let result = this.getClientData(dataResult);
-      if (result.successed) {
-        this.$message.success(result.message ?? "添加收款项成功");
+      if (result) {
+        this.$message.success("更新收款项成功");
         return true;
       }
     } else {
-      let dataResult = await proceedsApi.addContractReceivablesUsingPOST(
-        this.info.proceed!
+      let result = await this.requestWithoutResult(() =>
+        proceedsApi.addContractReceivablesUsingPOST(this.info.proceed!)
       );
-      let result = this.getClientData(dataResult);
-      if (result.successed) {
-        this.$message.success(result.message ?? "更新收款项成功");
+      if (result) {
+        this.$message.success("添加收款项成功");
         return true;
       }
     }
@@ -200,21 +200,19 @@ export default class AddProceedsForm extends ClientDataVue {
   }
   async saveInvoice(invoice: GetContractInvoiceResp): Promise<boolean> {
     if (this.period?.invoice) {
-      let dataResult = await invoiceApi.updateContractInvoiceUsingPOST(
-        this.info.invoice!
+      let result = await this.requestWithoutResult(() =>
+        invoiceApi.updateContractInvoiceUsingPOST(this.info.invoice!)
       );
-      let result = this.getClientData(dataResult);
-      if (result.successed) {
-        this.$message.success(result.message ?? "添加收款项成功");
+      if (result) {
+        this.$message.success("更新发票信息成功");
         return true;
       }
     } else {
-      let dataResult = await invoiceApi.addContractInvoiceUsingPOST(
-        this.info.invoice!
+      let dataResult = await this.requestWithoutResult(() =>
+        invoiceApi.addContractInvoiceUsingPOST(this.info.invoice!)
       );
-      let result = this.getClientData(dataResult);
-      if (result.successed) {
-        this.$message.success(result.message ?? "更新收款项成功");
+      if (dataResult) {
+        this.$message.success("添加发票信息成功");
         return true;
       }
     }

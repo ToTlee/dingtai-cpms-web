@@ -6,20 +6,27 @@
       v-loading="isLoading"
       element-loading-text="正在加载..."
       height="100%"
+      size="mini"
+      row-key="id"
       :data="data"
-      stripe
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+      default-expand-all
       border
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="序号" fixed></el-table-column>
-      <el-table-column prop="categoryName" label="种类"></el-table-column>
+      <!-- <el-table-column type="selection" width="55"></el-table-column> -->
+      <el-table-column type="index" label="序号" fixed></el-table-column>
+      <el-table-column prop="categoryName" label="项目"></el-table-column>
       <el-table-column prop="content" label="内容"></el-table-column>
       <el-table-column prop="quotation" label="报价(万元)"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-dropdown szie="medium" @command="openInfo($event, scope.row)">
+          <el-dropdown
+            szie="medium"
+            @command="openInfo($event, scope.row)"
+            v-if="!scope.row.children"
+          >
             <span class="el-dropdown-link">
               <el-button size="medium" type="primary">
                 查看
@@ -72,6 +79,7 @@ import Component from "vue-class-component";
 import Overview from "../overview/Overview.vue";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
+import ArrayUtils from "../../utils/arrayUtils";
 
 @Component({
   components: {}
@@ -96,7 +104,6 @@ export default class Quotations extends DataListVue {
   async refreshData() {
     this.isLoading = true;
     let vm = this;
-
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
       quotationApi.listAllQuotationInfoUsingGET(
         vm.pageInfo.pageNum,
@@ -105,16 +112,49 @@ export default class Quotations extends DataListVue {
     );
     if (result) {
       this.pageInfo = result;
-      let list = result.list;
-      if (list) {
-        list.sort((a, b) => a.id! - b.id!);
-      } else {
-        list = [];
-      }
+      const groups = ArrayUtils.groupBy(
+        result.list!,
+        item => item.categoryName
+      );
+      let list: any = [];
+      groups.forEach(value => {
+        list.push({
+          id: "parent" + value.key,
+          categoryName: value.key,
+          remark: "",
+          quotation:
+            "合计: " +
+            value.group
+              .map(v => v.quotation)
+              .reduce((pre, curr) => pre! + curr!),
+          children: value.group
+        });
+      });
       this.data = list;
     } else {
       this.data = [];
     }
+    // } else {
+    //   this.$message.error(result.msg as string);
+    // }
+    // let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
+    //   quotationApi.listAllQuotationInfoUsingGET(
+    //     vm.pageInfo.pageNum,
+    //     vm.pageInfo.pageSize
+    //   )
+    // );
+    // if (result) {
+    //   this.pageInfo = result;
+    //   let list = result.list;
+    //   if (list) {
+    //     list.sort((a, b) => a.id! - b.id!);
+    //   } else {
+    //     list = [];
+    //   }
+    //   this.data = list;
+    // } else {
+    //   this.data = [];
+    // }
     this.isLoading = false;
   }
 
@@ -199,6 +239,7 @@ export default class Quotations extends DataListVue {
   // }
 
   async onSearch(query: string): Promise<boolean> {
+    let vm = this;
     if (!query || query == "") {
       await this.refreshData();
       return true;
@@ -206,8 +247,8 @@ export default class Quotations extends DataListVue {
     this.isLoading = true;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
       quotationApi.getQuotationByNameUsingGET(
-        undefined,
-        undefined,
+        vm.pageInfo.pageNum,
+        vm.pageInfo.pageSize,
         undefined,
         undefined,
         undefined,

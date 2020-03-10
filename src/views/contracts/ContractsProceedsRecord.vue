@@ -104,6 +104,24 @@
         <el-timeline-item hide-timestamp type="success" v-if="contractInfo.status == '已完成'">
           <span style="font-weight:bold">合同款项已结清</span>
         </el-timeline-item>
+        <el-dialog
+          :close-on-click-modal="false"
+          :close-on-press-escape="false"
+          title="添加合同收款项"
+          :visible.sync="addItemDialogVisible"
+          append-to-body
+          width="fit-content"
+          height="fit-content"
+          :show-close="false"
+          destroy-on-close
+        >
+          <add-proceeds-form
+            :contractId="contractInfo.id"
+            :period="currentEditPeriod"
+            @cancel="cancleAdd($event)"
+            @submit="submitAddItem"
+          ></add-proceeds-form>
+        </el-dialog>
         <el-timeline-item hide-timestamp type="warning" v-if="contractInfo.status != '已完成'">
           <div class="inline-panel-center">
             <span style="font-weight:bold">没有合同分期信息</span>
@@ -112,23 +130,6 @@
                 <i class="el-icon-circle-plus" @click="addItem"></i>
               </span>
             </el-tooltip>-->
-            <el-dialog
-              :close-on-click-modal="false"
-              :close-on-press-escape="false"
-              title="添加合同收款项"
-              :visible.sync="addItemDialogVisible"
-              append-to-body
-              width="fit-content"
-              height="fit-content"
-              :show-close="false"
-            >
-              <add-proceeds-form
-                :contractId="contractInfo.id"
-                :period="currentEditPeriod ? currentEditPeriod : {}"
-                @cancel="cancleAdd($event)"
-                @submit="submitAddItem"
-              ></add-proceeds-form>
-            </el-dialog>
           </div>
         </el-timeline-item>
       </el-timeline>
@@ -151,12 +152,10 @@ import {
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 
 import AddProceedsForm from "./AddProceedsForm.vue";
-import ToggleButton from "@/components/Element/ToggleButton.vue";
 
 @Component({
   components: {
-    "add-proceeds-form": AddProceedsForm,
-    "el-toggle-button": ToggleButton
+    "add-proceeds-form": AddProceedsForm
   }
 })
 export default class ContractsProceedsRecord extends ClientDataVue {
