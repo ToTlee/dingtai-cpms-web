@@ -5,7 +5,7 @@ import { ExportOptions } from "./ExportOptions";
 export abstract class DataListVue extends ClientDataVue {
   abstract onSearch(query: string): Promise<boolean>;
   abstract onAddItem(): void;
-  abstract onEditItem(): void;
+  onEditItem(): void {}
   abstract onDeleteItem(): void;
   abstract onRefresh(): void;
   onExport(options: ExportOptions): void {}
