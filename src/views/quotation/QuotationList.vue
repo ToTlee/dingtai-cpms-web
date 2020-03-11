@@ -169,6 +169,7 @@ export default class Quotations extends DataListVue {
     if (editing) {
       //确定
       delete row.copy;
+      this.$set(row, "editing", false);
     } else {
       //开始编辑
       row.copy = { ...row };
