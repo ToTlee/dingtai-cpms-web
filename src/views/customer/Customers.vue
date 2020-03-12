@@ -30,7 +30,7 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">跟进</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-s-order" command="customer-info">客户详情</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-s-order" command="customer-detail">客户详情</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -67,7 +67,7 @@
       :visible.sync="dialogTableVisible"
       width="fit-content"
       height="fit-content"
-      lock-scroll
+      :lock-scroll="false"
     >
       <template></template>
       <component :is="dialogComponent" :info="currentInfo"></component>
@@ -89,10 +89,13 @@ import Component from "vue-class-component";
 import { CustomerInfo } from "./CustomerInfo";
 import Overview from "../overview/Overview.vue";
 import AddCustomer from "./AddCustomer.vue";
-
+import CustomerDetail from "./CustomerDetail.vue";
+import CustomerFollow from "./CustomerFollow.vue";
 @Component({
   components: {
-    "add-customer-form": AddCustomer
+    "add-customer-form": AddCustomer,
+    "customer-detail": CustomerDetail,
+    "customer-follow": CustomerFollow
   }
 })
 export default class Customers extends DataListVue {
@@ -195,7 +198,19 @@ export default class Customers extends DataListVue {
     }
     this.addCustomerVisible = false;
   }
-
+  openInfo(command: string, row: GetCustomerResp) {
+    debugger;
+    let component = Overview;
+    this.currentInfo = row;
+    if (command == "proceeds") {
+      this.dialogComponent = "customer-follow";
+      this.dialogTitle = row.customerName + "   跟进";
+    } else if (command == "customer-detail") {
+      this.dialogComponent = "customer-detail";
+      this.dialogTitle = "客户信息";
+    }
+    this.dialogTableVisible = true;
+  }
   cancleAddCustomer() {
     this.addCustomerVisible = false;
   }
@@ -223,15 +238,6 @@ export default class Customers extends DataListVue {
     }
     this.isLoading = false;
     return success;
-  }
-  openInfo(command: string, row: GetCustomerResp) {
-    let component = Overview;
-    this.currentInfo = row;
-    if (command == "proceeds") {
-      this.dialogComponent = "proceeds-record";
-      this.dialogTitle = row.customerName + "客户情况";
-      this.dialogTableVisible = true;
-    }
   }
   onChangePage(page: number) {
     this.pageInfo.pageNum = page;
