@@ -60,19 +60,21 @@
     </div>
     <div class="info-title">客户跟进情况</div>
     <div v-if="customerFollow.length == 0" style="text-align:left;margin-left:8px">无</div>
-    <el-timeline class="info-timeline" v-if="customerFollow.length > 0">
-      <el-timeline-item
-        v-for="(follow, index) in customerFollow"
-        :key="index"
-        :timestamp="follow.createTime"
-        color="#0790df"
-      >
-        <div>
-          <div style="font-weight:bold">{{follow.followCase}}</div>
-          <div style="color:gray;font-size:14px">备注: {{follow.remark}}</div>
-        </div>
-      </el-timeline-item>
-    </el-timeline>
+    <div style="height:200px; overflow-y:scroll;">
+      <el-timeline class="info-timeline" v-if="customerFollow.length > 0">
+        <el-timeline-item
+          v-for="(follow, index) in customerFollow"
+          :key="index"
+          :timestamp="follow.createTime"
+          color="#0790df"
+        >
+          <div>
+            <div style="font-weight:bold">{{follow.followCase}}</div>
+            <div style="color:gray;font-size:14px">跟进人: {{follow.creator}}</div>
+          </div>
+        </el-timeline-item>
+      </el-timeline>
+    </div>
   </el-container>
 </template>
 
