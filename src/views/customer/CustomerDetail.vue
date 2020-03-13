@@ -90,15 +90,15 @@ import { Prop, Watch, Component, PropSync } from "vue-property-decorator";
 import { ContractInfo } from "../contracts/ContractInfo";
 
 @Component
-export default class CustomerInfo extends ClientDataVue {
+export default class CustomerDetail extends ClientDataVue {
   @PropSync("info", { default: {} })
-  contractInfo2?: GetContractResp;
+  contractInfo2?: GetCustomerResp;
   customerInfo: GetCustomerResp = {};
   customerFollow: Array<GetCustomerFollowResp> = [];
   loading = false;
   get customerId() {
     if (this.contractInfo2) {
-      return this.contractInfo2.customerId;
+      return this.contractInfo2.id;
     }
     return -1;
   }

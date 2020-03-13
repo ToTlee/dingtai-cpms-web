@@ -1,9 +1,9 @@
 <template>
   <el-container class="info-root" v-loading="loading">
-    <div class="info-title">Sponsor资料</div>
+    <div class="info-title">客户资料</div>
     <div class="info">
       <el-row class="info-row" :gutter="20">
-        <el-col :span="4" class="info-algin-justify">供应商名称:</el-col>
+        <el-col :span="4" class="info-algin-justify">客户名称:</el-col>
         <el-col
           :span="8"
           class="info-algin-left"
@@ -31,32 +31,21 @@
         <el-col :span="8" class="info-algin-left">{{lastUpdateDate}}</el-col>
       </el-row>
     </div>
-    <div class="info-title">开票信息</div>
+    <div class="info-title">跟进</div>
     <div class="info">
-      <el-row class="info-row" :gutter="20">
-        <el-col :span="3" class="info-algin-justify">开户名:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.bankName}}</el-col>
-        <el-col :span="2" class="info-algin-justify">税号:</el-col>
-        <el-col :span="10" class="info-algin-left">{{customerInfo.creditCode}}</el-col>
-      </el-row>
-      <el-row class="info-row" :gutter="20">
-        <el-col :span="3" class="info-algin-justify">开户行:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.bank}}</el-col>
-        <el-col :span="2" class="info-algin-justify">电话:</el-col>
-        <el-col :span="10" class="info-algin-left">{{customerInfo.tel}}</el-col>
-      </el-row>
-      <el-row class="info-row" :gutter="20">
-        <el-col :span="3" class="info-algin-justify">注册地址:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.registerAddress}}</el-col>
-        <el-col :span="2" class="info-algin-justify">账号:</el-col>
-        <el-col :span="10" class="info-algin-left">{{customerInfo.account}}</el-col>
-      </el-row>
-      <el-row class="info-row" :gutter="20">
-        <el-col :span="3" class="info-algin-justify">发票类容:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.invoiceContent}}</el-col>
-        <el-col :span="3" class="info-algin-justify">发票类型:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.invoiceType}}</el-col>
-      </el-row>
+      <el-form label-width="100px" size="small">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="跟进内容:" required>
+              <el-input type="textarea" v-model="followContent" style="width:300px;"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item size="normal">
+          <el-button type="primary" @click="cancelFollow">取消</el-button>
+          <el-button type="primary" @click="saveFollow">提交</el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <div class="info-title">客户跟进情况</div>
     <div v-if="customerFollow.length == 0" style="text-align:left;margin-left:8px">无</div>
@@ -84,21 +73,24 @@ import {
   customerApi,
   GetCustomerResp,
   GetContractResp,
-  GetCustomerFollowResp
+  GetCustomerFollowResp,
+  customerFollowApi,
+  AddCustomerFollowReq
 } from "@/client-api";
-import { Prop, Watch, Component, PropSync } from "vue-property-decorator";
+import { Prop, Watch, Component, PropSync, Emit } from "vue-property-decorator";
 import { ContractInfo } from "../contracts/ContractInfo";
 
 @Component
-export default class CustomerInfo extends ClientDataVue {
+export default class customerFollow extends ClientDataVue {
   @PropSync("info", { default: {} })
-  contractInfo2?: GetContractResp;
+  contractInfo2?: GetCustomerResp;
   customerInfo: GetCustomerResp = {};
   customerFollow: Array<GetCustomerFollowResp> = [];
+  followContent: string = "";
   loading = false;
   get customerId() {
     if (this.contractInfo2) {
-      return this.contractInfo2.customerId;
+      return this.contractInfo2.id;
     }
     return -1;
   }
@@ -152,6 +144,42 @@ export default class CustomerInfo extends ClientDataVue {
       this.customerFollow = [];
     }
   }
+  async saveFollow() {
+    let result = false;
+    //添加
+    let data: AddCustomerFollowReq = {
+      customerId: this.customerId,
+      followCase: this.followContent,
+      remark: "无备注"
+    };
+
+    result = await this.requestWithoutResult(() =>
+      customerFollowApi.addCustomerFollowUsingPOST(data)
+    );
+    if (result) {
+      this.$message.success("操作成功");
+
+      this.submit();
+      this.refreshData();
+    }
+  }
+
+  cancelFollow() {
+    let vm = this;
+    this.$msgbox
+      .confirm("是否放弃当跟进?")
+      .then(() => {
+        vm.cancel();
+      })
+      .catch(() => {});
+  }
+  @Emit()
+  submit() {
+    return this.followContent;
+  }
+
+  @Emit()
+  cancel() {}
 }
 </script>
 

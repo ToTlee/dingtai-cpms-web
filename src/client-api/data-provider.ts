@@ -15,7 +15,8 @@ import {
   ContractPeriodControllerApi,
   RoleControllerApi,
   QuotationInventoryControllerApi,
-  QuotationExperimentControllerApi
+  QuotationExperimentControllerApi,
+  CustomerFollowControllerApi
 } from "./classes/api";
 
 const SERVER_PATH = "/admin".replace(/\/+$/, "");
@@ -39,3 +40,4 @@ export const proceedsApi = new ContractReceivablesControllerApi(configuraion, SE
 export const invoiceApi = new ContractInvoiceControllerApi(configuraion, SERVER_PATH);
 export const roleApi = new RoleControllerApi(configuraion, SERVER_PATH);
 export const periodApi = new ContractPeriodControllerApi(configuraion, SERVER_PATH);
+export const customerFollowApi = new CustomerFollowControllerApi(configuraion, SERVER_PATH);
