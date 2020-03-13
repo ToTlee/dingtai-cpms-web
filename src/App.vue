@@ -42,4 +42,8 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.el-table .cell {
+  white-space: pre-line !important;
+}
 </style>

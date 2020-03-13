@@ -28,10 +28,7 @@
       </el-table-column>
       <el-table-column label="报价(万元)">
         <template slot-scope="scope">
-          <div v-if="!scope.row.children">
-            <el-input v-if="scope.row.editing" v-model="scope.row.quotation" size="mini"></el-input>
-            <div v-if="!scope.row.editing">{{ scope.row.quotation }}</div>
-          </div>
+          <div>{{ scope.row.quotation }}</div>
         </template>
       </el-table-column>
       <el-table-column label="备注" prop="editing">
@@ -50,29 +47,28 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="small" v-if="!scope.row.children" type="text" @click="editRow(scope.row)">{{
-            scope.row.editing ? "确定" : "编辑"
-          }}</el-button>
-          <el-button size="small" v-if="!scope.row.children && scope.row.editing" type="text" @click="cancelEditRow(scope.row)"
-            >取消</el-button
-          >
-          <el-button size="small" v-if="!scope.row.children" type="text">明细</el-button>
-          <!-- <el-dropdown
-            szie="medium"
-            @command="openInfo($event, scope.row)"
+          <el-button
+            size="small"
             v-if="!scope.row.children"
+            type="text"
+            @click="editRow(scope.row)"
           >
-            <span class="el-dropdown-link">
-              <el-button size="small" type="text">
-                查看
-                <i class="el-icon-arrow-down el-icon--right"></i>
-              </el-button>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item icon="el-icon-s-order" command="invoice">编辑</el-dropdown-item>
-              <el-dropdown-item icon="el-icon-s-cooperation" command="proceeds">详细报价</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>-->
+            {{
+            scope.row.editing ? "确定" : "编辑"
+            }}
+          </el-button>
+          <el-button
+            size="small"
+            v-if="!scope.row.children && scope.row.editing"
+            type="text"
+            @click="cancelEditRow(scope.row)"
+          >取消</el-button>
+          <el-button
+            size="small"
+            v-if="!scope.row.children"
+            type="text"
+            @click="showDetial(scope.row)"
+          >明细</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -87,7 +83,15 @@
       @size-change="onPageSizeChange"
       @current-change="onChangePage"
     ></el-pagination>
-    <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" lock-scroll>
+    <el-dialog
+      style="margin:20px"
+      :title="dialogTitle"
+      :visible.sync="dialogTableVisible"
+      width="fit-content"
+      height="fit-content"
+      :destroy-on-close="true"
+      lock-scroll
+    >
       <component :is="dialogComponent" :info="currentInfo"></component>
     </el-dialog>
   </div>
@@ -96,16 +100,23 @@
 <script lang="ts">
 import { ClientDataVue, PageInfo } from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
-import { quotationApi, GetQuotationInfoResp, PageInfoGetQuotationInfoResp } from "@/client-api";
+import {
+  quotationApi,
+  GetQuotationInfoResp,
+  PageInfoGetQuotationInfoResp
+} from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 import ArrayUtils from "../../utils/arrayUtils";
+import QuotationDetail from "./QuotationDetail.vue";
 
 @Component({
-  components: {}
+  components: {
+    "quotation-detail": QuotationDetail
+  }
 })
 export default class Quotations extends DataListVue {
   data: Array<GetQuotationInfoResp> = [];
@@ -128,18 +139,28 @@ export default class Quotations extends DataListVue {
     this.isLoading = true;
     let vm = this;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-      quotationApi.listAllQuotationInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
+      quotationApi.listAllQuotationInfoUsingGET(
+        vm.pageInfo.pageNum,
+        vm.pageInfo.pageSize
+      )
     );
     if (result) {
       this.pageInfo = result;
-      const groups = ArrayUtils.groupBy(result.list!, item => item.categoryName);
+      const groups = ArrayUtils.groupBy(
+        result.list!,
+        item => item.categoryName
+      );
       let list: any = [];
       groups.forEach(value => {
         list.push({
           id: "parent" + value.key,
           categoryName: value.key,
           remark: "",
-          quotation: "合计: " + value.group.map(v => v.quotation).reduce((pre, curr) => pre! + curr!),
+          quotation:
+            "合计: " +
+            value.group
+              .map(v => v.quotation)
+              .reduce((pre, curr) => pre! + curr!),
           children: value.group
         });
       });
@@ -192,16 +213,27 @@ export default class Quotations extends DataListVue {
       .then(async () => {
         for (let i = 0; i < vm.selectedItems.length; i++) {
           const element = vm.selectedItems[i];
-          await vm.requestWithoutResult(() => quotationApi.deleteQuotationUsingPOST(element.id!));
+          await vm.requestWithoutResult(() =>
+            quotationApi.deleteQuotationUsingPOST(element.id!)
+          );
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success("成功删除" + this.selectedItems.length + "个报价！");
+        vm.$message.success(
+          "成功删除" + this.selectedItems.length + "个报价！"
+        );
       })
       .catch();
   }
 
   onRefresh(): void {
     this.refreshData();
+  }
+
+  showDetial(row: GetQuotationInfoResp) {
+    this.dialogComponent = "quotation-detail";
+    this.dialogTitle = "项目报价明细";
+    this.currentInfo = row;
+    this.dialogTableVisible = true;
   }
 
   // submitContract(info: ContractInfo) {
@@ -240,7 +272,14 @@ export default class Quotations extends DataListVue {
     }
     this.isLoading = true;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-      quotationApi.getQuotationByNameUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize, undefined, undefined, undefined, query)
+      quotationApi.getQuotationByNameUsingGET(
+        vm.pageInfo.pageNum,
+        vm.pageInfo.pageSize,
+        undefined,
+        undefined,
+        undefined,
+        query
+      )
     );
     let success = false;
     if (result && result.list) {
@@ -261,7 +300,18 @@ export default class Quotations extends DataListVue {
   }
 }
 </script>
-<style>
+
+
+<style >
+.el-dialog__header {
+  padding: 20px 0px 6px 0px;
+}
+.el-dialog__body {
+  padding: 0px 20px;
+}
+</style>
+
+<style scoped>
 .el-table .group-row {
   background: #ccdcf8 !important;
 }
@@ -308,3 +358,5 @@ export default class Quotations extends DataListVue {
   border-radius: 0px !important;
 }
 </style>
+
+
