@@ -59,7 +59,7 @@
         >
           <div>
             <div style="font-weight:bold">{{follow.followCase}}</div>
-            <div style="color:gray;font-size:14px">备注: {{follow.remark}}</div>
+            <div style="color:gray;font-size:14px">跟进人: {{follow.creator}}</div>
           </div>
         </el-timeline-item>
       </el-timeline>
