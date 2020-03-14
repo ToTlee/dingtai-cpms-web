@@ -91,6 +91,7 @@
       height="fit-content"
       :destroy-on-close="true"
       lock-scroll
+      modal-append-to-body
     >
       <component :is="dialogComponent" :info="currentInfo"></component>
     </el-dialog>

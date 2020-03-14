@@ -1,24 +1,26 @@
 <template>
   <div class="detail-root">
-    <el-row>
+    <el-row :gutter="30">
       <el-col :span="12">
-        <div>实验参数</div>
-        <el-table
-          class="table"
-          :data="data.basic"
-          :show-header="false"
-          size="mini"
-          border
-          :cell-style="{padding:'1px'}"
-          :row-style="{height:'10px'}"
-        >
-          <el-table-column prop="label"></el-table-column>
-          <el-table-column prop="value"></el-table-column>
-        </el-table>
+        <div class="span-header">实验参数</div>
+        <el-scrollbar style="height:184px">
+          <el-table
+            class="table"
+            :data="data.basic"
+            :show-header="false"
+            size="mini"
+            border
+            :cell-style="{padding:'1px'}"
+            :row-style="{height:'10px'}"
+          >
+            <el-table-column prop="label"></el-table-column>
+            <el-table-column prop="value"></el-table-column>
+          </el-table>
+        </el-scrollbar>
       </el-col>
       <el-col :span="12" class="property-col"></el-col>
       <el-col :span="12">
-        <div>检测指标</div>
+        <div class="span-header">检测指标</div>
         <el-table
           class="table"
           :data="data.testing"
@@ -32,6 +34,7 @@
       </el-col>
       <el-col :span="12" class="property-col"></el-col>
     </el-row>
+    <div class="span-header">项目价格明细</div>
     <el-table
       ref="table"
       class="table"
@@ -41,7 +44,7 @@
       row-key="id"
       size="mini"
       border
-      height="360px"
+      height="380px"
       show-summary
       :summary-method="getSummaries"
       :cell-style="{padding:'1px'}"
@@ -52,8 +55,12 @@
         </template>
       </el-table-column>
       <el-table-column prop="label" label="内容"></el-table-column>
-      <el-table-column prop="price" label="单价"></el-table-column>
-      <el-table-column label="总计"></el-table-column>
+      <el-table-column label="单价">
+        <template slot-scope="scope">
+          <span>{{!scope.row.children ? scope.row.price:""}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="total" label="总计"></el-table-column>
       <el-table-column label="备注"></el-table-column>
     </el-table>
   </div>
@@ -235,9 +242,24 @@ export default class QuotationDetail extends ClientDataVue {
     if (columns && data) {
       columns.forEach((col, index) => {
         if (index == 0) {
-          summary[index] = "合计";
+          summary[index] = "合计\n合计*1.1\n取整";
         } else if (index == 3) {
-          summary[index] = "总价";
+          let result = 0;
+          data.forEach(item => {
+            if (item.children && item.children.length > 0) {
+              item.children.forEach(child => {
+                result += Number(child.total);
+              });
+            } else {
+              result += Number(item.total);
+            }
+          });
+          summary[index] =
+            result +
+            "\n" +
+            Math.floor(result * 1.1) +
+            "\n" +
+            Math.floor((result * 1.1) / 1000) * 1000;
         } else {
           summary[index] = "";
         }
@@ -250,13 +272,19 @@ export default class QuotationDetail extends ClientDataVue {
 
 <style lang="scss" scoped>
 .detail-root {
-  width: 600px;
+  width: 700px;
   text-align: left;
   font-size: 12px;
+  font-family: "宋体";
 }
 .property-col {
   text-align: center;
   line-height: 14px;
+}
+
+.span-header {
+  margin: 4px 0px;
+  font-weight: bold;
 }
 
 .property-col div {

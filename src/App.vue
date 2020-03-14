@@ -46,4 +46,10 @@ export default {
 .el-table .cell {
   white-space: pre-line !important;
 }
+.el-scrollbar__wrap {
+  overflow-x: hidden !important;
+}
+.el-table--border th.gutter:last-of-type {
+  background-color: transparent;
+}
 </style>
