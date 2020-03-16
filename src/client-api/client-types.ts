@@ -68,6 +68,7 @@ export class ClientDataVue extends Vue {
       }
       this.$notify.error({
         title: "请求出错",
+        dangerouslyUseHTMLString: true,
         message: msg + result.message ?? "未知错误",
         duration: 0
       });
@@ -81,7 +82,7 @@ export class ClientDataVue extends Vue {
 
   async getData<T>(callback: (...para: any) => Promise<Result>, error?, ...para: any): Promise<T | undefined> {
     let result = await callback(para);
-    let resultData = this.getClientData<T>(result);
+    let resultData = this.getClientData<T>(result, error);
     if (resultData.data != undefined) {
       return resultData.data;
     } else {
@@ -90,7 +91,7 @@ export class ClientDataVue extends Vue {
   }
   async requestWithoutResult(callback: (...para: any) => Promise<Result>, error?: string, ...para: any): Promise<boolean> {
     let result = await callback(para);
-    let resultData = this.getClientData(result);
+    let resultData = this.getClientData(result, error);
     return resultData.successed;
   }
 }

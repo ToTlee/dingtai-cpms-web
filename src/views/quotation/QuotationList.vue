@@ -268,34 +268,6 @@ export default class Quotations extends DataListVue {
     this.dialogTableVisible = true;
   }
 
-  // submitContract(info: ContractInfo) {
-  //   if (this.currentContractInfo) {
-  //     //更新
-  //     let index = this.data.indexOf(this.currentContractInfo.info!);
-  //     this.$set(this.data, index, info.info);
-  //   } else {
-  //     //添加
-  //     this.data.push(info.info!);
-  //   }
-  //   this.addContractVisible = false;
-  // }
-
-  // cancleAddContract() {
-  //   this.addContractVisible = false;
-  // }
-
-  // openInfo(command: string, row: GetContractResp) {
-  //   let component = Overview;
-  //   this.currentInfo = row;
-  //   if (command == "proceeds") {
-  //     this.dialogComponent = "proceeds-record";
-  //     this.dialogTitle = row.contractName + "合同收款情况";
-  //     this.dialogTableVisible = true;
-  //   } else if (command == "invoice") {
-  //   } else if (command == "customer-info") {
-  //   }
-  // }
-
   async onSearch(query: string): Promise<boolean> {
     let vm = this;
     if (!query || query == "") {

@@ -431,11 +431,17 @@ export interface AddDetailQuotationReq {
    */
   quotationExperimentEntity: QuotationExperimentEntity;
   /**
-   * 报价费用
+   * 报价单价
    * @type {QuotationInventoryEntity}
    * @memberof AddDetailQuotationReq
    */
   quotationInventoryEntity: QuotationInventoryEntity;
+  /**
+   * 报价总价
+   * @type {QuotationInventoryEntity}
+   * @memberof AddDetailQuotationReq
+   */
+  quotationTotalInventoryEntity: QuotationInventoryEntity;
   /**
    * 备注
    * @type {string}
@@ -2769,61 +2775,61 @@ export interface QuotationExperimentEntity {
  */
 export interface QuotationInventoryEntity {
   /**
-   *
+   * 动物费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   animal?: number;
   /**
-   *
+   * 动物房费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   animalzoom?: number;
   /**
-   *
+   * 临床检验费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   cliniccheck?: number;
   /**
-   *
+   * 临床观察费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   clinicobserve?: number;
   /**
-   *
+   * 翻倍系数
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   coefficient?: number;
   /**
-   *
+   * 大体解剖费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   dissection?: number;
   /**
-   *
+   * 给药费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   does?: number;
   /**
-   *
+   * 心电检测费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ecg?: number;
   /**
-   *
+   * 饲养费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   feeding?: number;
   /**
-   *
+   * 组织病理费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
@@ -2835,73 +2841,73 @@ export interface QuotationInventoryEntity {
    */
   id?: number;
   /**
-   *
+   * 摄食检测费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ingestion?: number;
   /**
-   *
+   * 是否是单价 0-单价  1-总计  2-备注
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
-  isunit?: number;
+  isunit: number;
   /**
-   *
+   * 眼科检查费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ophthalmology?: number;
   /**
-   *
+   * 其他费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   others?: number;
   /**
-   *
+   * 制剂配置费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   preparations?: number;
   /**
-   *
+   * 此次报价id  0为默认
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
-  quotationid?: number;
+  quotationid: number;
   /**
-   *
+   * 研究报告费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   report?: number;
   /**
-   *
+   * 研究方案费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   scheme?: number;
   /**
-   *
+   * 体温检测费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   temperature?: number;
   /**
-   *
+   * TK样本采集费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   tk?: number;
   /**
-   *
+   * 合计费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   total?: number;
   /**
-   *
+   * 体重检测费用
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
@@ -4133,12 +4139,6 @@ export interface UpdateQuotationInventoryReq {
    */
   animal?: number;
   /**
-   * 动物种类
-   * @type {string}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  animalcategory?: string;
-  /**
    * 动物房费用
    * @type {number}
    * @memberof UpdateQuotationInventoryReq
@@ -4264,18 +4264,6 @@ export interface UpdateQuotationInventoryReq {
    * @memberof UpdateQuotationInventoryReq
    */
   total?: number;
-  /**
-   * 毒性 0-长毒 1-急毒
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  virulence?: number;
-  /**
-   * 星期
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  week?: number;
   /**
    * 体重检测费用
    * @type {number}

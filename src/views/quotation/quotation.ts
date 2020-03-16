@@ -98,6 +98,20 @@ export class QuotationDetailInfo implements Clonable<QuotationDetailInfo> {
   testing: Array<PropPair> = new Array<PropPair>();
   prices: Array<QuotaionItem> = new Array<QuotaionItem>();
 
+  get total() {
+    let result = 0;
+    this.prices.forEach(item => {
+      if (item.children && item.children.length > 0) {
+        item.children.forEach(child => {
+          result += Number(child.total);
+        });
+      } else {
+        result += Number(item.total);
+      }
+    });
+    return Number(result);
+  }
+
   clone() {
     this.basic.forEach(item => {
       item.clone();

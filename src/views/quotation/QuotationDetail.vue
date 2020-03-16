@@ -105,7 +105,8 @@ import {
   QuotationExperimentEntity,
   quotationExperimentApi,
   GetQuotationInfoResp,
-  ResultQuotationInventoryEntity
+  ResultQuotationInventoryEntity,
+  UpdateQuotationInventoryReq
 } from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
 import { QuotationDetailInfo, createTempInfo, QuotaionItem } from "./quotation";
@@ -242,7 +243,7 @@ export default class QuotationDetail extends ClientDataVue {
     return this.data;
   }
 
-  async created() {
+  async mounted() {
     if (this.info && this.info.id) {
       let data = createTempInfo();
       let experimentResult = await this.getData<QuotationExperimentEntity>(() =>
@@ -282,6 +283,7 @@ export default class QuotationDetail extends ClientDataVue {
       let table: any = this.$refs.table;
       table.doLayout();
     });
+    let vm = this;
     const { columns, data } = param;
     let summary: string[] = [];
     if (columns && data) {
@@ -289,16 +291,8 @@ export default class QuotationDetail extends ClientDataVue {
         if (index == 0) {
           summary[index] = "合计\n合计*1.1\n取整";
         } else if (index == 3) {
-          let result = 0;
-          data.forEach(item => {
-            if (item.children && item.children.length > 0) {
-              item.children.forEach(child => {
-                result += Number(child.total);
-              });
-            } else {
-              result += Number(item.total);
-            }
-          });
+          let result = vm.data.total;
+
           summary[index] =
             result +
             "\n" +
@@ -317,17 +311,46 @@ export default class QuotationDetail extends ClientDataVue {
     this.isEditting = true;
   }
   async saveEdit() {
-    let updateInfo = {
+    let updateInfo: UpdateQuotationInventoryReq = {
       quotationid: this.info.id
     };
     this.data.prices.forEach(p => {
-      updateInfo[p.id] = p.value;
+      if (p.children && p.children.length > 0) {
+        p.children.forEach(child => {
+          updateInfo[child.id] = child.price;
+        });
+      } else {
+        updateInfo[p.id] = p.price;
+      }
     });
-    let result = await this.requestWithoutResult(() =>
-      quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo)
+    updateInfo.isunit = 0;
+    let result = await this.requestWithoutResult(
+      () =>
+        quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
+      "更新总价"
     );
     if (result) {
-      this.$message.success("更新信息成功！");
+      this.$message.success("更新单价成功！");
+      this.isEditting = false;
+    }
+    updateInfo.isunit = 1;
+    this.data.prices.forEach(p => {
+      if (p.children && p.children.length > 0) {
+        p.children.forEach(child => {
+          updateInfo[child.id] = child.total;
+        });
+      } else {
+        updateInfo[p.id] = p.total;
+      }
+    });
+    updateInfo.total = this.data.total;
+    let result2 = await this.requestWithoutResult(
+      () =>
+        quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
+      "更新总价"
+    );
+    if (result2) {
+      this.$message.success("更新总价成功！");
       this.isEditting = false;
     }
   }

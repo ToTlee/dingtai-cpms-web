@@ -54,7 +54,8 @@ export default class AddQuoation extends ClientDataVue {
     content: "",
     remark: "",
     quotationExperimentEntity: {},
-    quotationInventoryEntity: {}
+    quotationInventoryEntity: { quotationid: 0, isunit: 0 },
+    quotationTotalInventoryEntity: { quotationid: 0, isunit: 1 }
   };
 
   priceInfo: QuotationDetailInfo = createTempInfo();
@@ -70,12 +71,15 @@ export default class AddQuoation extends ClientDataVue {
     this.priceInfo.prices.forEach(item => {
       if (item.children && item.children.length > 0) {
         item.children.forEach(child => {
-          vm.data.quotationInventoryEntity[child.id] = child.total;
+          vm.data.quotationInventoryEntity[child.id] = child.price;
+          vm.data.quotationTotalInventoryEntity[child.id] = child.total;
         });
       } else {
-        vm.data.quotationInventoryEntity[item.id] = item.total;
+        vm.data.quotationInventoryEntity[item.id] = item.price;
+        vm.data.quotationTotalInventoryEntity[item.id] = item.total;
       }
     });
+    vm.data.quotationTotalInventoryEntity.total = this.priceInfo.total;
     let result = await this.requestWithoutResult(() =>
       quotationApi.addDetailQuotationUsingPOST(this.data)
     );
