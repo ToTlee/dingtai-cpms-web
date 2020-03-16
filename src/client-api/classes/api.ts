@@ -419,6 +419,12 @@ export interface AddDetailQuotationReq {
    */
   content: string;
   /**
+   * 描述
+   * @type {string}
+   * @memberof AddDetailQuotationReq
+   */
+  description?: string;
+  /**
    * 实验参数
    * @type {QuotationExperimentEntity}
    * @memberof AddDetailQuotationReq
@@ -458,12 +464,6 @@ export interface AddProjectCategoryReq {
  * @interface AddQuotationExperimentReq
  */
 export interface AddQuotationExperimentReq {
-  /**
-   * 动物种类
-   * @type {string}
-   * @memberof AddQuotationExperimentReq
-   */
-  animal: string;
   /**
    * 动物数量（只）
    * @type {number}
@@ -517,7 +517,7 @@ export interface AddQuotationExperimentReq {
    * @type {number}
    * @memberof AddQuotationExperimentReq
    */
-  groupCnt: number;
+  groupCnt?: number;
   /**
    * 摄食检测（次数）
    * @type {number}
@@ -537,7 +537,7 @@ export interface AddQuotationExperimentReq {
    */
   quarantine: number;
   /**
-   * 次报价id ， 默认报价为0
+   * 本次报价id ， 默认报价为0
    * @type {number}
    * @memberof AddQuotationExperimentReq
    */
@@ -561,18 +561,6 @@ export interface AddQuotationExperimentReq {
    */
   tk?: number;
   /**
-   * 毒性
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  virulence: number;
-  /**
-   * 星期
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  week: number;
-  /**
    * 体重检测（次数）
    * @type {number}
    * @memberof AddQuotationExperimentReq
@@ -592,12 +580,6 @@ export interface AddQuotationInventoryReq {
    * @memberof AddQuotationInventoryReq
    */
   animal?: number;
-  /**
-   * 动物种类
-   * @type {string}
-   * @memberof AddQuotationInventoryReq
-   */
-  animalCategory?: string;
   /**
    * 动物房费用
    * @type {number}
@@ -718,18 +700,6 @@ export interface AddQuotationInventoryReq {
    * @memberof AddQuotationInventoryReq
    */
   total?: number;
-  /**
-   * 毒性 0-长毒 1-急毒
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  virulence?: number;
-  /**
-   * 星期
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  week?: number;
   /**
    * 体重检测费用
    * @type {number}
@@ -2683,61 +2653,55 @@ export interface PageInfoGetUserInfoResp {
  */
 export interface QuotationExperimentEntity {
   /**
-   * 动物种类
-   * @type {string}
-   * @memberof QuotationExperimentEntity
-   */
-  animal?: string;
-  /**
-   * 动物数量（只）
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   animalCnt?: number;
   /**
-   * 伴随TK动物数量
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   animaltkCnt?: number;
   /**
-   * 采血周期
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   bloodPeriod?: number;
   /**
-   * 每只动物采血点
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   bloodPoint?: number;
   /**
-   * 临床检验(次数)
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   clinicCnt?: number;
   /**
-   * 给药次数
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   doesCnt?: number;
   /**
-   * 给药期天数
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   doesDay?: number;
   /**
-   * 心电检测(次数)
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   ecgCnt?: number;
   /**
-   * 组数
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
@@ -2749,61 +2713,49 @@ export interface QuotationExperimentEntity {
    */
   id?: number;
   /**
-   * 摄食检测（次数）
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   ingestionCnt?: number;
   /**
-   * 眼科检查（次数）
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   ophthalmologyCnt?: number;
   /**
-   * 检疫适应期
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   quarantine?: number;
   /**
-   * 本次报价id ， 默认为0
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   quotationid?: number;
   /**
-   * 恢复天数
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   recoverday?: number;
   /**
-   * 体温检测(次数)
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   temperatureCnt?: number;
   /**
-   * TK样本量
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
   tk?: number;
   /**
-   * 动物种类
-   * @type {number}
-   * @memberof QuotationExperimentEntity
-   */
-  virulence?: number;
-  /**
-   * 动物种类
-   * @type {number}
-   * @memberof QuotationExperimentEntity
-   */
-  week?: number;
-  /**
-   * 体重检测（次数）
+   *
    * @type {number}
    * @memberof QuotationExperimentEntity
    */
@@ -2817,67 +2769,61 @@ export interface QuotationExperimentEntity {
  */
 export interface QuotationInventoryEntity {
   /**
-   * 动物费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   animal?: number;
   /**
-   * 动物种类
-   * @type {string}
-   * @memberof QuotationInventoryEntity
-   */
-  animalcategory?: string;
-  /**
-   * 动物房费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   animalzoom?: number;
   /**
-   * 临床检验费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   cliniccheck?: number;
   /**
-   * 临床观察费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   clinicobserve?: number;
   /**
-   * 翻倍系数
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   coefficient?: number;
   /**
-   * 大体解剖费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   dissection?: number;
   /**
-   * 给药费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   does?: number;
   /**
-   * 心电检测费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ecg?: number;
   /**
-   * 饲养费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   feeding?: number;
   /**
-   * 组织病理费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
@@ -2889,85 +2835,73 @@ export interface QuotationInventoryEntity {
    */
   id?: number;
   /**
-   * 摄食检测费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ingestion?: number;
   /**
-   * 是否是单价
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   isunit?: number;
   /**
-   * 眼科检查费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   ophthalmology?: number;
   /**
-   * 其他费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   others?: number;
   /**
-   * 制剂配置费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   preparations?: number;
   /**
-   * 此次报价id  0为默认
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   quotationid?: number;
   /**
-   * 研究报告费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   report?: number;
   /**
-   * 研究方案费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   scheme?: number;
   /**
-   * 体温检测费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   temperature?: number;
   /**
-   * TK样本采集费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   tk?: number;
   /**
-   * 合计费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
   total?: number;
   /**
-   * 毒性 0-长毒 1-急毒
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  virulence?: number;
-  /**
-   * 星期
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  week?: number;
-  /**
-   * 体重检测费用
+   *
    * @type {number}
    * @memberof QuotationInventoryEntity
    */
@@ -4152,6 +4086,202 @@ export interface UpdatePwdReq {
    * @memberof UpdatePwdReq
    */
   userId?: number;
+}
+
+/**
+ * 更新报价请求实体
+ * @export
+ * @interface UpdateQuotationConditionReq
+ */
+export interface UpdateQuotationConditionReq {
+  /**
+   * 种类名称
+   * @type {string}
+   * @memberof UpdateQuotationConditionReq
+   */
+  category?: string;
+  /**
+   * 内容
+   * @type {string}
+   * @memberof UpdateQuotationConditionReq
+   */
+  content: string;
+  /**
+   * 报价id
+   * @type {number}
+   * @memberof UpdateQuotationConditionReq
+   */
+  id: number;
+  /**
+   * 备注
+   * @type {string}
+   * @memberof UpdateQuotationConditionReq
+   */
+  remark?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface UpdateQuotationInventoryReq
+ */
+export interface UpdateQuotationInventoryReq {
+  /**
+   * 动物费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  animal?: number;
+  /**
+   * 动物种类
+   * @type {string}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  animalcategory?: string;
+  /**
+   * 动物房费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  animalzoom?: number;
+  /**
+   * 临床检验费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  cliniccheck?: number;
+  /**
+   * 临床观察费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  clinicobserve?: number;
+  /**
+   * 翻倍系数
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  coefficient?: number;
+  /**
+   * 大体解剖费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  dissection?: number;
+  /**
+   * 给药费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  does?: number;
+  /**
+   * 心电检测费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  ecg?: number;
+  /**
+   * 饲养费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  feeding?: number;
+  /**
+   * 组织病理费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  histopathology?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  id?: number;
+  /**
+   * 摄食检测费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  ingestion?: number;
+  /**
+   * 是否是单价
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  isunit?: number;
+  /**
+   * 眼科检查费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  ophthalmology?: number;
+  /**
+   * 其他费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  others?: number;
+  /**
+   * 制剂配置费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  preparations?: number;
+  /**
+   * 此次报价id  0为默认
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  quotationid?: number;
+  /**
+   * 研究报告费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  report?: number;
+  /**
+   * 研究方案费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  scheme?: number;
+  /**
+   * 体温检测费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  temperature?: number;
+  /**
+   * TK样本采集费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  tk?: number;
+  /**
+   * 合计费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  total?: number;
+  /**
+   * 毒性 0-长毒 1-急毒
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  virulence?: number;
+  /**
+   * 星期
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  week?: number;
+  /**
+   * 体重检测费用
+   * @type {number}
+   * @memberof UpdateQuotationInventoryReq
+   */
+  weight?: number;
 }
 
 /**
@@ -8337,6 +8467,42 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
         url: url.format(localVarUrlObj),
         options: localVarRequestOptions
       };
+    },
+    /**
+     *
+     * @summary 更新报价(不更新金额)
+     * @param {UpdateQuotationConditionReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError(
+          "request",
+          "Required parameter request was null or undefined when calling updateQuotationConditionUsingPOST."
+        );
+      }
+      const localVarPath = `/quotation/updateQuotationCondition`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"UpdateQuotationConditionReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
   };
 };
@@ -8480,6 +8646,28 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
           }
         });
       };
+    },
+    /**
+     *
+     * @summary 更新报价(不更新金额)
+     * @param {UpdateQuotationConditionReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationConditionUsingPOST(
+      request: UpdateQuotationConditionReq,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).updateQuotationConditionUsingPOST(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
     }
   };
 };
@@ -8578,6 +8766,16 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
         pageBegin,
         options
       )(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 更新报价(不更新金额)
+     * @param {UpdateQuotationConditionReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options?: any) {
+      return QuotationControllerApiFp(configuration).updateQuotationConditionUsingPOST(request, options)(fetch, basePath);
     }
   };
 };
@@ -8686,6 +8884,18 @@ export class QuotationControllerApi extends BaseAPI {
       pageBegin,
       options
     )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 更新报价(不更新金额)
+   * @param {UpdateQuotationConditionReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options?: any) {
+    return QuotationControllerApiFp(this.configuration).updateQuotationConditionUsingPOST(request, options)(this.fetch, this.basePath);
   }
 }
 
@@ -9113,6 +9323,42 @@ export const QuotationInventoryControllerApiFetchParamCreator = function(configu
         url: url.format(localVarUrlObj),
         options: localVarRequestOptions
       };
+    },
+    /**
+     *
+     * @summary 根据报价id更新此次单价
+     * @param {UpdateQuotationInventoryReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError(
+          "request",
+          "Required parameter request was null or undefined when calling updateQuotationInventoryUnitUsingPOST."
+        );
+      }
+      const localVarPath = `/quotation/updateQuotationInventoryUnit`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"UpdateQuotationInventoryReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
   };
 };
@@ -9216,6 +9462,31 @@ export const QuotationInventoryControllerApiFp = function(configuration?: Config
           }
         });
       };
+    },
+    /**
+     *
+     * @summary 根据报价id更新此次单价
+     * @param {UpdateQuotationInventoryReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationInventoryUnitUsingPOST(
+      request: UpdateQuotationInventoryReq,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).updateQuotationInventoryUnitUsingPOST(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
     }
   };
 };
@@ -9265,6 +9536,16 @@ export const QuotationInventoryControllerApiFactory = function(configuration?: C
      */
     queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options?: any) {
       return QuotationInventoryControllerApiFp(configuration).queryInventoryByConditionUsingPOST(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据报价id更新此次单价
+     * @param {UpdateQuotationInventoryReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options?: any) {
+      return QuotationInventoryControllerApiFp(configuration).updateQuotationInventoryUnitUsingPOST(request, options)(fetch, basePath);
     }
   };
 };
@@ -9328,6 +9609,21 @@ export class QuotationInventoryControllerApi extends BaseAPI {
    */
   public queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options?: any) {
     return QuotationInventoryControllerApiFp(this.configuration).queryInventoryByConditionUsingPOST(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @summary 根据报价id更新此次单价
+   * @param {UpdateQuotationInventoryReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationInventoryControllerApi
+   */
+  public updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options?: any) {
+    return QuotationInventoryControllerApiFp(this.configuration).updateQuotationInventoryUnitUsingPOST(request, options)(
       this.fetch,
       this.basePath
     );

@@ -86,10 +86,12 @@
     <el-dialog
       style="margin:20px"
       :title="dialogTitle"
-      :visible.sync="dialogTableVisible"
+      :visible.sync="dlgVisible"
       width="fit-content"
       height="fit-content"
       :destroy-on-close="true"
+      :close-on-press-escape="false"
+      :close-on-click-modal="false"
       lock-scroll
       modal-append-to-body
     >
@@ -99,7 +101,11 @@
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client-api";
+import {
+  ClientDataVue,
+  PageInfo,
+  UpdateQuotationConditionReq
+} from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
 import {
   quotationApi,
@@ -113,10 +119,12 @@ import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 import ArrayUtils from "../../utils/arrayUtils";
 import QuotationDetail from "./QuotationDetail.vue";
+import AddQuoation from "./AddQuoation.vue";
 
 @Component({
   components: {
-    "quotation-detail": QuotationDetail
+    "quotation-detail": QuotationDetail,
+    AddQuoation
   }
 })
 export default class Quotations extends DataListVue {
@@ -125,7 +133,7 @@ export default class Quotations extends DataListVue {
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
-  currentInfo: GetQuotationInfoResp = {};
+  currentInfo?: GetQuotationInfoResp = {};
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
@@ -134,6 +142,15 @@ export default class Quotations extends DataListVue {
   };
   async mounted() {
     await this.refreshData();
+  }
+
+  get dlgVisible() {
+    return this.dialogTableVisible;
+  }
+  set dlgVisible(newVal) {
+    if (this.dialogTableVisible != newVal) {
+      this.dialogTableVisible = newVal;
+    }
   }
 
   async refreshData() {
@@ -181,21 +198,28 @@ export default class Quotations extends DataListVue {
     this.selectedItems = selection;
   }
 
-  onAddItem() {
-    // this.currentContractInfo = undefined;
-    // this.addContractVisible = true;
-    return true;
-  }
-  editRow(row) {
-    let editing = !!row.editing;
+  async editRow(row: GetQuotationInfoResp) {
+    let _row: any = row;
+    let editing = !!_row.editing;
     if (editing) {
       //确定
-      delete row.copy;
-      this.$set(row, "editing", false);
+      let result = await this.requestWithoutResult(() =>
+        quotationApi.updateQuotationConditionUsingPOST({
+          id: row.id!,
+          content: row.content!,
+          category: row.categoryName!,
+          remark: row.remark
+        })
+      );
+      if (result) {
+        this.$message.success("更新报价信息成功！");
+        delete _row.copy;
+        this.$set(_row, "editing", false);
+      }
     } else {
       //开始编辑
-      row.copy = { ...row };
-      this.$set(row, "editing", true);
+      _row.copy = { ...row };
+      this.$set(_row, "editing", true);
     }
   }
 
@@ -230,6 +254,13 @@ export default class Quotations extends DataListVue {
     this.refreshData();
   }
 
+  onAddItem() {
+    this.dialogComponent = "add-quoation";
+    this.dialogTitle = "新建项目报价";
+    this.currentInfo = undefined;
+    this.dialogTableVisible = true;
+    return true;
+  }
   showDetial(row: GetQuotationInfoResp) {
     this.dialogComponent = "quotation-detail";
     this.dialogTitle = "项目报价明细";

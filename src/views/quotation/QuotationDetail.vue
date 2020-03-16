@@ -6,7 +6,7 @@
         <el-scrollbar style="height:184px">
           <el-table
             class="table"
-            :data="data.basic"
+            :data="data2.basic"
             :show-header="false"
             size="mini"
             border
@@ -14,7 +14,16 @@
             :row-style="{height:'10px'}"
           >
             <el-table-column prop="label"></el-table-column>
-            <el-table-column prop="value"></el-table-column>
+            <el-table-column prop="value">
+              <template slot-scope="scope">
+                <el-input
+                  v-if="!scope.row.provider && isEditting"
+                  v-model="scope.row.value"
+                  size="mini"
+                />
+                <span v-else>{{scope.row.value}}</span>
+              </template>
+            </el-table-column>
           </el-table>
         </el-scrollbar>
       </el-col>
@@ -23,22 +32,44 @@
         <div class="span-header">检测指标</div>
         <el-table
           class="table"
-          :data="data.testing"
+          :data="data2.testing"
           size="mini"
           border
           :cell-style="{padding:'1px'}"
         >
           <el-table-column prop="label" label="检测指标"></el-table-column>
-          <el-table-column prop="value" label="次数"></el-table-column>
+          <el-table-column prop="value" label="次数">
+            <template slot-scope="scope">
+              <el-input
+                v-if="!scope.row.provider && isEditting"
+                v-model="scope.row.value"
+                size="mini"
+              />
+              <span v-else>{{scope.row.value}}</span>
+            </template>
+          </el-table-column>
         </el-table>
       </el-col>
       <el-col :span="12" class="property-col"></el-col>
     </el-row>
-    <div class="span-header">项目价格明细</div>
+    <div class="span-header">
+      <span>项目价格明细</span>
+      <el-button
+        v-if="!isEditting"
+        class="edit-button"
+        size="mini"
+        type="text"
+        @click="startEditing"
+      >编辑</el-button>
+      <span v-else-if="info" class="edit-button">
+        <el-button class="edit-button" size="mini" type="text" @click="saveEdit">确定</el-button>
+        <el-button class="edit-button" size="mini" type="text" @click="cancelEdit">放弃</el-button>
+      </span>
+    </div>
     <el-table
       ref="table"
       class="table"
-      :data="data.prices"
+      :data="data2.prices"
       default-expand-all
       :tree-props="{children: 'children'}"
       row-key="id"
@@ -57,7 +88,8 @@
       <el-table-column prop="label" label="内容"></el-table-column>
       <el-table-column label="单价">
         <template slot-scope="scope">
-          <span>{{!scope.row.children ? scope.row.price:""}}</span>
+          <el-input v-if="!scope.row.children && isEditting" v-model="scope.row.price" size="mini" />
+          <span v-else>{{!scope.row.children ? scope.row.price:""}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="total" label="总计"></el-table-column>
@@ -72,11 +104,13 @@ import {
   quotationInventoryApi,
   QuotationExperimentEntity,
   quotationExperimentApi,
-  GetQuotationInfoResp
+  GetQuotationInfoResp,
+  ResultQuotationInventoryEntity
 } from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
 import { QuotationDetailInfo, createTempInfo, QuotaionItem } from "./quotation";
 import { TableColumn, Table } from "element-ui";
+import { ObjUtils } from "@/utils";
 
 const store = {
   props: [
@@ -198,38 +232,49 @@ const store = {
 };
 @Component
 export default class QuotationDetail extends ClientDataVue {
-  @Prop({ type: Object, required: true })
+  @Prop({ type: Object, required: false })
   info!: GetQuotationInfoResp;
-  data: QuotationDetailInfo = { basic: [], testing: [], prices: [] };
-  async mounted() {
-    let data = createTempInfo();
-    let experimentResult = await this.getData<QuotationExperimentEntity>(() =>
-      quotationExperimentApi.getQuotationExperimentByIdUsingGET(this.info.id!)
-    );
-    if (experimentResult) {
-      data.basic.forEach(b => {
-        b.value = experimentResult![b.id];
-      });
-      data.testing.forEach(b => {
-        b.value = experimentResult![b.id];
-      });
-    }
+  @Prop({ type: Object, required: false, default: new QuotationDetailInfo() })
+  data!: QuotationDetailInfo;
+  isEditting = !this.info;
 
-    let priceResult = await this.getData<QuotationExperimentEntity>(() =>
-      quotationInventoryApi.getUnitQuotationInventoryByIdUsingGET(this.info.id!)
-    );
-    if (priceResult) {
-      data.prices.forEach(p => {
-        if (p.children) {
-          p.children.forEach(c => {
-            c.price = priceResult![c.id];
-          });
-        } else {
-          p.price = priceResult![p.id];
-        }
-      });
+  get data2() {
+    return this.data;
+  }
+
+  async created() {
+    if (this.info && this.info.id) {
+      let data = createTempInfo();
+      let experimentResult = await this.getData<QuotationExperimentEntity>(() =>
+        quotationExperimentApi.getQuotationExperimentByIdUsingGET(this.info.id!)
+      );
+      if (experimentResult) {
+        data.basic.forEach(b => {
+          b.value = experimentResult![b.id];
+        });
+        data.testing.forEach(b => {
+          b.value = experimentResult![b.id];
+        });
+      }
+
+      let priceResult = await this.getData<ResultQuotationInventoryEntity>(() =>
+        quotationInventoryApi.getUnitQuotationInventoryByIdUsingGET(
+          this.info.id!
+        )
+      );
+      if (priceResult) {
+        data.prices.forEach(p => {
+          if (p.children) {
+            p.children.forEach(c => {
+              c.price = priceResult![c.id];
+            });
+          } else {
+            p.price = priceResult![p.id];
+          }
+        });
+      }
+      this.data = data;
     }
-    this.data = data;
   }
 
   getSummaries(param) {
@@ -267,9 +312,45 @@ export default class QuotationDetail extends ClientDataVue {
     }
     return summary;
   }
+  startEditing() {
+    this.data.clone();
+    this.isEditting = true;
+  }
+  async saveEdit() {
+    let updateInfo = {
+      quotationid: this.info.id
+    };
+    this.data.prices.forEach(p => {
+      updateInfo[p.id] = p.value;
+    });
+    let result = await this.requestWithoutResult(() =>
+      quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo)
+    );
+    if (result) {
+      this.$message.success("更新信息成功！");
+      this.isEditting = false;
+    }
+  }
+
+  cancelEdit() {
+    this.isEditting = false;
+    this.data.reset();
+  }
 }
 </script>
+<style>
+.detail-root .el-input__inner {
+  padding: 0px !important;
+  border-radius: 0px !important;
+  height: 20px !important;
+  font-family: "宋体";
+}
 
+.detail-root .el-textarea__inner {
+  padding: 0px !important;
+  border-radius: 0px !important;
+}
+</style>
 <style lang="scss" scoped>
 .detail-root {
   width: 700px;
@@ -281,7 +362,9 @@ export default class QuotationDetail extends ClientDataVue {
   text-align: center;
   line-height: 14px;
 }
-
+.edit-button {
+  margin-left: 14px;
+}
 .span-header {
   margin: 4px 0px;
   font-weight: bold;
