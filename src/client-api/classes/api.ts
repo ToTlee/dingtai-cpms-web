@@ -4129,6 +4129,122 @@ export interface UpdateQuotationConditionReq {
 /**
  *
  * @export
+ * @interface UpdateQuotationExperimentReq
+ */
+export interface UpdateQuotationExperimentReq {
+  /**
+   * 动物数量（只）
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  animalCnt: number;
+  /**
+   * 伴随TK动物数量
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  animaltkCnt: number;
+  /**
+   * 采血周期
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  bloodPeriod: number;
+  /**
+   * 每只动物采血点
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  bloodPoint: number;
+  /**
+   * 临床检验(次数)
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  clinicCnt: number;
+  /**
+   * 给药次数
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  doesCnt: number;
+  /**
+   * 给药期天数
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  doesDay: number;
+  /**
+   * 心电检测(次数)
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  ecgCnt: number;
+  /**
+   * 组数
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  groupCnt: number;
+  /**
+   * id
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  id?: number;
+  /**
+   * 摄食检测（次数）
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  ingestionCnt: number;
+  /**
+   * 眼科检查（次数）
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  ophthalmologyCnt: number;
+  /**
+   * 检疫适应期
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  quarantine: number;
+  /**
+   * 本次报价id ， 默认为0
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  quotationid: number;
+  /**
+   * 恢复天数
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  recoverday: number;
+  /**
+   * 体温检测(次数)
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  temperatureCnt: number;
+  /**
+   * TK样本量
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  tk: number;
+  /**
+   * 体重检测（次数）
+   * @type {number}
+   * @memberof UpdateQuotationExperimentReq
+   */
+  weightCnt: number;
+}
+
+/**
+ *
+ * @export
  * @interface UpdateQuotationInventoryReq
  */
 export interface UpdateQuotationInventoryReq {
@@ -8996,6 +9112,42 @@ export const QuotationExperimentControllerApiFetchParamCreator = function(config
         url: url.format(localVarUrlObj),
         options: localVarRequestOptions
       };
+    },
+    /**
+     *
+     * @summary 根据报价id更新实验参数
+     * @param {UpdateQuotationExperimentReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError(
+          "request",
+          "Required parameter request was null or undefined when calling updateExperimentByQuotationIdUsingPOST."
+        );
+      }
+      const localVarPath = `/quotation/updateExperimentByQuotationId`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"UpdateQuotationExperimentReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
   };
 };
@@ -9074,6 +9226,31 @@ export const QuotationExperimentControllerApiFp = function(configuration?: Confi
           }
         });
       };
+    },
+    /**
+     *
+     * @summary 根据报价id更新实验参数
+     * @param {UpdateQuotationExperimentReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateExperimentByQuotationIdUsingPOST(
+      request: UpdateQuotationExperimentReq,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationExperimentControllerApiFetchParamCreator(configuration).updateExperimentByQuotationIdUsingPOST(
+        request,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
     }
   };
 };
@@ -9113,6 +9290,16 @@ export const QuotationExperimentControllerApiFactory = function(configuration?: 
      */
     queryExperimentByConditionUsingGET(request: GetQuotationExperimentByConditonReq, options?: any) {
       return QuotationExperimentControllerApiFp(configuration).queryExperimentByConditionUsingGET(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据报价id更新实验参数
+     * @param {UpdateQuotationExperimentReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options?: any) {
+      return QuotationExperimentControllerApiFp(configuration).updateExperimentByQuotationIdUsingPOST(request, options)(fetch, basePath);
     }
   };
 };
@@ -9161,6 +9348,21 @@ export class QuotationExperimentControllerApi extends BaseAPI {
    */
   public queryExperimentByConditionUsingGET(request: GetQuotationExperimentByConditonReq, options?: any) {
     return QuotationExperimentControllerApiFp(this.configuration).queryExperimentByConditionUsingGET(request, options)(
+      this.fetch,
+      this.basePath
+    );
+  }
+
+  /**
+   *
+   * @summary 根据报价id更新实验参数
+   * @param {UpdateQuotationExperimentReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationExperimentControllerApi
+   */
+  public updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options?: any) {
+    return QuotationExperimentControllerApiFp(this.configuration).updateExperimentByQuotationIdUsingPOST(request, options)(
       this.fetch,
       this.basePath
     );
@@ -9314,7 +9516,7 @@ export const QuotationInventoryControllerApiFetchParamCreator = function(configu
     },
     /**
      *
-     * @summary 根据报价id更新此次单价
+     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
      * @param {UpdateQuotationInventoryReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9453,7 +9655,7 @@ export const QuotationInventoryControllerApiFp = function(configuration?: Config
     },
     /**
      *
-     * @summary 根据报价id更新此次单价
+     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
      * @param {UpdateQuotationInventoryReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9527,7 +9729,7 @@ export const QuotationInventoryControllerApiFactory = function(configuration?: C
     },
     /**
      *
-     * @summary 根据报价id更新此次单价
+     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
      * @param {UpdateQuotationInventoryReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -9604,7 +9806,7 @@ export class QuotationInventoryControllerApi extends BaseAPI {
 
   /**
    *
-   * @summary 根据报价id更新此次单价
+   * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
    * @param {UpdateQuotationInventoryReq} request request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}

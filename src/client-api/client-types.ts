@@ -70,7 +70,7 @@ export class ClientDataVue extends Vue {
         title: "请求出错",
         dangerouslyUseHTMLString: true,
         message: msg + result.message ?? "未知错误",
-        duration: 0
+        duration: 30000
       });
       if (result.code == 401) {
         var router: any = this.$router;

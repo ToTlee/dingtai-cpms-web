@@ -89,11 +89,9 @@
       :visible.sync="dlgVisible"
       width="fit-content"
       height="fit-content"
-      :destroy-on-close="true"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
       lock-scroll
-      modal-append-to-body
     >
       <component :is="dialogComponent" :info="currentInfo"></component>
     </el-dialog>

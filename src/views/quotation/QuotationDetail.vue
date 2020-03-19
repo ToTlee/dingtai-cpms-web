@@ -65,6 +65,8 @@
         <el-button class="edit-button" size="mini" type="text" @click="saveEdit">确定</el-button>
         <el-button class="edit-button" size="mini" type="text" @click="cancelEdit">放弃</el-button>
       </span>
+      <el-button v-if="info" class="edit-button" size="mini" type="text" @click="loadData">刷新</el-button>
+      <el-button v-if="info" class="edit-button" size="mini" type="text" @click="exportPdf">导出</el-button>
     </div>
     <el-table
       ref="table"
@@ -106,131 +108,14 @@ import {
   quotationExperimentApi,
   GetQuotationInfoResp,
   ResultQuotationInventoryEntity,
-  UpdateQuotationInventoryReq
+  UpdateQuotationInventoryReq,
+  UpdateQuotationExperimentReq
 } from "@/client-api";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 import { QuotationDetailInfo, createTempInfo, QuotaionItem } from "./quotation";
 import { TableColumn, Table } from "element-ui";
 import { ObjUtils } from "@/utils";
 
-const store = {
-  props: [
-    "组数",
-    "动物数量（只）",
-    "伴随TK动物数量",
-    "检疫适应期",
-    "给药次数",
-    "给药期天数",
-    "恢复天数",
-    "每只动物采血点",
-    "采血周期",
-    "TK样本量"
-  ],
-  propsValues: [4, 400, 40, 7, 728, 728, 0, 8, 3, 780],
-  tests: [
-    "体重检测",
-    "摄食检测",
-    "体温检测",
-    "心电检测",
-    "眼科检查",
-    "临床检验"
-  ],
-  testsValues: [105, 104, 0, 0, 3, 1],
-  quotaions: [
-    {
-      name: "In-Life阶段",
-      children: [
-        {
-          name: "动物费用",
-          price: 3500
-        },
-        {
-          name: "动物房费用",
-          price: 833
-        },
-        {
-          name: "饲养费用",
-          price: 10
-        },
-        {
-          name: "给药费用",
-          price: 20
-        },
-        {
-          name: "临床观察",
-          price: 5
-        },
-        {
-          name: "体重检测",
-          price: 10
-        },
-        {
-          name: "摄食检测",
-          price: 5
-        },
-        {
-          name: "体温检测",
-          price: 10
-        },
-        {
-          name: "心电检测",
-          price: 100
-        },
-        {
-          name: "眼科检查",
-          price: 50
-        },
-        {
-          name: "临床检验",
-          price: 400
-        },
-        {
-          name: "制剂配制",
-          price: 100
-        },
-        {
-          name: "TK样本采集",
-          price: 50
-        }
-      ]
-    },
-    {
-      name: "临床病理",
-      children: [
-        {
-          name: "大体解剖",
-          price: 100
-        },
-        { name: "组织病理", price: 1500 }
-      ]
-    },
-    {
-      name: "方案及报告",
-      children: [
-        { name: "研究方案", price: 40000 },
-        { name: "研究报告", price: 40000 }
-      ]
-    },
-    ,
-    {
-      name: "生物样本",
-      price: 200
-    },
-    {
-      name: "其他"
-    },
-    {
-      name: "合计"
-    },
-    {
-      name: "合计*1.2"
-    },
-    {
-      name: "取整"
-    }
-  ],
-  simpleQuotaions: []
-};
 @Component
 export default class QuotationDetail extends ClientDataVue {
   @Prop({ type: Object, required: false })
@@ -244,6 +129,10 @@ export default class QuotationDetail extends ClientDataVue {
   }
 
   async mounted() {
+    await this.loadData();
+  }
+
+  async loadData() {
     if (this.info && this.info.id) {
       let data = createTempInfo();
       let experimentResult = await this.getData<QuotationExperimentEntity>(() =>
@@ -349,7 +238,20 @@ export default class QuotationDetail extends ClientDataVue {
         quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
       "更新总价"
     );
-    if (result2) {
+    let exp: any = {
+      quotationid: this.info.id!
+    };
+    this.data.basic.forEach(item => {
+      exp[item.id] = item.value;
+    });
+    this.data.testing.forEach(item => {
+      exp[item.id] = item.value;
+    });
+    let result3 = await this.requestWithoutResult(() =>
+      quotationExperimentApi.updateExperimentByQuotationIdUsingPOST(exp)
+    );
+
+    if (result && result2 && result3) {
       this.$message.success("更新总价成功！");
       this.isEditting = false;
     }
@@ -358,6 +260,15 @@ export default class QuotationDetail extends ClientDataVue {
   cancelEdit() {
     this.isEditting = false;
     this.data.reset();
+  }
+
+  exportPdf() {
+    this.$message.info("该功能开发中");
+  }
+
+  @Watch("info")
+  async onInfoChanged() {
+    await this.loadData();
   }
 }
 </script>
@@ -386,7 +297,7 @@ export default class QuotationDetail extends ClientDataVue {
   line-height: 14px;
 }
 .edit-button {
-  margin-left: 14px;
+  margin-left: 10px;
 }
 .span-header {
   margin: 4px 0px;
