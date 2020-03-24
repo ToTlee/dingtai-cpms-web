@@ -139,63 +139,63 @@ export class QuotationDetailInfo implements Clonable<QuotationDetailInfo> {
 
 export const createTempInfo = function() {
   let defaultInfo = new QuotationDetailInfo();
-  defaultInfo.basic.push(new PropPair(defaultInfo, "groupCnt", 0, "组数"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "animalCnt", 0, "动物数量（只）"));
-  // defaultInfo.basic.push(new PropPair(defaultInfo, "animalCnt", (b, t) => b.v(0) * 100, "动物数量（只）"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "animaltkCnt", 0, "伴随TK动物数量"));
-  // defaultInfo.basic.push(new PropPair(defaultInfo, "animaltkCnt", (b, t) => b.v(0) * 10, "伴随TK动物数量"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "groupcnt", 0, "组数"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "animalcnt", 0, "动物数量（只）"));
+  // defaultInfo.basic.push(new PropPair(defaultInfo, "animalcnt", (b, t) => b.v(0) * 100, "动物数量（只）"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "animaltkcnt", 0, "伴随TK动物数量"));
+  // defaultInfo.basic.push(new PropPair(defaultInfo, "animaltkcnt", (b, t) => b.v(0) * 10, "伴随TK动物数量"));
   defaultInfo.basic.push(new PropPair(defaultInfo, "quarantine", 0, "检疫适应期"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "doesCnt", 0, "给药次数"));
-  // defaultInfo.basic.push(new PropPair(defaultInfo, "doesCnt", (b, t) => 104 * 7, "给药次数"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "doesDay", 0, "给药期天数"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "doescnt", 0, "给药次数"));
+  // defaultInfo.basic.push(new PropPair(defaultInfo, "doescnt", (b, t) => 104 * 7, "给药次数"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "doesday", 0, "给药期天数"));
   // defaultInfo.basic.push(new PropPair(defaultInfo, "doesDay", (b, t) => b.v(4), "给药期天数"));
   defaultInfo.basic.push(new PropPair(defaultInfo, "recoverday", 0, "恢复天数"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "bloodPoint", 0, "每只动物采血点"));
-  defaultInfo.basic.push(new PropPair(defaultInfo, "bloodPeriod", 0, "采血周期"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "bloodpoint", 0, "每只动物采血点"));
+  defaultInfo.basic.push(new PropPair(defaultInfo, "bloodperiod", 0, "采血周期"));
   defaultInfo.basic.push(new PropPair(defaultInfo, "tk", 0, "TK样本量"));
   // defaultInfo.basic.push(new PropPair(defaultInfo, "tk", (b, t) => 10 * 2 * b.v(8) + (b.v(2) - 10) * b.v(7) * b.v(8), "TK样本量"));
 
-  defaultInfo.testing.push(new PropPair(defaultInfo, "weightCnt", 0, "体重检测"));
-  // defaultInfo.testing.push(new PropPair(defaultInfo, "weightCnt", (b, t) => (((b.v(5) + b.v(6)) / 7) * 2 + 2) / 2, "体重检测"));
-  defaultInfo.testing.push(new PropPair(defaultInfo, "ingestionCnt", 0, "摄食检测"));
-  // defaultInfo.testing.push(new PropPair(defaultInfo, "ingestionCnt", (b, t) => t.v(0) - 1, "摄食检测"));
-  defaultInfo.testing.push(new PropPair(defaultInfo, "temperatureCnt", 0, "体温检测"));
-  defaultInfo.testing.push(new PropPair(defaultInfo, "ecgCnt", 0, "心电检测"));
-  defaultInfo.testing.push(new PropPair(defaultInfo, "ophthalmologyCnt", 0, "眼科检查"));
-  defaultInfo.testing.push(new PropPair(defaultInfo, "clinicCnt", 0, "临床检验"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "weightcnt", 0, "体重检测"));
+  // defaultInfo.testing.push(new PropPair(defaultInfo, "weightcnt", (b, t) => (((b.v(5) + b.v(6)) / 7) * 2 + 2) / 2, "体重检测"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "ingestioncnt", 0, "摄食检测"));
+  // defaultInfo.testing.push(new PropPair(defaultInfo, "ingestioncnt", (b, t) => t.v(0) - 1, "摄食检测"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "temperaturecnt", 0, "体温检测"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "ecgcnt", 0, "心电检测"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "ophthalmologycnt", 0, "眼科检查"));
+  defaultInfo.testing.push(new PropPair(defaultInfo, "cliniccnt", 0, "临床检验"));
 
   let group1 = new QuotaionItem(defaultInfo, "In-Life阶段", 0, "In-Life阶段");
   group1.children = [];
   defaultInfo.prices.push(group1);
-  group1.children.push(new QuotaionItem(defaultInfo, "animal", (b, t) => b.v(1) + b.v(2), "动物费用"));
-  group1.children.push(new QuotaionItem(defaultInfo, "animalzoom", (b, t) => (b.v(3) + b.v(5) + b.v(6)) / 2, "动物房费用"));
-  group1.children.push(new QuotaionItem(defaultInfo, "feeding", (b, t) => (b.v(1) + b.v(2)) * (b.v(3) + b.v(5) + b.v(6)), "饲养费用"));
-  group1.children.push(new QuotaionItem(defaultInfo, "does", (b, t) => (b.v(1) + b.v(2)) * b.v(4), "给药费用"));
+  group1.children.push(new QuotaionItem(defaultInfo, "animalcost", (b, t) => b.v(1) + b.v(2), "动物费用"));
+  group1.children.push(new QuotaionItem(defaultInfo, "animalzoomcost", (b, t) => (b.v(3) + b.v(5) + b.v(6)) / 2, "动物房费用"));
+  group1.children.push(new QuotaionItem(defaultInfo, "feedingcost", (b, t) => (b.v(1) + b.v(2)) * (b.v(3) + b.v(5) + b.v(6)), "饲养费用"));
+  group1.children.push(new QuotaionItem(defaultInfo, "doescost", (b, t) => (b.v(1) + b.v(2)) * b.v(4), "给药费用"));
   group1.children.push(
-    new QuotaionItem(defaultInfo, "clinicobserve", (b, t) => (b.v(1) + b.v(2)) * (b.v(3) + b.v(5) + b.v(6)), "临床观察")
+    new QuotaionItem(defaultInfo, "clinicobservecost", (b, t) => (b.v(1) + b.v(2)) * (b.v(3) + b.v(5) + b.v(6)), "临床观察")
   );
-  group1.children.push(new QuotaionItem(defaultInfo, "weight", (b, t) => (b.v(1) + b.v(2)) * t.v(0), "体重检测"));
-  group1.children.push(new QuotaionItem(defaultInfo, "ingestion", (b, t) => b.v(1) * t.v(1), "摄食检测"));
-  group1.children.push(new QuotaionItem(defaultInfo, "temperature", (b, t) => b.v(1) * t.v(2), "体温检测"));
-  group1.children.push(new QuotaionItem(defaultInfo, "ecg", (b, t) => b.v(1) * t.v(3), "心电检测"));
-  group1.children.push(new QuotaionItem(defaultInfo, "ophthalmology", (b, t) => b.v(1) * t.v(4), "眼科检查"));
-  group1.children.push(new QuotaionItem(defaultInfo, "cliniccheck", (b, t) => b.v(1) * t.v(5), "临床检验"));
-  group1.children.push(new QuotaionItem(defaultInfo, "preparations", (b, t) => (b.v(4) / 7) * 2 * b.v(0), "制剂配制"));
-  group1.children.push(new QuotaionItem(defaultInfo, "tk", (b, t) => b.v(9), "TK样本采集"));
+  group1.children.push(new QuotaionItem(defaultInfo, "weightcost", (b, t) => (b.v(1) + b.v(2)) * t.v(0), "体重检测"));
+  group1.children.push(new QuotaionItem(defaultInfo, "ingestioncost", (b, t) => b.v(1) * t.v(1), "摄食检测"));
+  group1.children.push(new QuotaionItem(defaultInfo, "temperaturecost", (b, t) => b.v(1) * t.v(2), "体温检测"));
+  group1.children.push(new QuotaionItem(defaultInfo, "ecgcost", (b, t) => b.v(1) * t.v(3), "心电检测"));
+  group1.children.push(new QuotaionItem(defaultInfo, "ophthalmologycost", (b, t) => b.v(1) * t.v(4), "眼科检查"));
+  group1.children.push(new QuotaionItem(defaultInfo, "cliniccheckcost", (b, t) => b.v(1) * t.v(5), "临床检验"));
+  group1.children.push(new QuotaionItem(defaultInfo, "preparationscost", (b, t) => (b.v(4) / 7) * 2 * b.v(0), "制剂配制"));
+  group1.children.push(new QuotaionItem(defaultInfo, "tkcost", (b, t) => b.v(9), "TK样本采集"));
 
   let group2 = new QuotaionItem(defaultInfo, "临床病理", 0, "临床病理");
   group2.children = [];
   defaultInfo.prices.push(group2);
-  group2.children.push(new QuotaionItem(defaultInfo, "dissection", (b, t) => b.v(1), "大体解剖"));
-  group2.children.push(new QuotaionItem(defaultInfo, "histopathology", (b, t) => b.v(1), "组织病理"));
+  group2.children.push(new QuotaionItem(defaultInfo, "dissectioncost", (b, t) => b.v(1), "大体解剖"));
+  group2.children.push(new QuotaionItem(defaultInfo, "histopathologycost", (b, t) => b.v(1), "组织病理"));
 
   let group3 = new QuotaionItem(defaultInfo, "方案及报告", 0, "方案及报告");
   group3.children = [];
   defaultInfo.prices.push(group3);
-  group3.children.push(new QuotaionItem(defaultInfo, "scheme", 1, "研究方案"));
-  group3.children.push(new QuotaionItem(defaultInfo, "report", 1, "研究报告"));
+  group3.children.push(new QuotaionItem(defaultInfo, "schemecost", 1, "研究方案"));
+  group3.children.push(new QuotaionItem(defaultInfo, "reportcost", 1, "研究报告"));
 
-  defaultInfo.prices.push(new QuotaionItem(defaultInfo, "others", 0, "其他"));
+  defaultInfo.prices.push(new QuotaionItem(defaultInfo, "otherscost", 0, "其他"));
   // defaultInfo.prices.push(new QuotaionItem(defaultInfo, "zzs", (b, t) => b.$(9) * 1.1, "生物样本"));
   return defaultInfo;
 };

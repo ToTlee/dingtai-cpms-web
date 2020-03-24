@@ -1,6 +1,6 @@
 <template>
   <div class="detail-root">
-    <el-row :gutter="30">
+    <el-row :gutter="0">
       <el-col :span="12">
         <div class="span-header">实验参数</div>
         <el-scrollbar style="height:184px">
@@ -71,13 +71,14 @@
     <el-table
       ref="table"
       class="table"
+      height="100%"
+      style="flex:1;"
       :data="data2.prices"
       default-expand-all
       :tree-props="{children: 'children'}"
       row-key="id"
       size="mini"
       border
-      height="380px"
       show-summary
       :summary-method="getSummaries"
       :cell-style="{padding:'1px'}"
@@ -103,13 +104,11 @@
 <script lang="ts">
 import {
   ClientDataVue,
-  quotationInventoryApi,
-  QuotationExperimentEntity,
-  quotationExperimentApi,
   GetQuotationInfoResp,
-  ResultQuotationInventoryEntity,
-  UpdateQuotationInventoryReq,
-  UpdateQuotationExperimentReq
+  quotationApi,
+  ResultGetDetailQuotationResp,
+  GetDetailQuotationResp,
+  QuotationDetailEntity
 } from "@/client-api";
 import { Component, Prop, Watch } from "vue-property-decorator";
 import { QuotationDetailInfo, createTempInfo, QuotaionItem } from "./quotation";
@@ -119,9 +118,8 @@ import { ObjUtils } from "@/utils";
 @Component
 export default class QuotationDetail extends ClientDataVue {
   @Prop({ type: Object, required: false })
-  info!: GetQuotationInfoResp;
-  @Prop({ type: Object, required: false, default: new QuotationDetailInfo() })
-  data!: QuotationDetailInfo;
+  info!: QuotationDetailEntity;
+  data: QuotationDetailInfo = createTempInfo();
   isEditting = !this.info;
 
   get data2() {
@@ -135,9 +133,7 @@ export default class QuotationDetail extends ClientDataVue {
   async loadData() {
     if (this.info && this.info.id) {
       let data = createTempInfo();
-      let experimentResult = await this.getData<QuotationExperimentEntity>(() =>
-        quotationExperimentApi.getQuotationExperimentByIdUsingGET(this.info.id!)
-      );
+      let experimentResult = this.info;
       if (experimentResult) {
         data.basic.forEach(b => {
           b.value = experimentResult![b.id];
@@ -145,21 +141,16 @@ export default class QuotationDetail extends ClientDataVue {
         data.testing.forEach(b => {
           b.value = experimentResult![b.id];
         });
-      }
 
-      let priceResult = await this.getData<ResultQuotationInventoryEntity>(() =>
-        quotationInventoryApi.getUnitQuotationInventoryByIdUsingGET(
-          this.info.id!
-        )
-      );
-      if (priceResult) {
         data.prices.forEach(p => {
           if (p.children) {
             p.children.forEach(c => {
-              c.price = priceResult![c.id];
+              let value: string = experimentResult![c.id];
+              c.price = Number(value?.substring(0, value.indexOf("|")));
             });
           } else {
-            p.price = priceResult![p.id];
+            let value: string = experimentResult![p.id];
+            p.price = Number(value?.substring(0, value.indexOf("|")));
           }
         });
       }
@@ -200,61 +191,60 @@ export default class QuotationDetail extends ClientDataVue {
     this.isEditting = true;
   }
   async saveEdit() {
-    let updateInfo: UpdateQuotationInventoryReq = {
-      quotationid: this.info.id
-    };
-    this.data.prices.forEach(p => {
-      if (p.children && p.children.length > 0) {
-        p.children.forEach(child => {
-          updateInfo[child.id] = child.price;
-        });
-      } else {
-        updateInfo[p.id] = p.price;
-      }
-    });
-    updateInfo.isunit = 0;
-    let result = await this.requestWithoutResult(
-      () =>
-        quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
-      "更新总价"
-    );
-    if (result) {
-      this.$message.success("更新单价成功！");
-      this.isEditting = false;
-    }
-    updateInfo.isunit = 1;
-    this.data.prices.forEach(p => {
-      if (p.children && p.children.length > 0) {
-        p.children.forEach(child => {
-          updateInfo[child.id] = child.total;
-        });
-      } else {
-        updateInfo[p.id] = p.total;
-      }
-    });
-    updateInfo.total = this.data.total;
-    let result2 = await this.requestWithoutResult(
-      () =>
-        quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
-      "更新总价"
-    );
-    let exp: any = {
-      quotationid: this.info.id!
-    };
-    this.data.basic.forEach(item => {
-      exp[item.id] = item.value;
-    });
-    this.data.testing.forEach(item => {
-      exp[item.id] = item.value;
-    });
-    let result3 = await this.requestWithoutResult(() =>
-      quotationExperimentApi.updateExperimentByQuotationIdUsingPOST(exp)
-    );
-
-    if (result && result2 && result3) {
-      this.$message.success("更新总价成功！");
-      this.isEditting = false;
-    }
+    // let updateInfo: UpdateQuotationInventoryReq = {
+    //   quotationid: this.info.id
+    // };
+    // this.data.prices.forEach(p => {
+    //   if (p.children && p.children.length > 0) {
+    //     p.children.forEach(child => {
+    //       updateInfo[child.id] = child.price;
+    //     });
+    //   } else {
+    //     updateInfo[p.id] = p.price;
+    //   }
+    // });
+    // updateInfo.isunit = 0;
+    // let result = await this.requestWithoutResult(
+    //   () =>
+    //     quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
+    //   "更新总价"
+    // );
+    // if (result) {
+    //   this.$message.success("更新单价成功！");
+    //   this.isEditting = false;
+    // }
+    // updateInfo.isunit = 1;
+    // this.data.prices.forEach(p => {
+    //   if (p.children && p.children.length > 0) {
+    //     p.children.forEach(child => {
+    //       updateInfo[child.id] = child.total;
+    //     });
+    //   } else {
+    //     updateInfo[p.id] = p.total;
+    //   }
+    // });
+    // updateInfo.total = this.data.total;
+    // let result2 = await this.requestWithoutResult(
+    //   () =>
+    //     quotationInventoryApi.updateQuotationInventoryUnitUsingPOST(updateInfo),
+    //   "更新总价"
+    // );
+    // let exp: any = {
+    //   quotationid: this.info.id!
+    // };
+    // this.data.basic.forEach(item => {
+    //   exp[item.id] = item.value;
+    // });
+    // this.data.testing.forEach(item => {
+    //   exp[item.id] = item.value;
+    // });
+    // let result3 = await this.requestWithoutResult(() =>
+    //   quotationExperimentApi.updateExperimentByQuotationIdUsingPOST(exp)
+    // );
+    // if (result && result2 && result3) {
+    //   this.$message.success("更新总价成功！");
+    //   this.isEditting = false;
+    // }
   }
 
   cancelEdit() {
@@ -287,10 +277,13 @@ export default class QuotationDetail extends ClientDataVue {
 </style>
 <style lang="scss" scoped>
 .detail-root {
-  width: 700px;
   text-align: left;
   font-size: 12px;
   font-family: "宋体";
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  overflow: auto;
 }
 .property-col {
   text-align: center;

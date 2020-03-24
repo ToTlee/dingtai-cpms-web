@@ -407,341 +407,33 @@ export interface AddCustomerReq {
  */
 export interface AddDetailQuotationReq {
   /**
-   * 本次实验种类名称
-   * @type {string}
-   * @memberof AddDetailQuotationReq
-   */
-  category: string;
-  /**
    * 内容
    * @type {string}
    * @memberof AddDetailQuotationReq
    */
-  content: string;
+  content?: string;
   /**
-   * 描述
+   * 顾客
    * @type {string}
    * @memberof AddDetailQuotationReq
    */
-  description?: string;
+  customer?: string;
   /**
-   * 实验参数
-   * @type {QuotationExperimentEntity}
+   * 顾客
+   * @type {Array<QuotationDetailEntity>}
    * @memberof AddDetailQuotationReq
    */
-  quotationExperimentEntity: QuotationExperimentEntity;
-  /**
-   * 报价单价
-   * @type {QuotationInventoryEntity}
-   * @memberof AddDetailQuotationReq
-   */
-  quotationInventoryEntity: QuotationInventoryEntity;
-  /**
-   * 报价总价
-   * @type {QuotationInventoryEntity}
-   * @memberof AddDetailQuotationReq
-   */
-  quotationTotalInventoryEntity: QuotationInventoryEntity;
-  /**
-   * 备注
-   * @type {string}
-   * @memberof AddDetailQuotationReq
-   */
-  remark?: string;
-}
-
-/**
- *
- * @export
- * @interface AddProjectCategoryReq
- */
-export interface AddProjectCategoryReq {
-  /**
-   * 项目种类
-   * @type {string}
-   * @memberof AddProjectCategoryReq
-   */
-  category: string;
-}
-
-/**
- * 新增实验标准请求实体
- * @export
- * @interface AddQuotationExperimentReq
- */
-export interface AddQuotationExperimentReq {
-  /**
-   * 动物数量（只）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  animalCnt: number;
-  /**
-   * 伴随TK动物数量（只）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  animaltkCnt: number;
-  /**
-   * 采血周期
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  bloodPeriod: number;
-  /**
-   * 每只动物采血点
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  bloodPoint: number;
-  /**
-   * 临床检验（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  clinicCnt: number;
-  /**
-   * 给药次数
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  doesCnt: number;
-  /**
-   * 给药期天数
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  doesDay: number;
-  /**
-   * 心电检测（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  ecgCnt: number;
-  /**
-   * 组数
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  groupCnt?: number;
-  /**
-   * 摄食检测（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  ingestionCnt: number;
-  /**
-   * 眼科检查（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  ophthalmologyCnt: number;
-  /**
-   * 检疫适应期
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  quarantine: number;
-  /**
-   * 本次报价id ， 默认报价为0
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  quotationid: number;
-  /**
-   * 恢复天数
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  recoverDay: number;
-  /**
-   * 体温检测（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  temperatureCnt: number;
-  /**
-   *
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  tk?: number;
-  /**
-   * 体重检测（次数）
-   * @type {number}
-   * @memberof AddQuotationExperimentReq
-   */
-  weightCnt: number;
-}
-
-/**
- *
- * @export
- * @interface AddQuotationInventoryReq
- */
-export interface AddQuotationInventoryReq {
-  /**
-   * 动物费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  animal?: number;
-  /**
-   * 动物房费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  animalzoom?: number;
-  /**
-   * 临床检验费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  cliniccheck?: number;
-  /**
-   * 临床观察费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  clinicobserve?: number;
-  /**
-   * 翻倍系数
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  coefficient?: number;
-  /**
-   * 大体解剖费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  dissection?: number;
-  /**
-   * 给药费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  does?: number;
-  /**
-   * 心电检测费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  ecg?: number;
-  /**
-   * 饲养费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  feeding?: number;
-  /**
-   * 组织病理费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  histopathology?: number;
-  /**
-   * 摄食检测费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  ingestion?: number;
-  /**
-   * 是否是单价 0-单价  1-总计
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  isunit?: number;
-  /**
-   * 眼科检查费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  ophthalmology?: number;
-  /**
-   * 其他费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  others?: number;
-  /**
-   * 制剂配置费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  preparations?: number;
-  /**
-   * 此次报价id  0为默认报价
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  quotationid?: number;
-  /**
-   * 研究报告费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  report?: number;
-  /**
-   * 研究方案费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  scheme?: number;
-  /**
-   * 体温检测费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  temperature?: number;
-  /**
-   * TK样本采集费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  tk?: number;
-  /**
-   * 合计费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  total?: number;
-  /**
-   * 体重检测费用
-   * @type {number}
-   * @memberof AddQuotationInventoryReq
-   */
-  weight?: number;
-}
-
-/**
- * 添加报价请求实体
- * @export
- * @interface AddQuotationReq
- */
-export interface AddQuotationReq {
-  /**
-   * 种类
-   * @type {number}
-   * @memberof AddQuotationReq
-   */
-  category: number;
-  /**
-   * 内容
-   * @type {string}
-   * @memberof AddQuotationReq
-   */
-  content: string;
+  detailLst?: Array<QuotationDetailEntity>;
   /**
    * 报价金额(单位：万元)
    * @type {number}
-   * @memberof AddQuotationReq
+   * @memberof AddDetailQuotationReq
    */
-  quotation: number;
+  quotation?: number;
   /**
    * 备注
    * @type {string}
-   * @memberof AddQuotationReq
+   * @memberof AddDetailQuotationReq
    */
   remark?: string;
 }
@@ -1253,6 +945,44 @@ export interface GetCustomerResp {
 /**
  *
  * @export
+ * @interface GetDetailQuotationResp
+ */
+export interface GetDetailQuotationResp {
+  /**
+   * 内容
+   * @type {string}
+   * @memberof GetDetailQuotationResp
+   */
+  content?: string;
+  /**
+   * 顾客
+   * @type {string}
+   * @memberof GetDetailQuotationResp
+   */
+  customer?: string;
+  /**
+   * 顾客
+   * @type {Array<QuotationDetailEntity>}
+   * @memberof GetDetailQuotationResp
+   */
+  detailLst?: Array<QuotationDetailEntity>;
+  /**
+   * 报价金额(单位：万元)
+   * @type {number}
+   * @memberof GetDetailQuotationResp
+   */
+  quotation?: number;
+  /**
+   * 备注
+   * @type {string}
+   * @memberof GetDetailQuotationResp
+   */
+  remark?: string;
+}
+
+/**
+ *
+ * @export
  * @interface GetLoginUserInfoResp
  */
 export interface GetLoginUserInfoResp {
@@ -1297,53 +1027,273 @@ export interface GetLoginUserInfoResp {
 /**
  *
  * @export
- * @interface GetQuotationCategoryListResp
+ * @interface GetNewQuotationDetailResp
  */
-export interface GetQuotationCategoryListResp {
+export interface GetNewQuotationDetailResp {
   /**
-   *
+   * 动物(小鼠、大鼠等)
    * @type {string}
-   * @memberof GetQuotationCategoryListResp
-   */
-  category?: string;
-  /**
-   *
-   * @type {number}
-   * @memberof GetQuotationCategoryListResp
-   */
-  id?: number;
-}
-
-/**
- *
- * @export
- * @interface GetQuotationExperimentByConditonReq
- */
-export interface GetQuotationExperimentByConditonReq {
-  /**
-   * 动物种类
-   * @type {string}
-   * @memberof GetQuotationExperimentByConditonReq
+   * @memberof GetNewQuotationDetailResp
    */
   animal?: string;
   /**
-   * 报价Id 0-默认报价
+   * 动物数量（只）
    * @type {number}
-   * @memberof GetQuotationExperimentByConditonReq
+   * @memberof GetNewQuotationDetailResp
    */
-  quotationId?: number;
+  animalcnt?: number;
   /**
-   * 毒性
+   * 动物费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  animalcost?: string;
+  /**
+   * 伴随TK动物数量
    * @type {number}
-   * @memberof GetQuotationExperimentByConditonReq
+   * @memberof GetNewQuotationDetailResp
+   */
+  animaltkcnt?: number;
+  /**
+   * 动物房费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  animalzoomcost?: string;
+  /**
+   * 采血周期
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  bloodperiod?: number;
+  /**
+   * 每只动物采血点
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  bloodpoint?: number;
+  /**
+   * 临床检验费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  cliniccheckcost?: string;
+  /**
+   * 临床检验(次数)
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  cliniccnt?: number;
+  /**
+   * 临床观察费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  clinicobservecost?: string;
+  /**
+   * 翻倍系数
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  coefficient?: string;
+  /**
+   * 大体解剖费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  dissectioncost?: string;
+  /**
+   * 给药次数
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  doescnt?: number;
+  /**
+   * 给药费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  doescost?: string;
+  /**
+   * 给药期天数
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  doesday?: number;
+  /**
+   * 心电检测(次数)
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ecgcnt?: number;
+  /**
+   * 心电检测费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ecgcost?: string;
+  /**
+   * 饲养费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  feedingcost?: string;
+  /**
+   * 组数
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  groupcnt?: number;
+  /**
+   * 否有明细 0-有 1-无
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  hasdetail?: number;
+  /**
+   * 组织病理费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  histopathologycost?: string;
+  /**
+   * id
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  id?: number;
+  /**
+   * 摄食检测（次数）
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ingestioncnt?: number;
+  /**
+   * 摄食检测费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ingestioncost?: string;
+  /**
+   * 模块名称
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  name?: string;
+  /**
+   * 眼科检查（次数）
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ophthalmologycnt?: number;
+  /**
+   * 眼科检查费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  ophthalmologycost?: string;
+  /**
+   * 其他费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  otherscost?: string;
+  /**
+   * 父节点
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  parentid?: number;
+  /**
+   * 制剂配置费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  preparationscost?: string;
+  /**
+   * 检疫适应期
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  quarantine?: number;
+  /**
+   * 恢复天数
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  recoverday?: number;
+  /**
+   * 备注
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  remark?: string;
+  /**
+   * 研究报告费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  reportcost?: string;
+  /**
+   * 研究方案费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  schemecost?: string;
+  /**
+   * 体温检测(次数)
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  temperaturecnt?: number;
+  /**
+   * 体温检测费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  temperaturecost?: string;
+  /**
+   * TK样本量
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  tk?: number;
+  /**
+   * TK样本采集费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  tkcost?: string;
+  /**
+   * 合计费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  totalcost?: string;
+  /**
+   * 毒性 0-长毒  1-急毒
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
    */
   virulence?: number;
   /**
    * 星期
    * @type {number}
-   * @memberof GetQuotationExperimentByConditonReq
+   * @memberof GetNewQuotationDetailResp
    */
   week?: number;
+  /**
+   * 体重检测（次数）
+   * @type {number}
+   * @memberof GetNewQuotationDetailResp
+   */
+  weightcnt?: number;
+  /**
+   * 体重检测费用
+   * @type {string}
+   * @memberof GetNewQuotationDetailResp
+   */
+  weightcost?: string;
 }
 
 /**
@@ -1353,17 +1303,17 @@ export interface GetQuotationExperimentByConditonReq {
  */
 export interface GetQuotationInfoResp {
   /**
-   * 种类名称
-   * @type {string}
-   * @memberof GetQuotationInfoResp
-   */
-  categoryName?: string;
-  /**
    * 内容
    * @type {string}
    * @memberof GetQuotationInfoResp
    */
   content?: string;
+  /**
+   * 顾客
+   * @type {string}
+   * @memberof GetQuotationInfoResp
+   */
+  customer: string;
   /**
    *
    * @type {number}
@@ -1371,7 +1321,7 @@ export interface GetQuotationInfoResp {
    */
   id?: number;
   /**
-   *
+   * 报价(单位：万元)
    * @type {number}
    * @memberof GetQuotationInfoResp
    */
@@ -1382,44 +1332,6 @@ export interface GetQuotationInfoResp {
    * @memberof GetQuotationInfoResp
    */
   remark?: string;
-}
-
-/**
- *
- * @export
- * @interface GetQuotationInventoryByConditonReq
- */
-export interface GetQuotationInventoryByConditonReq {
-  /**
-   * 动物种类
-   * @type {string}
-   * @memberof GetQuotationInventoryByConditonReq
-   */
-  animalCategory?: string;
-  /**
-   * 是否是单价 0-单价 1-总计
-   * @type {number}
-   * @memberof GetQuotationInventoryByConditonReq
-   */
-  isunit?: number;
-  /**
-   * 此次报价id  0为默认报价
-   * @type {number}
-   * @memberof GetQuotationInventoryByConditonReq
-   */
-  quotationid?: number;
-  /**
-   * 毒性 0-长毒 1-急毒
-   * @type {number}
-   * @memberof GetQuotationInventoryByConditonReq
-   */
-  virulence?: number;
-  /**
-   * 星期
-   * @type {number}
-   * @memberof GetQuotationInventoryByConditonReq
-   */
-  week?: number;
 }
 
 /**
@@ -2143,127 +2055,127 @@ export interface PageInfoGetCustomerResp {
 /**
  *
  * @export
- * @interface PageInfoGetQuotationCategoryListResp
+ * @interface PageInfoGetNewQuotationDetailResp
  */
-export interface PageInfoGetQuotationCategoryListResp {
+export interface PageInfoGetNewQuotationDetailResp {
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   endRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   firstPage?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   hasNextPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   hasPreviousPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   isFirstPage?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   isLastPage?: boolean;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   lastPage?: number;
   /**
    *
-   * @type {Array<GetQuotationCategoryListResp>}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @type {Array<GetNewQuotationDetailResp>}
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
-  list?: Array<GetQuotationCategoryListResp>;
+  list?: Array<GetNewQuotationDetailResp>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   navigateFirstPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   navigateLastPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   navigatePages?: number;
   /**
    *
    * @type {Array<number>}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   navigatepageNums?: Array<number>;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   nextPage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   pageNum?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   pages?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   prePage?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   size?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   startRow?: number;
   /**
    *
    * @type {number}
-   * @memberof PageInfoGetQuotationCategoryListResp
+   * @memberof PageInfoGetNewQuotationDetailResp
    */
   total?: number;
 }
@@ -2655,263 +2567,273 @@ export interface PageInfoGetUserInfoResp {
 /**
  *
  * @export
- * @interface QuotationExperimentEntity
+ * @interface QuotationDetailEntity
  */
-export interface QuotationExperimentEntity {
+export interface QuotationDetailEntity {
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  animalCnt?: number;
+  animal?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  animaltkCnt?: number;
+  animalcnt?: number;
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  bloodPeriod?: number;
+  animalcost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  bloodPoint?: number;
+  animaltkcnt?: number;
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  clinicCnt?: number;
+  animalzoomcost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  doesCnt?: number;
+  bloodperiod?: number;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  doesDay?: number;
+  bloodpoint?: number;
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  ecgCnt?: number;
+  cliniccheckcost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  groupCnt?: number;
+  cliniccnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  clinicobservecost?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  coefficient?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  dissectioncost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
+   */
+  doescnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  doescost?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
+   */
+  doesday?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
+   */
+  ecgcnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  ecgcost?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  feedingcost?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
+   */
+  groupcnt?: number;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
+   */
+  hasdetail?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  histopathologycost?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
    */
   id?: number;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  ingestionCnt?: number;
+  ingestioncnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  ingestioncost?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  name?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
-  ophthalmologyCnt?: number;
+  ophthalmologycnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  ophthalmologycost?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  otherscost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
+   */
+  parentid?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  preparationscost?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
    */
   quarantine?: number;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
-   */
-  quotationid?: number;
-  /**
-   *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
    */
   recoverday?: number;
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  temperatureCnt?: number;
+  remark?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  reportcost?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  schemecost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @memberof QuotationDetailEntity
+   */
+  temperaturecnt?: number;
+  /**
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
+   */
+  temperaturecost?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof QuotationDetailEntity
    */
   tk?: number;
   /**
    *
-   * @type {number}
-   * @memberof QuotationExperimentEntity
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  weightCnt?: number;
-}
-
-/**
- *
- * @export
- * @interface QuotationInventoryEntity
- */
-export interface QuotationInventoryEntity {
+  tkcost?: string;
   /**
-   * 动物费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  animal?: number;
-  /**
-   * 动物房费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  animalzoom?: number;
-  /**
-   * 临床检验费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  cliniccheck?: number;
-  /**
-   * 临床观察费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  clinicobserve?: number;
-  /**
-   * 翻倍系数
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  coefficient?: number;
-  /**
-   * 大体解剖费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  dissection?: number;
-  /**
-   * 给药费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  does?: number;
-  /**
-   * 心电检测费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  ecg?: number;
-  /**
-   * 饲养费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  feeding?: number;
-  /**
-   * 组织病理费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  histopathology?: number;
+  totalcost?: string;
   /**
    *
    * @type {number}
-   * @memberof QuotationInventoryEntity
+   * @memberof QuotationDetailEntity
    */
-  id?: number;
+  virulence?: number;
   /**
-   * 摄食检测费用
+   *
    * @type {number}
-   * @memberof QuotationInventoryEntity
+   * @memberof QuotationDetailEntity
    */
-  ingestion?: number;
+  week?: number;
   /**
-   * 是否是单价 0-单价  1-总计  2-备注
+   *
    * @type {number}
-   * @memberof QuotationInventoryEntity
+   * @memberof QuotationDetailEntity
    */
-  isunit: number;
+  weightcnt?: number;
   /**
-   * 眼科检查费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
+   *
+   * @type {string}
+   * @memberof QuotationDetailEntity
    */
-  ophthalmology?: number;
-  /**
-   * 其他费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  others?: number;
-  /**
-   * 制剂配置费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  preparations?: number;
-  /**
-   * 此次报价id  0为默认
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  quotationid: number;
-  /**
-   * 研究报告费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  report?: number;
-  /**
-   * 研究方案费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  scheme?: number;
-  /**
-   * 体温检测费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  temperature?: number;
-  /**
-   * TK样本采集费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  tk?: number;
-  /**
-   * 合计费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  total?: number;
-  /**
-   * 体重检测费用
-   * @type {number}
-   * @memberof QuotationInventoryEntity
-   */
-  weight?: number;
+  weightcost?: string;
 }
 
 /**
@@ -3102,6 +3024,38 @@ export interface ResultGetCustomerResp {
    *
    * @type {number}
    * @memberof ResultGetCustomerResp
+   */
+  status?: number;
+}
+
+/**
+ *
+ * @export
+ * @interface ResultGetDetailQuotationResp
+ */
+export interface ResultGetDetailQuotationResp {
+  /**
+   *
+   * @type {GetDetailQuotationResp}
+   * @memberof ResultGetDetailQuotationResp
+   */
+  data?: GetDetailQuotationResp;
+  /**
+   *
+   * @type {string}
+   * @memberof ResultGetDetailQuotationResp
+   */
+  msg?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ResultGetDetailQuotationResp
+   */
+  respTime?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ResultGetDetailQuotationResp
    */
   status?: number;
 }
@@ -3557,31 +3511,31 @@ export interface ResultPageInfoGetCustomerResp {
 /**
  *
  * @export
- * @interface ResultPageInfoGetQuotationCategoryListResp
+ * @interface ResultPageInfoGetNewQuotationDetailResp
  */
-export interface ResultPageInfoGetQuotationCategoryListResp {
+export interface ResultPageInfoGetNewQuotationDetailResp {
   /**
    *
-   * @type {PageInfoGetQuotationCategoryListResp}
-   * @memberof ResultPageInfoGetQuotationCategoryListResp
+   * @type {PageInfoGetNewQuotationDetailResp}
+   * @memberof ResultPageInfoGetNewQuotationDetailResp
    */
-  data?: PageInfoGetQuotationCategoryListResp;
+  data?: PageInfoGetNewQuotationDetailResp;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetQuotationCategoryListResp
+   * @memberof ResultPageInfoGetNewQuotationDetailResp
    */
   msg?: string;
   /**
    *
    * @type {string}
-   * @memberof ResultPageInfoGetQuotationCategoryListResp
+   * @memberof ResultPageInfoGetNewQuotationDetailResp
    */
   respTime?: string;
   /**
    *
    * @type {number}
-   * @memberof ResultPageInfoGetQuotationCategoryListResp
+   * @memberof ResultPageInfoGetNewQuotationDetailResp
    */
   status?: number;
 }
@@ -3678,70 +3632,6 @@ export interface ResultPageInfoGetUserInfoResp {
    *
    * @type {number}
    * @memberof ResultPageInfoGetUserInfoResp
-   */
-  status?: number;
-}
-
-/**
- *
- * @export
- * @interface ResultQuotationExperimentEntity
- */
-export interface ResultQuotationExperimentEntity {
-  /**
-   *
-   * @type {QuotationExperimentEntity}
-   * @memberof ResultQuotationExperimentEntity
-   */
-  data?: QuotationExperimentEntity;
-  /**
-   *
-   * @type {string}
-   * @memberof ResultQuotationExperimentEntity
-   */
-  msg?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ResultQuotationExperimentEntity
-   */
-  respTime?: string;
-  /**
-   *
-   * @type {number}
-   * @memberof ResultQuotationExperimentEntity
-   */
-  status?: number;
-}
-
-/**
- *
- * @export
- * @interface ResultQuotationInventoryEntity
- */
-export interface ResultQuotationInventoryEntity {
-  /**
-   *
-   * @type {QuotationInventoryEntity}
-   * @memberof ResultQuotationInventoryEntity
-   */
-  data?: QuotationInventoryEntity;
-  /**
-   *
-   * @type {string}
-   * @memberof ResultQuotationInventoryEntity
-   */
-  msg?: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ResultQuotationInventoryEntity
-   */
-  respTime?: string;
-  /**
-   *
-   * @type {number}
-   * @memberof ResultQuotationInventoryEntity
    */
   status?: number;
 }
@@ -4095,297 +3985,41 @@ export interface UpdatePwdReq {
 }
 
 /**
- * 更新报价请求实体
+ *
  * @export
- * @interface UpdateQuotationConditionReq
+ * @interface UpdateQuotationProjectReq
  */
-export interface UpdateQuotationConditionReq {
-  /**
-   * 种类名称
-   * @type {string}
-   * @memberof UpdateQuotationConditionReq
-   */
-  category?: string;
+export interface UpdateQuotationProjectReq {
   /**
    * 内容
    * @type {string}
-   * @memberof UpdateQuotationConditionReq
+   * @memberof UpdateQuotationProjectReq
    */
   content: string;
   /**
+   * 顾客
+   * @type {string}
+   * @memberof UpdateQuotationProjectReq
+   */
+  customer: string;
+  /**
    * 报价id
    * @type {number}
-   * @memberof UpdateQuotationConditionReq
+   * @memberof UpdateQuotationProjectReq
    */
   id: number;
   /**
+   * 报价(单位：万元)
+   * @type {number}
+   * @memberof UpdateQuotationProjectReq
+   */
+  quotation: number;
+  /**
    * 备注
    * @type {string}
-   * @memberof UpdateQuotationConditionReq
+   * @memberof UpdateQuotationProjectReq
    */
-  remark?: string;
-}
-
-/**
- *
- * @export
- * @interface UpdateQuotationExperimentReq
- */
-export interface UpdateQuotationExperimentReq {
-  /**
-   * 动物数量（只）
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  animalCnt: number;
-  /**
-   * 伴随TK动物数量
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  animaltkCnt: number;
-  /**
-   * 采血周期
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  bloodPeriod: number;
-  /**
-   * 每只动物采血点
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  bloodPoint: number;
-  /**
-   * 临床检验(次数)
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  clinicCnt: number;
-  /**
-   * 给药次数
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  doesCnt: number;
-  /**
-   * 给药期天数
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  doesDay: number;
-  /**
-   * 心电检测(次数)
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  ecgCnt: number;
-  /**
-   * 组数
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  groupCnt: number;
-  /**
-   * id
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  id?: number;
-  /**
-   * 摄食检测（次数）
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  ingestionCnt: number;
-  /**
-   * 眼科检查（次数）
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  ophthalmologyCnt: number;
-  /**
-   * 检疫适应期
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  quarantine: number;
-  /**
-   * 本次报价id ， 默认为0
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  quotationid: number;
-  /**
-   * 恢复天数
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  recoverday: number;
-  /**
-   * 体温检测(次数)
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  temperatureCnt: number;
-  /**
-   * TK样本量
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  tk: number;
-  /**
-   * 体重检测（次数）
-   * @type {number}
-   * @memberof UpdateQuotationExperimentReq
-   */
-  weightCnt: number;
-}
-
-/**
- *
- * @export
- * @interface UpdateQuotationInventoryReq
- */
-export interface UpdateQuotationInventoryReq {
-  /**
-   * 动物费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  animal?: number;
-  /**
-   * 动物房费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  animalzoom?: number;
-  /**
-   * 临床检验费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  cliniccheck?: number;
-  /**
-   * 临床观察费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  clinicobserve?: number;
-  /**
-   * 翻倍系数
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  coefficient?: number;
-  /**
-   * 大体解剖费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  dissection?: number;
-  /**
-   * 给药费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  does?: number;
-  /**
-   * 心电检测费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  ecg?: number;
-  /**
-   * 饲养费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  feeding?: number;
-  /**
-   * 组织病理费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  histopathology?: number;
-  /**
-   *
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  id?: number;
-  /**
-   * 摄食检测费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  ingestion?: number;
-  /**
-   * 是否是单价
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  isunit?: number;
-  /**
-   * 眼科检查费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  ophthalmology?: number;
-  /**
-   * 其他费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  others?: number;
-  /**
-   * 制剂配置费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  preparations?: number;
-  /**
-   * 此次报价id  0为默认
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  quotationid?: number;
-  /**
-   * 研究报告费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  report?: number;
-  /**
-   * 研究方案费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  scheme?: number;
-  /**
-   * 体温检测费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  temperature?: number;
-  /**
-   * TK样本采集费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  tk?: number;
-  /**
-   * 合计费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  total?: number;
-  /**
-   * 体重检测费用
-   * @type {number}
-   * @memberof UpdateQuotationInventoryReq
-   */
-  weight?: number;
+  remark: string;
 }
 
 /**
@@ -8091,265 +7725,6 @@ export class PermissionControllerApi extends BaseAPI {
 }
 
 /**
- * QuotationCategoryControllerApi - fetch parameter creator
- * @export
- */
-export const QuotationCategoryControllerApiFetchParamCreator = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增种类
-     * @param {AddProjectCategoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addCategoryUsingPOST(request: AddProjectCategoryReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError("request", "Required parameter request was null or undefined when calling addCategoryUsingPOST.");
-      }
-      const localVarPath = `/quotation/addCategory`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"AddProjectCategoryReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 获取项目种类
-     * @param {number} [pageCurrent] 当前页
-     * @param {number} [pageSize] 每页数量
-     * @param {string} [orderBy] 排序字段
-     * @param {string} [descOrAsc] 升序或降序
-     * @param {number} [pageBegin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getProjectCategoryUsingGET(
-      pageCurrent?: number,
-      pageSize?: number,
-      orderBy?: string,
-      descOrAsc?: string,
-      pageBegin?: number,
-      options: any = {}
-    ): FetchArgs {
-      const localVarPath = `/quotation/getProjectCategory`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (pageCurrent !== undefined) {
-        localVarQueryParameter["pageCurrent"] = pageCurrent;
-      }
-
-      if (pageSize !== undefined) {
-        localVarQueryParameter["pageSize"] = pageSize;
-      }
-
-      if (orderBy !== undefined) {
-        localVarQueryParameter["orderBy"] = orderBy;
-      }
-
-      if (descOrAsc !== undefined) {
-        localVarQueryParameter["descOrAsc"] = descOrAsc;
-      }
-
-      if (pageBegin !== undefined) {
-        localVarQueryParameter["pageBegin"] = pageBegin;
-      }
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    }
-  };
-};
-
-/**
- * QuotationCategoryControllerApi - functional programming interface
- * @export
- */
-export const QuotationCategoryControllerApiFp = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增种类
-     * @param {AddProjectCategoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addCategoryUsingPOST(request: AddProjectCategoryReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationCategoryControllerApiFetchParamCreator(configuration).addCategoryUsingPOST(request, options);
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 获取项目种类
-     * @param {number} [pageCurrent] 当前页
-     * @param {number} [pageSize] 每页数量
-     * @param {string} [orderBy] 排序字段
-     * @param {string} [descOrAsc] 升序或降序
-     * @param {number} [pageBegin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getProjectCategoryUsingGET(
-      pageCurrent?: number,
-      pageSize?: number,
-      orderBy?: string,
-      descOrAsc?: string,
-      pageBegin?: number,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetQuotationCategoryListResp> {
-      const localVarFetchArgs = QuotationCategoryControllerApiFetchParamCreator(configuration).getProjectCategoryUsingGET(
-        pageCurrent,
-        pageSize,
-        orderBy,
-        descOrAsc,
-        pageBegin,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    }
-  };
-};
-
-/**
- * QuotationCategoryControllerApi - factory interface
- * @export
- */
-export const QuotationCategoryControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-  return {
-    /**
-     *
-     * @summary 新增种类
-     * @param {AddProjectCategoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addCategoryUsingPOST(request: AddProjectCategoryReq, options?: any) {
-      return QuotationCategoryControllerApiFp(configuration).addCategoryUsingPOST(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 获取项目种类
-     * @param {number} [pageCurrent] 当前页
-     * @param {number} [pageSize] 每页数量
-     * @param {string} [orderBy] 排序字段
-     * @param {string} [descOrAsc] 升序或降序
-     * @param {number} [pageBegin]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getProjectCategoryUsingGET(
-      pageCurrent?: number,
-      pageSize?: number,
-      orderBy?: string,
-      descOrAsc?: string,
-      pageBegin?: number,
-      options?: any
-    ) {
-      return QuotationCategoryControllerApiFp(configuration).getProjectCategoryUsingGET(
-        pageCurrent,
-        pageSize,
-        orderBy,
-        descOrAsc,
-        pageBegin,
-        options
-      )(fetch, basePath);
-    }
-  };
-};
-
-/**
- * QuotationCategoryControllerApi - object-oriented interface
- * @export
- * @class QuotationCategoryControllerApi
- * @extends {BaseAPI}
- */
-export class QuotationCategoryControllerApi extends BaseAPI {
-  /**
-   *
-   * @summary 新增种类
-   * @param {AddProjectCategoryReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationCategoryControllerApi
-   */
-  public addCategoryUsingPOST(request: AddProjectCategoryReq, options?: any) {
-    return QuotationCategoryControllerApiFp(this.configuration).addCategoryUsingPOST(request, options)(this.fetch, this.basePath);
-  }
-
-  /**
-   *
-   * @summary 获取项目种类
-   * @param {number} [pageCurrent] 当前页
-   * @param {number} [pageSize] 每页数量
-   * @param {string} [orderBy] 排序字段
-   * @param {string} [descOrAsc] 升序或降序
-   * @param {number} [pageBegin]
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationCategoryControllerApi
-   */
-  public getProjectCategoryUsingGET(
-    pageCurrent?: number,
-    pageSize?: number,
-    orderBy?: string,
-    descOrAsc?: string,
-    pageBegin?: number,
-    options?: any
-  ) {
-    return QuotationCategoryControllerApiFp(this.configuration).getProjectCategoryUsingGET(
-      pageCurrent,
-      pageSize,
-      orderBy,
-      descOrAsc,
-      pageBegin,
-      options
-    )(this.fetch, this.basePath);
-  }
-}
-
-/**
  * QuotationControllerApi - fetch parameter creator
  * @export
  */
@@ -8390,40 +7765,7 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
     },
     /**
      *
-     * @summary 新增报价
-     * @param {AddQuotationReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addQuotationUsingPOST(request: AddQuotationReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError("request", "Required parameter request was null or undefined when calling addQuotationUsingPOST.");
-      }
-      const localVarPath = `/quotation/addQuotation`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"AddQuotationReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价Id删除报价
+     * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8458,13 +7800,185 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
     },
     /**
      *
-     * @summary 根据名称搜索项目报价
+     * @summary 根据条件（动物、星期、毒性、种类）查询默认报价参数(适用于有明细场景)
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {string} [content]
+     * @param {string} [name] 模块名称
+     * @param {string} [animal] 动物名称
+     * @param {number} [week] 星期
+     * @param {number} [virulence] 毒性
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByConditionUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      animal?: string,
+      week?: number,
+      virulence?: number,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/quotation/getDefaultSubQuotationByCondition`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (pageCurrent !== undefined) {
+        localVarQueryParameter["pageCurrent"] = pageCurrent;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter["pageSize"] = pageSize;
+      }
+
+      if (orderBy !== undefined) {
+        localVarQueryParameter["orderBy"] = orderBy;
+      }
+
+      if (descOrAsc !== undefined) {
+        localVarQueryParameter["descOrAsc"] = descOrAsc;
+      }
+
+      if (pageBegin !== undefined) {
+        localVarQueryParameter["pageBegin"] = pageBegin;
+      }
+
+      if (name !== undefined) {
+        localVarQueryParameter["name"] = name;
+      }
+
+      if (animal !== undefined) {
+        localVarQueryParameter["animal"] = animal;
+      }
+
+      if (week !== undefined) {
+        localVarQueryParameter["week"] = week;
+      }
+
+      if (virulence !== undefined) {
+        localVarQueryParameter["virulence"] = virulence;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 根据种类查询子模块默认报价信息(适用于无明细场景)
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [name] 模块名称
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByNameUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/quotation/getDefaultSubQuotationByName`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (pageCurrent !== undefined) {
+        localVarQueryParameter["pageCurrent"] = pageCurrent;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter["pageSize"] = pageSize;
+      }
+
+      if (orderBy !== undefined) {
+        localVarQueryParameter["orderBy"] = orderBy;
+      }
+
+      if (descOrAsc !== undefined) {
+        localVarQueryParameter["descOrAsc"] = descOrAsc;
+      }
+
+      if (pageBegin !== undefined) {
+        localVarQueryParameter["pageBegin"] = pageBegin;
+      }
+
+      if (name !== undefined) {
+        localVarQueryParameter["name"] = name;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 根据报价id获取详细组成信息
+     * @param {number} id 报价id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDetailQuotationByIdUsingGET(id: number, options: any = {}): FetchArgs {
+      // verify required parameter 'id' is not null or undefined
+      if (id === null || id === undefined) {
+        throw new RequiredError("id", "Required parameter id was null or undefined when calling getDetailQuotationByIdUsingGET.");
+      }
+      const localVarPath = `/quotation/getDetailQuotationById`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (id !== undefined) {
+        localVarQueryParameter["id"] = id;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 根据内容模糊搜索报价信息
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [content] 内容
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8574,12 +8088,12 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
     },
     /**
      *
-     * @summary 更新报价(不更新金额)
-     * @param {UpdateQuotationConditionReq} request request
+     * @summary 更新报价描述信息(总表)
+     * @param {UpdateQuotationProjectReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options: any = {}): FetchArgs {
+    updateQuotationConditionUsingPOST(request: UpdateQuotationProjectReq, options: any = {}): FetchArgs {
       // verify required parameter 'request' is not null or undefined
       if (request === null || request === undefined) {
         throw new RequiredError(
@@ -8587,7 +8101,7 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
           "Required parameter request was null or undefined when calling updateQuotationConditionUsingPOST."
         );
       }
-      const localVarPath = `/quotation/updateQuotationCondition`;
+      const localVarPath = `/quotation/updateQuotation`;
       const localVarUrlObj = url.parse(localVarPath, true);
       const localVarRequestOptions = Object.assign({ method: "POST" }, options);
       const localVarHeaderParameter = {} as any;
@@ -8600,7 +8114,7 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
       delete localVarUrlObj.search;
       localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
       const needsSerialization =
-        <any>"UpdateQuotationConditionReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+        <any>"UpdateQuotationProjectReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
       localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
 
       return {
@@ -8638,26 +8152,7 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
     },
     /**
      *
-     * @summary 新增报价
-     * @param {AddQuotationReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addQuotationUsingPOST(request: AddQuotationReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).addQuotationUsingPOST(request, options);
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价Id删除报价
+     * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8676,13 +8171,124 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
     },
     /**
      *
-     * @summary 根据名称搜索项目报价
+     * @summary 根据条件（动物、星期、毒性、种类）查询默认报价参数(适用于有明细场景)
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {string} [content]
+     * @param {string} [name] 模块名称
+     * @param {string} [animal] 动物名称
+     * @param {number} [week] 星期
+     * @param {number} [virulence] 毒性
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByConditionUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      animal?: string,
+      week?: number,
+      virulence?: number,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetNewQuotationDetailResp> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getDefaultSubQuotationByConditionUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        name,
+        animal,
+        week,
+        virulence,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 根据种类查询子模块默认报价信息(适用于无明细场景)
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [name] 模块名称
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByNameUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetNewQuotationDetailResp> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getDefaultSubQuotationByNameUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        name,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 根据报价id获取详细组成信息
+     * @param {number} id 报价id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDetailQuotationByIdUsingGET(
+      id: number,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultGetDetailQuotationResp> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getDetailQuotationByIdUsingGET(id, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 根据内容模糊搜索报价信息
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [content] 内容
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8753,13 +8359,13 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
     },
     /**
      *
-     * @summary 更新报价(不更新金额)
-     * @param {UpdateQuotationConditionReq} request request
+     * @summary 更新报价描述信息(总表)
+     * @param {UpdateQuotationProjectReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     updateQuotationConditionUsingPOST(
-      request: UpdateQuotationConditionReq,
+      request: UpdateQuotationProjectReq,
       options?: any
     ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
       const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).updateQuotationConditionUsingPOST(request, options);
@@ -8794,17 +8400,7 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
     },
     /**
      *
-     * @summary 新增报价
-     * @param {AddQuotationReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addQuotationUsingPOST(request: AddQuotationReq, options?: any) {
-      return QuotationControllerApiFp(configuration).addQuotationUsingPOST(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价Id删除报价
+     * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -8814,13 +8410,94 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
     },
     /**
      *
-     * @summary 根据名称搜索项目报价
+     * @summary 根据条件（动物、星期、毒性、种类）查询默认报价参数(适用于有明细场景)
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {string} [content]
+     * @param {string} [name] 模块名称
+     * @param {string} [animal] 动物名称
+     * @param {number} [week] 星期
+     * @param {number} [virulence] 毒性
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByConditionUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      animal?: string,
+      week?: number,
+      virulence?: number,
+      options?: any
+    ) {
+      return QuotationControllerApiFp(configuration).getDefaultSubQuotationByConditionUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        name,
+        animal,
+        week,
+        virulence,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据种类查询子模块默认报价信息(适用于无明细场景)
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [name] 模块名称
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDefaultSubQuotationByNameUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      name?: string,
+      options?: any
+    ) {
+      return QuotationControllerApiFp(configuration).getDefaultSubQuotationByNameUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        name,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据报价id获取详细组成信息
+     * @param {number} id 报价id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getDetailQuotationByIdUsingGET(id: number, options?: any) {
+      return QuotationControllerApiFp(configuration).getDetailQuotationByIdUsingGET(id, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据内容模糊搜索报价信息
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {string} [content] 内容
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8873,12 +8550,12 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
     },
     /**
      *
-     * @summary 更新报价(不更新金额)
-     * @param {UpdateQuotationConditionReq} request request
+     * @summary 更新报价描述信息(总表)
+     * @param {UpdateQuotationProjectReq} request request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options?: any) {
+    updateQuotationConditionUsingPOST(request: UpdateQuotationProjectReq, options?: any) {
       return QuotationControllerApiFp(configuration).updateQuotationConditionUsingPOST(request, options)(fetch, basePath);
     }
   };
@@ -8905,19 +8582,7 @@ export class QuotationControllerApi extends BaseAPI {
 
   /**
    *
-   * @summary 新增报价
-   * @param {AddQuotationReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationControllerApi
-   */
-  public addQuotationUsingPOST(request: AddQuotationReq, options?: any) {
-    return QuotationControllerApiFp(this.configuration).addQuotationUsingPOST(request, options)(this.fetch, this.basePath);
-  }
-
-  /**
-   *
-   * @summary 根据报价Id删除报价
+   * @summary 根据报价Id删除报价(清除所有)
    * @param {number} quotationId 报价id
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -8929,13 +8594,100 @@ export class QuotationControllerApi extends BaseAPI {
 
   /**
    *
-   * @summary 根据名称搜索项目报价
+   * @summary 根据条件（动物、星期、毒性、种类）查询默认报价参数(适用于有明细场景)
    * @param {number} [pageCurrent] 当前页
    * @param {number} [pageSize] 每页数量
    * @param {string} [orderBy] 排序字段
    * @param {string} [descOrAsc] 升序或降序
    * @param {number} [pageBegin]
-   * @param {string} [content]
+   * @param {string} [name] 模块名称
+   * @param {string} [animal] 动物名称
+   * @param {number} [week] 星期
+   * @param {number} [virulence] 毒性
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public getDefaultSubQuotationByConditionUsingGET(
+    pageCurrent?: number,
+    pageSize?: number,
+    orderBy?: string,
+    descOrAsc?: string,
+    pageBegin?: number,
+    name?: string,
+    animal?: string,
+    week?: number,
+    virulence?: number,
+    options?: any
+  ) {
+    return QuotationControllerApiFp(this.configuration).getDefaultSubQuotationByConditionUsingGET(
+      pageCurrent,
+      pageSize,
+      orderBy,
+      descOrAsc,
+      pageBegin,
+      name,
+      animal,
+      week,
+      virulence,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 根据种类查询子模块默认报价信息(适用于无明细场景)
+   * @param {number} [pageCurrent] 当前页
+   * @param {number} [pageSize] 每页数量
+   * @param {string} [orderBy] 排序字段
+   * @param {string} [descOrAsc] 升序或降序
+   * @param {number} [pageBegin]
+   * @param {string} [name] 模块名称
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public getDefaultSubQuotationByNameUsingGET(
+    pageCurrent?: number,
+    pageSize?: number,
+    orderBy?: string,
+    descOrAsc?: string,
+    pageBegin?: number,
+    name?: string,
+    options?: any
+  ) {
+    return QuotationControllerApiFp(this.configuration).getDefaultSubQuotationByNameUsingGET(
+      pageCurrent,
+      pageSize,
+      orderBy,
+      descOrAsc,
+      pageBegin,
+      name,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 根据报价id获取详细组成信息
+   * @param {number} id 报价id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public getDetailQuotationByIdUsingGET(id: number, options?: any) {
+    return QuotationControllerApiFp(this.configuration).getDetailQuotationByIdUsingGET(id, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 根据内容模糊搜索报价信息
+   * @param {number} [pageCurrent] 当前页
+   * @param {number} [pageSize] 每页数量
+   * @param {string} [orderBy] 排序字段
+   * @param {string} [descOrAsc] 升序或降序
+   * @param {number} [pageBegin]
+   * @param {string} [content] 内容
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof QuotationControllerApi
@@ -8992,831 +8744,14 @@ export class QuotationControllerApi extends BaseAPI {
 
   /**
    *
-   * @summary 更新报价(不更新金额)
-   * @param {UpdateQuotationConditionReq} request request
+   * @summary 更新报价描述信息(总表)
+   * @param {UpdateQuotationProjectReq} request request
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof QuotationControllerApi
    */
-  public updateQuotationConditionUsingPOST(request: UpdateQuotationConditionReq, options?: any) {
+  public updateQuotationConditionUsingPOST(request: UpdateQuotationProjectReq, options?: any) {
     return QuotationControllerApiFp(this.configuration).updateQuotationConditionUsingPOST(request, options)(this.fetch, this.basePath);
-  }
-}
-
-/**
- * QuotationExperimentControllerApi - fetch parameter creator
- * @export
- */
-export const QuotationExperimentControllerApiFetchParamCreator = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价参数
-     * @param {AddQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addExperimentUsingPOST(request: AddQuotationExperimentReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError("request", "Required parameter request was null or undefined when calling addExperimentUsingPOST.");
-      }
-      const localVarPath = `/quotation/addExperiment`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"AddQuotationExperimentReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取实验参数
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET(quotationId: number, options: any = {}): FetchArgs {
-      // verify required parameter 'quotationId' is not null or undefined
-      if (quotationId === null || quotationId === undefined) {
-        throw new RequiredError(
-          "quotationId",
-          "Required parameter quotationId was null or undefined when calling getQuotationExperimentByIdUsingGET."
-        );
-      }
-      const localVarPath = `/quotation/getQuotationExperimentById`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (quotationId !== undefined) {
-        localVarQueryParameter["quotationId"] = quotationId;
-      }
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否默认报价）查询报价参数
-     * @param {GetQuotationExperimentByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryExperimentByConditionUsingGET(request: GetQuotationExperimentByConditonReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError(
-          "request",
-          "Required parameter request was null or undefined when calling queryExperimentByConditionUsingGET."
-        );
-      }
-      const localVarPath = `/quotation/queryExperimentByCondition`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"GetQuotationExperimentByConditonReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id更新实验参数
-     * @param {UpdateQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError(
-          "request",
-          "Required parameter request was null or undefined when calling updateExperimentByQuotationIdUsingPOST."
-        );
-      }
-      const localVarPath = `/quotation/updateExperimentByQuotationId`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"UpdateQuotationExperimentReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    }
-  };
-};
-
-/**
- * QuotationExperimentControllerApi - functional programming interface
- * @export
- */
-export const QuotationExperimentControllerApiFp = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价参数
-     * @param {AddQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addExperimentUsingPOST(request: AddQuotationExperimentReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationExperimentControllerApiFetchParamCreator(configuration).addExperimentUsingPOST(request, options);
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取实验参数
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET(
-      quotationId: number,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultQuotationExperimentEntity> {
-      const localVarFetchArgs = QuotationExperimentControllerApiFetchParamCreator(configuration).getQuotationExperimentByIdUsingGET(
-        quotationId,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否默认报价）查询报价参数
-     * @param {GetQuotationExperimentByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryExperimentByConditionUsingGET(
-      request: GetQuotationExperimentByConditonReq,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultQuotationExperimentEntity> {
-      const localVarFetchArgs = QuotationExperimentControllerApiFetchParamCreator(configuration).queryExperimentByConditionUsingGET(
-        request,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id更新实验参数
-     * @param {UpdateQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateExperimentByQuotationIdUsingPOST(
-      request: UpdateQuotationExperimentReq,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationExperimentControllerApiFetchParamCreator(configuration).updateExperimentByQuotationIdUsingPOST(
-        request,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    }
-  };
-};
-
-/**
- * QuotationExperimentControllerApi - factory interface
- * @export
- */
-export const QuotationExperimentControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价参数
-     * @param {AddQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addExperimentUsingPOST(request: AddQuotationExperimentReq, options?: any) {
-      return QuotationExperimentControllerApiFp(configuration).addExperimentUsingPOST(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价id获取实验参数
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET(quotationId: number, options?: any) {
-      return QuotationExperimentControllerApiFp(configuration).getQuotationExperimentByIdUsingGET(quotationId, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否默认报价）查询报价参数
-     * @param {GetQuotationExperimentByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryExperimentByConditionUsingGET(request: GetQuotationExperimentByConditonReq, options?: any) {
-      return QuotationExperimentControllerApiFp(configuration).queryExperimentByConditionUsingGET(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价id更新实验参数
-     * @param {UpdateQuotationExperimentReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options?: any) {
-      return QuotationExperimentControllerApiFp(configuration).updateExperimentByQuotationIdUsingPOST(request, options)(fetch, basePath);
-    }
-  };
-};
-
-/**
- * QuotationExperimentControllerApi - object-oriented interface
- * @export
- * @class QuotationExperimentControllerApi
- * @extends {BaseAPI}
- */
-export class QuotationExperimentControllerApi extends BaseAPI {
-  /**
-   *
-   * @summary 新增默认报价参数
-   * @param {AddQuotationExperimentReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationExperimentControllerApi
-   */
-  public addExperimentUsingPOST(request: AddQuotationExperimentReq, options?: any) {
-    return QuotationExperimentControllerApiFp(this.configuration).addExperimentUsingPOST(request, options)(this.fetch, this.basePath);
-  }
-
-  /**
-   *
-   * @summary 根据报价id获取实验参数
-   * @param {number} quotationId 报价id
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationExperimentControllerApi
-   */
-  public getQuotationExperimentByIdUsingGET(quotationId: number, options?: any) {
-    return QuotationExperimentControllerApiFp(this.configuration).getQuotationExperimentByIdUsingGET(quotationId, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-
-  /**
-   *
-   * @summary 根据条件（动物、星期、毒性、是否默认报价）查询报价参数
-   * @param {GetQuotationExperimentByConditonReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationExperimentControllerApi
-   */
-  public queryExperimentByConditionUsingGET(request: GetQuotationExperimentByConditonReq, options?: any) {
-    return QuotationExperimentControllerApiFp(this.configuration).queryExperimentByConditionUsingGET(request, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-
-  /**
-   *
-   * @summary 根据报价id更新实验参数
-   * @param {UpdateQuotationExperimentReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationExperimentControllerApi
-   */
-  public updateExperimentByQuotationIdUsingPOST(request: UpdateQuotationExperimentReq, options?: any) {
-    return QuotationExperimentControllerApiFp(this.configuration).updateExperimentByQuotationIdUsingPOST(request, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-}
-
-/**
- * QuotationInventoryControllerApi - fetch parameter creator
- * @export
- */
-export const QuotationInventoryControllerApiFetchParamCreator = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价明细
-     * @param {AddQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addInventoryUsingPOST(request: AddQuotationInventoryReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError("request", "Required parameter request was null or undefined when calling addInventoryUsingPOST.");
-      }
-      const localVarPath = `/quotation/addInventory`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"AddQuotationInventoryReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价明细
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET1(quotationId: number, options: any = {}): FetchArgs {
-      // verify required parameter 'quotationId' is not null or undefined
-      if (quotationId === null || quotationId === undefined) {
-        throw new RequiredError(
-          "quotationId",
-          "Required parameter quotationId was null or undefined when calling getQuotationExperimentByIdUsingGET1."
-        );
-      }
-      const localVarPath = `/quotation/getQuotationInventoryById`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (quotationId !== undefined) {
-        localVarQueryParameter["quotationId"] = quotationId;
-      }
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价单价
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getUnitQuotationInventoryByIdUsingGET(quotationId: number, options: any = {}): FetchArgs {
-      // verify required parameter 'quotationId' is not null or undefined
-      if (quotationId === null || quotationId === undefined) {
-        throw new RequiredError(
-          "quotationId",
-          "Required parameter quotationId was null or undefined when calling getUnitQuotationInventoryByIdUsingGET."
-        );
-      }
-      const localVarPath = `/quotation/getUnitQuotationInventoryById`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      if (quotationId !== undefined) {
-        localVarQueryParameter["quotationId"] = quotationId;
-      }
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否单价、是否默认报价）查询报价明细组成
-     * @param {GetQuotationInventoryByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError(
-          "request",
-          "Required parameter request was null or undefined when calling queryInventoryByConditionUsingPOST."
-        );
-      }
-      const localVarPath = `/quotation/queryInventoryByCondition`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"GetQuotationInventoryByConditonReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
-     * @param {UpdateQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options: any = {}): FetchArgs {
-      // verify required parameter 'request' is not null or undefined
-      if (request === null || request === undefined) {
-        throw new RequiredError(
-          "request",
-          "Required parameter request was null or undefined when calling updateQuotationInventoryUnitUsingPOST."
-        );
-      }
-      const localVarPath = `/quotation/updateQuotationInventoryUnit`;
-      const localVarUrlObj = url.parse(localVarPath, true);
-      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter["Content-Type"] = "application/json";
-
-      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-      delete localVarUrlObj.search;
-      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-      const needsSerialization =
-        <any>"UpdateQuotationInventoryReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
-      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
-
-      return {
-        url: url.format(localVarUrlObj),
-        options: localVarRequestOptions
-      };
-    }
-  };
-};
-
-/**
- * QuotationInventoryControllerApi - functional programming interface
- * @export
- */
-export const QuotationInventoryControllerApiFp = function(configuration?: Configuration) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价明细
-     * @param {AddQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addInventoryUsingPOST(request: AddQuotationInventoryReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).addInventoryUsingPOST(request, options);
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价明细
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET1(
-      quotationId: number,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultQuotationInventoryEntity> {
-      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).getQuotationExperimentByIdUsingGET1(
-        quotationId,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价单价
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getUnitQuotationInventoryByIdUsingGET(
-      quotationId: number,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultQuotationInventoryEntity> {
-      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).getUnitQuotationInventoryByIdUsingGET(
-        quotationId,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否单价、是否默认报价）查询报价明细组成
-     * @param {GetQuotationInventoryByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryInventoryByConditionUsingPOST(
-      request: GetQuotationInventoryByConditonReq,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultQuotationInventoryEntity> {
-      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).queryInventoryByConditionUsingPOST(
-        request,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    },
-    /**
-     *
-     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
-     * @param {UpdateQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateQuotationInventoryUnitUsingPOST(
-      request: UpdateQuotationInventoryReq,
-      options?: any
-    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
-      const localVarFetchArgs = QuotationInventoryControllerApiFetchParamCreator(configuration).updateQuotationInventoryUnitUsingPOST(
-        request,
-        options
-      );
-      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
-        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          } else {
-            throw response;
-          }
-        });
-      };
-    }
-  };
-};
-
-/**
- * QuotationInventoryControllerApi - factory interface
- * @export
- */
-export const QuotationInventoryControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
-  return {
-    /**
-     *
-     * @summary 新增默认报价明细
-     * @param {AddQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    addInventoryUsingPOST(request: AddQuotationInventoryReq, options?: any) {
-      return QuotationInventoryControllerApiFp(configuration).addInventoryUsingPOST(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价明细
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getQuotationExperimentByIdUsingGET1(quotationId: number, options?: any) {
-      return QuotationInventoryControllerApiFp(configuration).getQuotationExperimentByIdUsingGET1(quotationId, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价id获取本次报价单价
-     * @param {number} quotationId 报价id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getUnitQuotationInventoryByIdUsingGET(quotationId: number, options?: any) {
-      return QuotationInventoryControllerApiFp(configuration).getUnitQuotationInventoryByIdUsingGET(quotationId, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据条件（动物、星期、毒性、是否单价、是否默认报价）查询报价明细组成
-     * @param {GetQuotationInventoryByConditonReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options?: any) {
-      return QuotationInventoryControllerApiFp(configuration).queryInventoryByConditionUsingPOST(request, options)(fetch, basePath);
-    },
-    /**
-     *
-     * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
-     * @param {UpdateQuotationInventoryReq} request request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options?: any) {
-      return QuotationInventoryControllerApiFp(configuration).updateQuotationInventoryUnitUsingPOST(request, options)(fetch, basePath);
-    }
-  };
-};
-
-/**
- * QuotationInventoryControllerApi - object-oriented interface
- * @export
- * @class QuotationInventoryControllerApi
- * @extends {BaseAPI}
- */
-export class QuotationInventoryControllerApi extends BaseAPI {
-  /**
-   *
-   * @summary 新增默认报价明细
-   * @param {AddQuotationInventoryReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationInventoryControllerApi
-   */
-  public addInventoryUsingPOST(request: AddQuotationInventoryReq, options?: any) {
-    return QuotationInventoryControllerApiFp(this.configuration).addInventoryUsingPOST(request, options)(this.fetch, this.basePath);
-  }
-
-  /**
-   *
-   * @summary 根据报价id获取本次报价明细
-   * @param {number} quotationId 报价id
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationInventoryControllerApi
-   */
-  public getQuotationExperimentByIdUsingGET1(quotationId: number, options?: any) {
-    return QuotationInventoryControllerApiFp(this.configuration).getQuotationExperimentByIdUsingGET1(quotationId, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-
-  /**
-   *
-   * @summary 根据报价id获取本次报价单价
-   * @param {number} quotationId 报价id
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationInventoryControllerApi
-   */
-  public getUnitQuotationInventoryByIdUsingGET(quotationId: number, options?: any) {
-    return QuotationInventoryControllerApiFp(this.configuration).getUnitQuotationInventoryByIdUsingGET(quotationId, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-
-  /**
-   *
-   * @summary 根据条件（动物、星期、毒性、是否单价、是否默认报价）查询报价明细组成
-   * @param {GetQuotationInventoryByConditonReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationInventoryControllerApi
-   */
-  public queryInventoryByConditionUsingPOST(request: GetQuotationInventoryByConditonReq, options?: any) {
-    return QuotationInventoryControllerApiFp(this.configuration).queryInventoryByConditionUsingPOST(request, options)(
-      this.fetch,
-      this.basePath
-    );
-  }
-
-  /**
-   *
-   * @summary 根据报价id更新价钱  isunit 0-更新单价 1-更新总价
-   * @param {UpdateQuotationInventoryReq} request request
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof QuotationInventoryControllerApi
-   */
-  public updateQuotationInventoryUnitUsingPOST(request: UpdateQuotationInventoryReq, options?: any) {
-    return QuotationInventoryControllerApiFp(this.configuration).updateQuotationInventoryUnitUsingPOST(request, options)(
-      this.fetch,
-      this.basePath
-    );
   }
 }
 

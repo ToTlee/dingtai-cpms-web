@@ -35,9 +35,7 @@
 import {
   ClientDataVue,
   AddDetailQuotationReq,
-  quotationApi,
-  quotationCategoryApi,
-  PageInfoGetQuotationCategoryListResp
+  quotationApi
 } from "@/client-api";
 import { Emit, Prop, Component } from "vue-property-decorator";
 import QuotationDetail from "./QuotationDetail.vue";
@@ -50,57 +48,53 @@ import { QuotationDetailInfo, createTempInfo } from "./quotation";
 })
 export default class AddQuoation extends ClientDataVue {
   data: AddDetailQuotationReq = {
-    category: "",
     content: "",
-    remark: "",
-    quotationExperimentEntity: {},
-    quotationInventoryEntity: { quotationid: 0, isunit: 0 },
-    quotationTotalInventoryEntity: { quotationid: 0, isunit: 1 }
+    remark: ""
   };
 
   priceInfo: QuotationDetailInfo = createTempInfo();
 
   async onSubmit() {
-    let vm = this;
-    this.priceInfo.basic.forEach(item => {
-      vm.data.quotationExperimentEntity[item.id] = Number(item.value);
-    });
-    this.priceInfo.testing.forEach(item => {
-      vm.data.quotationExperimentEntity[item.id] = Number(item.value);
-    });
-    this.priceInfo.prices.forEach(item => {
-      if (item.children && item.children.length > 0) {
-        item.children.forEach(child => {
-          vm.data.quotationInventoryEntity[child.id] = child.price;
-          vm.data.quotationTotalInventoryEntity[child.id] = child.total;
-        });
-      } else {
-        vm.data.quotationInventoryEntity[item.id] = item.price;
-        vm.data.quotationTotalInventoryEntity[item.id] = item.total;
-      }
-    });
-    vm.data.quotationTotalInventoryEntity.total = this.priceInfo.total;
-    let result = await this.requestWithoutResult(() =>
-      quotationApi.addDetailQuotationUsingPOST(this.data)
-    );
-    if (result) {
-      this.$message.success("添加成功");
-      this.submit();
-    }
+    // let vm = this;
+    // this.priceInfo.basic.forEach(item => {
+    //   vm.data.quotationExperimentEntity[item.id] = Number(item.value);
+    // });
+    // this.priceInfo.testing.forEach(item => {
+    //   vm.data.quotationExperimentEntity[item.id] = Number(item.value);
+    // });
+    // this.priceInfo.prices.forEach(item => {
+    //   if (item.children && item.children.length > 0) {
+    //     item.children.forEach(child => {
+    //       vm.data.quotationInventoryEntity[child.id] = child.price;
+    //       vm.data.quotationTotalInventoryEntity[child.id] = child.total;
+    //     });
+    //   } else {
+    //     vm.data.quotationInventoryEntity[item.id] = item.price;
+    //     vm.data.quotationTotalInventoryEntity[item.id] = item.total;
+    //   }
+    // });
+    // vm.data.quotationTotalInventoryEntity.total = this.priceInfo.total;
+    // let result = await this.requestWithoutResult(() =>
+    //   quotationApi.addDetailQuotationUsingPOST(this.data)
+    // );
+    // if (result) {
+    //   this.$message.success("添加成功");
+    //   this.submit();
+    // }
   }
   async querySearchAsync(queryString: string, db) {
-    let result = await this.getData<PageInfoGetQuotationCategoryListResp>(() =>
-      quotationCategoryApi.getProjectCategoryUsingGET()
-    );
-    if (result) {
-      let data = result.list;
-      if (data) {
-        data = data.filter(value =>
-          value.category!.toLowerCase().includes(queryString.toLowerCase())
-        );
-      }
-      db(data);
-    }
+    // let result = await this.getData<PageInfoGetQuotationCategoryListResp>(() =>
+    //   quotationCategoryApi.getProjectCategoryUsingGET()
+    // );
+    // if (result) {
+    //   let data = result.list;
+    //   if (data) {
+    //     data = data.filter(value =>
+    //       value.category!.toLowerCase().includes(queryString.toLowerCase())
+    //     );
+    //   }
+    //   db(data);
+    // }
   }
 
   @Emit()

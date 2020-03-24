@@ -14,10 +14,7 @@ import {
   ContractInvoiceControllerApi,
   ContractPeriodControllerApi,
   RoleControllerApi,
-  QuotationInventoryControllerApi,
-  QuotationExperimentControllerApi,
-  CustomerFollowControllerApi,
-  QuotationCategoryControllerApi
+  CustomerFollowControllerApi
 } from "./classes/api";
 
 const SERVER_PATH = "/admin".replace(/\/+$/, "");
@@ -35,9 +32,6 @@ export const contractApi = new ContractControllerApi(configuraion, SERVER_PATH);
 export const customerApi = new CustomerControllerApi(configuraion, SERVER_PATH);
 // export const projectApi = new ProjectQuotationControllerApi(configuraion, SERVER_PATH);
 export const quotationApi = new QuotationControllerApi(configuraion, SERVER_PATH);
-export const quotationInventoryApi = new QuotationInventoryControllerApi(configuraion, SERVER_PATH);
-export const quotationExperimentApi = new QuotationExperimentControllerApi(configuraion, SERVER_PATH);
-export const quotationCategoryApi = new QuotationCategoryControllerApi(configuraion, SERVER_PATH);
 export const proceedsApi = new ContractReceivablesControllerApi(configuraion, SERVER_PATH);
 export const invoiceApi = new ContractInvoiceControllerApi(configuraion, SERVER_PATH);
 export const roleApi = new RoleControllerApi(configuraion, SERVER_PATH);

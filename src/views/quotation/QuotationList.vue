@@ -17,13 +17,18 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" label="序号" fixed></el-table-column>
-      <el-table-column prop="categoryName" label="项目"></el-table-column>
-      <el-table-column label="内容">
+      <!-- <el-table-column prop="categoryName" label="项目"></el-table-column> -->
+      <el-table-column label="项目">
         <template slot-scope="scope">
           <div v-if="!scope.row.children">
             <el-input v-if="scope.row.editing" v-model="scope.row.content" size="mini"></el-input>
             <div v-if="!scope.row.editing">{{ scope.row.content }}</div>
           </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="客户">
+        <template slot-scope="scope">
+          <div>{{ scope.row.customer }}</div>
         </template>
       </el-table-column>
       <el-table-column label="报价(万元)">
@@ -99,11 +104,7 @@
 </template>
 
 <script lang="ts">
-import {
-  ClientDataVue,
-  PageInfo,
-  UpdateQuotationConditionReq
-} from "@/client-api";
+import { ClientDataVue, PageInfo } from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
 import {
   quotationApi,
@@ -116,12 +117,13 @@ import Overview from "../overview/Overview.vue";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions } from "../data-view/ExportOptions";
 import ArrayUtils from "../../utils/arrayUtils";
-import QuotationDetail from "./QuotationDetail.vue";
+import ProjectQuoation from "./ProjectQuoation.vue";
+// import QuotationDetail from "./QuotationDetail.vue";
 import AddQuoation from "./AddQuoation.vue";
 
 @Component({
   components: {
-    "quotation-detail": QuotationDetail,
+    "quotation-detail": ProjectQuoation,
     AddQuoation
   }
 })
@@ -131,7 +133,7 @@ export default class Quotations extends DataListVue {
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
-  currentInfo?: GetQuotationInfoResp = {};
+  currentInfo?: GetQuotationInfoResp;
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
@@ -160,27 +162,27 @@ export default class Quotations extends DataListVue {
         vm.pageInfo.pageSize
       )
     );
-    if (result) {
+    if (result && result.list) {
       this.pageInfo = result;
-      const groups = ArrayUtils.groupBy(
-        result.list!,
-        item => item.categoryName
-      );
-      let list: any = [];
-      groups.forEach(value => {
-        list.push({
-          id: "parent" + value.key,
-          categoryName: value.key,
-          remark: "",
-          quotation:
-            "合计: " +
-            value.group
-              .map(v => v.quotation)
-              .reduce((pre, curr) => pre! + curr!),
-          children: value.group
-        });
-      });
-      this.data = list;
+      // const groups = ArrayUtils.groupBy(
+      //   result.list!,
+      //   item => item.categoryName
+      // );
+      // let list: any = [];
+      // groups.forEach(value => {
+      //   list.push({
+      //     id: "parent" + value.key,
+      //     categoryName: value.key,
+      //     remark: "",
+      //     quotation:
+      //       "合计: " +
+      //       value.group
+      //         .map(v => v.quotation)
+      //         .reduce((pre, curr) => pre! + curr!),
+      //     children: value.group
+      //   });
+      // });
+      this.data = result.list;
     } else {
       this.data = [];
     }
@@ -201,19 +203,19 @@ export default class Quotations extends DataListVue {
     let editing = !!_row.editing;
     if (editing) {
       //确定
-      let result = await this.requestWithoutResult(() =>
-        quotationApi.updateQuotationConditionUsingPOST({
-          id: row.id!,
-          content: row.content!,
-          category: row.categoryName!,
-          remark: row.remark
-        })
-      );
-      if (result) {
-        this.$message.success("更新报价信息成功！");
-        delete _row.copy;
-        this.$set(_row, "editing", false);
-      }
+      // let result = await this.requestWithoutResult(() =>
+      //   quotationApi.updateQuotationConditionUsingPOST({
+      //     id: row.id!,
+      //     content: row.content!,
+      //     category: row.categoryName!,
+      //     remark: row.remark
+      //   })
+      // );
+      // if (result) {
+      //   this.$message.success("更新报价信息成功！");
+      //   delete _row.copy;
+      //   this.$set(_row, "editing", false);
+      // }
     } else {
       //开始编辑
       _row.copy = { ...row };
