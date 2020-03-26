@@ -18,7 +18,7 @@ jobs:
       - name: Build project
         run: yarn && yarn build
       - name: SCP Command to Transfer Files
-        uses: appleboy/scp-action@v0.0.6
+        uses: appleboy/scp-action@v0.0.7
         with:
           host: ${{ secrets.DING_TAI_HOST }}
           username: ${{ secrets. DING_TAI_HOST_USERNAME }}
