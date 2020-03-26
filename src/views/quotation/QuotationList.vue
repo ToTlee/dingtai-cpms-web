@@ -221,12 +221,12 @@ export default class Quotations extends DataListVue {
     if (editing) {
       //确定
       let result = await this.requestWithoutResult(() =>
-        quotationApi.updateQuotationDetailUsingPOST({
-          id: row.id,
-          content: row.content,
-          customer: row.customer,
-          remark: row.remark,
-          quotation: row.quotation
+        quotationApi.updateQuotationConditionUsingPOST({
+          id: row.id!,
+          content: row.content ?? "",
+          customer: row.customer ?? "",
+          remark: row.remark ?? "",
+          quotation: row.quotation ?? 0
         })
       );
       if (result) {
