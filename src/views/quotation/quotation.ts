@@ -60,6 +60,7 @@ export class QuotaionItem extends PropPair {
   price: number = 0;
   _bakPrice?: number;
   children?: Array<QuotaionItem>;
+  remark?: string;
   get total(): number {
     if (this.children && this.children.length > 0) {
       return this.children.reduce((pre, cur) => pre + Number(cur.total), 0);

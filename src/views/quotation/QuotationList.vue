@@ -28,7 +28,18 @@
       </el-table-column>
       <el-table-column label="客户">
         <template slot-scope="scope">
-          <div>{{ scope.row.customer }}</div>
+          <div v-if="!scope.row.children">
+            <el-autocomplete
+              v-if="scope.row.editing"
+              style="line-height:12px;width:200px"
+              size="mini"
+              v-model="scope.row.customer"
+              value-key="customerName"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="请输入客户名称"
+            ></el-autocomplete>
+            <div v-if="!scope.row.editing">{{ scope.row.customer }}</div>
+          </div>
         </template>
       </el-table-column>
       <el-table-column label="报价(万元)">
@@ -98,13 +109,19 @@
       :close-on-click-modal="false"
       lock-scroll
     >
-      <component :is="dialogComponent" :info="currentInfo"></component>
+      <component :is="dialogComponent" :info="currentInfo" @submit="onSubmit" @cancel="cancel"></component>
     </el-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { ClientDataVue, PageInfo } from "@/client-api";
+import {
+  ClientDataVue,
+  PageInfo,
+  AddDetailQuotationReq,
+  PageInfoGetCustomerResp,
+  customerApi
+} from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
 import {
   quotationApi,
@@ -115,7 +132,7 @@ import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
 import { Emit, Prop } from "vue-property-decorator";
-import { ExportOptions } from "../data-view/ExportOptions";
+import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 import ArrayUtils from "../../utils/arrayUtils";
 import ProjectQuoation from "./ProjectQuoation.vue";
 // import QuotationDetail from "./QuotationDetail.vue";
@@ -133,7 +150,7 @@ export default class Quotations extends DataListVue {
   dialogTableVisible: boolean = false;
   dialogComponent: any = "";
   dialogTitle: string = "";
-  currentInfo?: GetQuotationInfoResp;
+  currentInfo: GetQuotationInfoResp = { customer: "" };
   isLoading: boolean = false;
   addContractVisible: boolean = false;
   selectedItems: Array<GetQuotationInfoResp> = [];
@@ -203,19 +220,20 @@ export default class Quotations extends DataListVue {
     let editing = !!_row.editing;
     if (editing) {
       //确定
-      // let result = await this.requestWithoutResult(() =>
-      //   quotationApi.updateQuotationConditionUsingPOST({
-      //     id: row.id!,
-      //     content: row.content!,
-      //     category: row.categoryName!,
-      //     remark: row.remark
-      //   })
-      // );
-      // if (result) {
-      //   this.$message.success("更新报价信息成功！");
-      //   delete _row.copy;
-      //   this.$set(_row, "editing", false);
-      // }
+      let result = await this.requestWithoutResult(() =>
+        quotationApi.updateQuotationDetailUsingPOST({
+          id: row.id,
+          content: row.content,
+          customer: row.customer,
+          remark: row.remark,
+          quotation: row.quotation
+        })
+      );
+      if (result) {
+        this.$message.success("更新报价信息成功！");
+        delete _row.copy;
+        this.$set(_row, "editing", false);
+      }
     } else {
       //开始编辑
       _row.copy = { ...row };
@@ -257,10 +275,19 @@ export default class Quotations extends DataListVue {
   onAddItem() {
     this.dialogComponent = "add-quoation";
     this.dialogTitle = "新建项目报价";
-    this.currentInfo = undefined;
+    this.currentInfo = { customer: "" };
     this.dialogTableVisible = true;
     return true;
   }
+
+  onSubmit() {
+    this.dialogTableVisible = false;
+    this.refreshData();
+  }
+  cancel() {
+    this.dialogTableVisible = false;
+  }
+
   showDetial(row: GetQuotationInfoResp) {
     this.dialogComponent = "quotation-detail";
     this.dialogTitle = "项目报价明细";
@@ -294,6 +321,27 @@ export default class Quotations extends DataListVue {
     return success;
   }
 
+  async onExport(options: ExportOptions) {
+    if (this.selectedItems.length < 1) {
+      this.$message.warning("必须勾选一项！");
+      return;
+    } else if (this.selectedItems.length > 1) {
+      this.$message.warning("只能勾选一项！");
+      return;
+    }
+    let pageOp = options.pageOptions.toParameters();
+    let result = await quotationApi.exportQuotationUsingGET(
+      options.pageOptions.pageCurrent,
+      options.pageOptions.pageSize,
+      undefined,
+      undefined,
+      this.selectedItems[0].id
+    );
+    if (result.status == 200) {
+      window.location.href = result.url;
+    }
+  }
+
   onChangePage(page: number) {
     this.pageInfo.pageNum = page;
     this.refreshData();
@@ -301,6 +349,21 @@ export default class Quotations extends DataListVue {
   onPageSizeChange(size: number) {
     this.pageInfo.pageSize = size;
     this.refreshData();
+  }
+
+  async querySearchAsync(queryString: string, db) {
+    let result = await this.getData<PageInfoGetCustomerResp>(() =>
+      customerApi.listCustomerUsingGET()
+    );
+    if (result) {
+      let data = result.list;
+      if (data) {
+        data = data.filter(value =>
+          value.customerName!.toLowerCase().includes(queryString.toLowerCase())
+        );
+      }
+      db(data);
+    }
   }
 }
 </script>

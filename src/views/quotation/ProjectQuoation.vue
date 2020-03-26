@@ -46,14 +46,17 @@
                 size="mini"
                 @click="cancelEditRow(props.row)"
               >取消</el-button>
-              <el-button type="text" size="mini">删除</el-button>
+              <el-button type="text" size="mini" @click="deleteProject(props.row)">删除</el-button>
             </div>
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div>
-      <el-button type="text">添加</el-button>
+      <el-button type="text" @click="AddItem">添加</el-button>
+      <el-dialog append-to-body :visible.sync="addDialogVisible" width="400px">
+        <add-item @submit="addQuoation"></add-item>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -62,20 +65,26 @@ import {
   ClientDataVue,
   quotationApi,
   GetDetailQuotationResp,
-  GetQuotationInfoResp
+  GetQuotationInfoResp,
+  UpdateQuotationModuleReq,
+  QuotationDetailEntity,
+  AddModuleQuotationReq
 } from "@/client-api";
 import { Component, Prop } from "vue-property-decorator";
 import QuotationDetail from "./QuotationDetail.vue";
+import AddItem from "./AddItem.vue";
 
 @Component({
   components: {
-    QuotationDetail
+    QuotationDetail,
+    AddItem
   }
 })
 export default class ProjectQuoation extends ClientDataVue {
   @Prop({ type: Object, default: undefined, required: false })
   info?: GetQuotationInfoResp;
-  data: GetDetailQuotationResp = {};
+  data: GetDetailQuotationResp = { detailLst: [] };
+  addDialogVisible: boolean = false;
 
   get detailLst() {
     return this.data.detailLst ?? [];
@@ -87,7 +96,10 @@ export default class ProjectQuoation extends ClientDataVue {
 
   async loadData() {
     let vm = this;
-    if (!vm.info || !vm.info.id) return;
+    if (!vm.info || !vm.info.id) {
+      this.data.detailLst = [];
+      return;
+    }
     let result = await this.getData<GetDetailQuotationResp>(() =>
       quotationApi.getDetailQuotationByIdUsingGET(vm.info!.id!)
     );
@@ -95,24 +107,24 @@ export default class ProjectQuoation extends ClientDataVue {
       vm.data = result;
     }
   }
-  async onEditing(row: GetQuotationInfoResp) {
+  async onEditing(row: QuotationDetailEntity) {
     let _row: any = row;
-    let editing = !!_row.editing;
-    if (editing) {
+    let isEditting = !!_row.isEditting;
+    if (isEditting) {
       //确定
-      // let result = await this.requestWithoutResult(() =>
-      //   quotationApi.updateQuotationConditionUsingPOST({
-      //     id: row.id!,
-      //     content: row.content!,
-      //     category: row.categoryName!,
-      //     remark: row.remark
-      //   })
-      // );
-      // if (result) {
-      //   this.$message.success("更新报价信息成功！");
-      //   delete _row.copy;
-      //   this.$set(_row, "editing", false);
-      // }
+      let result = await this.requestWithoutResult(() =>
+        quotationApi.updateQuotationModuleUsingPOST({
+          id: row.id!,
+          totalcost: row.totalcost,
+          name: row.name,
+          remark: row.remark
+        })
+      );
+      if (result) {
+        this.$message.success("更新报价信息成功！");
+        delete _row.copy;
+        this.$set(_row, "isEditting", false);
+      }
     } else {
       //开始编辑
       _row.copy = { ...row };
@@ -126,6 +138,45 @@ export default class ProjectQuoation extends ClientDataVue {
       Object.assign(row, row.copy);
       this.$set(row, "isEditting", false);
     }
+  }
+
+  AddItem() {
+    this.addDialogVisible = true;
+  }
+  async addQuoation(info) {
+    if (info) {
+      this.data.detailLst?.push(info.info);
+      if (this.info && this.info.id) {
+        let addInfo: AddModuleQuotationReq = {
+          quotationId: this.info.id,
+          quotationDetailEntity: info.info
+        };
+        let result = await this.requestWithoutResult(() =>
+          quotationApi.addModuleQuotationUsingPOST(addInfo)
+        );
+        if (result) {
+          this.loadData();
+        }
+      }
+      this.addDialogVisible = false;
+    }
+  }
+  deleteProject(project: GetQuotationInfoResp) {
+    let vm = this;
+    this.$msgbox
+      .confirm("是否确认删除")
+      .then(data => {
+        vm.requestWithoutResult(() =>
+          quotationApi.deleteModuleQuotationUsingPOST(project.id!)
+        )
+          .then(result => {
+            if (result) {
+              vm.$message.success("删除成功!");
+            }
+          })
+          .catch();
+      })
+      .catch();
   }
 }
 </script>
@@ -148,5 +199,6 @@ export default class ProjectQuoation extends ClientDataVue {
 
 .table-container {
   flex: 1;
+  overflow: auto;
 }
 </style>

@@ -16,7 +16,7 @@ import * as url from "url";
 import * as portableFetch from "portable-fetch";
 import { Configuration } from "./configuration";
 
-const BASE_PATH = "https://129.211.66.41:8080/admin".replace(/\/+$/, "");
+const BASE_PATH = "https://106.54.69.174:8080/admin".replace(/\/+$/, "");
 
 /**
  *
@@ -419,7 +419,7 @@ export interface AddDetailQuotationReq {
    */
   customer?: string;
   /**
-   * 顾客
+   * 报价组成模块
    * @type {Array<QuotationDetailEntity>}
    * @memberof AddDetailQuotationReq
    */
@@ -436,6 +436,26 @@ export interface AddDetailQuotationReq {
    * @memberof AddDetailQuotationReq
    */
   remark?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface AddModuleQuotationReq
+ */
+export interface AddModuleQuotationReq {
+  /**
+   * 模块组成详细信息
+   * @type {QuotationDetailEntity}
+   * @memberof AddModuleQuotationReq
+   */
+  quotationDetailEntity?: QuotationDetailEntity;
+  /**
+   * 关联的报价id
+   * @type {number}
+   * @memberof AddModuleQuotationReq
+   */
+  quotationId?: number;
 }
 
 /**
@@ -2571,265 +2591,265 @@ export interface PageInfoGetUserInfoResp {
  */
 export interface QuotationDetailEntity {
   /**
-   *
+   * 动物(小鼠、大鼠等)
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   animal?: string;
   /**
-   *
+   * 动物数量（只）
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   animalcnt?: number;
   /**
-   *
+   * 动物费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   animalcost?: string;
   /**
-   *
+   * 伴随TK动物数量
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   animaltkcnt?: number;
   /**
-   *
+   * 动物房费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   animalzoomcost?: string;
   /**
-   *
+   * 采血周期
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   bloodperiod?: number;
   /**
-   *
+   * 每只动物采血点
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   bloodpoint?: number;
   /**
-   *
+   * 临床检验费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   cliniccheckcost?: string;
   /**
-   *
+   * 临床检验(次数)
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   cliniccnt?: number;
   /**
-   *
+   * 临床观察费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   clinicobservecost?: string;
   /**
-   *
+   * 翻倍系数
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   coefficient?: string;
   /**
-   *
+   * 大体解剖费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   dissectioncost?: string;
   /**
-   *
+   * 给药次数
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   doescnt?: number;
   /**
-   *
+   * 给药费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   doescost?: string;
   /**
-   *
+   * 给药期天数
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   doesday?: number;
   /**
-   *
+   * 心电检测(次数)
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   ecgcnt?: number;
   /**
-   *
+   * 心电检测费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   ecgcost?: string;
   /**
-   *
+   * 饲养费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   feedingcost?: string;
   /**
-   *
+   * 组数
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   groupcnt?: number;
   /**
-   *
+   * 是否有明细 0-有 1-无
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   hasdetail?: number;
   /**
-   *
+   * 组织病理费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   histopathologycost?: string;
   /**
-   *
+   * id
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   id?: number;
   /**
-   *
+   * 摄食检测（次数）
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   ingestioncnt?: number;
   /**
-   *
+   * 摄食检测费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   ingestioncost?: string;
   /**
-   *
+   * 模块名称
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   name?: string;
   /**
-   *
+   * 眼科检查（次数）
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   ophthalmologycnt?: number;
   /**
-   *
+   * 眼科检查费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   ophthalmologycost?: string;
   /**
-   *
+   * 其他费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   otherscost?: string;
   /**
-   *
+   * 父节点
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   parentid?: number;
   /**
-   *
+   * 制剂配置费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   preparationscost?: string;
   /**
-   *
+   * 检疫适应期
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   quarantine?: number;
   /**
-   *
+   * 恢复天数
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   recoverday?: number;
   /**
-   *
+   * 备注
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   remark?: string;
   /**
-   *
+   * 研究报告费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   reportcost?: string;
   /**
-   *
+   * 研究方案费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   schemecost?: string;
   /**
-   *
+   * 体温检测(次数)
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   temperaturecnt?: number;
   /**
-   *
+   * 体温检测费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   temperaturecost?: string;
   /**
-   *
+   * TK样本量
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   tk?: number;
   /**
-   *
+   * TK样本采集费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   tkcost?: string;
   /**
-   *
+   * 合计费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
   totalcost?: string;
   /**
-   *
+   * 毒性 0-长毒  1-急毒
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   virulence?: number;
   /**
-   *
+   * 星期
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   week?: number;
   /**
-   *
+   * 体重检测（次数）
    * @type {number}
    * @memberof QuotationDetailEntity
    */
   weightcnt?: number;
   /**
-   *
+   * 体重检测费用
    * @type {string}
    * @memberof QuotationDetailEntity
    */
@@ -3982,6 +4002,322 @@ export interface UpdatePwdReq {
    * @memberof UpdatePwdReq
    */
   userId?: number;
+}
+
+/**
+ *
+ * @export
+ * @interface UpdateQuotationDetailReq
+ */
+export interface UpdateQuotationDetailReq {
+  /**
+   * 内容
+   * @type {string}
+   * @memberof UpdateQuotationDetailReq
+   */
+  content?: string;
+  /**
+   * 顾客
+   * @type {string}
+   * @memberof UpdateQuotationDetailReq
+   */
+  customer?: string;
+  /**
+   * 报价组成模块
+   * @type {Array<UpdateQuotationModuleReq>}
+   * @memberof UpdateQuotationDetailReq
+   */
+  detailLst?: Array<UpdateQuotationModuleReq>;
+  /**
+   * 报价id
+   * @type {number}
+   * @memberof UpdateQuotationDetailReq
+   */
+  id?: number;
+  /**
+   * 报价金额(单位：万元)
+   * @type {number}
+   * @memberof UpdateQuotationDetailReq
+   */
+  quotation?: number;
+  /**
+   * 备注
+   * @type {string}
+   * @memberof UpdateQuotationDetailReq
+   */
+  remark?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface UpdateQuotationModuleReq
+ */
+export interface UpdateQuotationModuleReq {
+  /**
+   * 动物(小鼠、大鼠等)
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  animal?: string;
+  /**
+   * 动物数量（只）
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  animalcnt?: number;
+  /**
+   * 动物费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  animalcost?: string;
+  /**
+   * 伴随TK动物数量
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  animaltkcnt?: number;
+  /**
+   * 动物房费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  animalzoomcost?: string;
+  /**
+   * 采血周期
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  bloodperiod?: number;
+  /**
+   * 每只动物采血点
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  bloodpoint?: number;
+  /**
+   * 临床检验费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  cliniccheckcost?: string;
+  /**
+   * 临床检验(次数)
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  cliniccnt?: number;
+  /**
+   * 临床观察费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  clinicobservecost?: string;
+  /**
+   * 翻倍系数
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  coefficient?: string;
+  /**
+   * 大体解剖费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  dissectioncost?: string;
+  /**
+   * 给药次数
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  doescnt?: number;
+  /**
+   * 给药费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  doescost?: string;
+  /**
+   * 给药期天数
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  doesday?: number;
+  /**
+   * 心电检测(次数)
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ecgcnt?: number;
+  /**
+   * 心电检测费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ecgcost?: string;
+  /**
+   * 饲养费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  feedingcost?: string;
+  /**
+   * 组数
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  groupcnt?: number;
+  /**
+   * 是否有明细 0-有 1-无
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  hasdetail?: number;
+  /**
+   * 组织病理费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  histopathologycost?: string;
+  /**
+   * id
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  id?: number;
+  /**
+   * 摄食检测（次数）
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ingestioncnt?: number;
+  /**
+   * 摄食检测费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ingestioncost?: string;
+  /**
+   * 模块名称
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  name?: string;
+  /**
+   * 眼科检查（次数）
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ophthalmologycnt?: number;
+  /**
+   * 眼科检查费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  ophthalmologycost?: string;
+  /**
+   * 其他费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  otherscost?: string;
+  /**
+   * 父节点
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  parentid?: number;
+  /**
+   * 制剂配置费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  preparationscost?: string;
+  /**
+   * 检疫适应期
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  quarantine?: number;
+  /**
+   * 恢复天数
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  recoverday?: number;
+  /**
+   * 备注
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  remark?: string;
+  /**
+   * 研究报告费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  reportcost?: string;
+  /**
+   * 研究方案费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  schemecost?: string;
+  /**
+   * 体温检测(次数)
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  temperaturecnt?: number;
+  /**
+   * 体温检测费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  temperaturecost?: string;
+  /**
+   * TK样本量
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  tk?: number;
+  /**
+   * TK样本采集费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  tkcost?: string;
+  /**
+   * 合计费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  totalcost?: string;
+  /**
+   * 毒性 0-长毒  1-急毒
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  virulence?: number;
+  /**
+   * 星期
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  week?: number;
+  /**
+   * 体重检测（次数）
+   * @type {number}
+   * @memberof UpdateQuotationModuleReq
+   */
+  weightcnt?: number;
+  /**
+   * 体重检测费用
+   * @type {string}
+   * @memberof UpdateQuotationModuleReq
+   */
+  weightcost?: string;
 }
 
 /**
@@ -7765,6 +8101,74 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
     },
     /**
      *
+     * @summary 添加模块报价接口
+     * @param {AddModuleQuotationReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addModuleQuotationUsingPOST(request: AddModuleQuotationReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError("request", "Required parameter request was null or undefined when calling addModuleQuotationUsingPOST.");
+      }
+      const localVarPath = `/quotation/addModuleQuotation`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"AddModuleQuotationReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 根据模块Id删除模块
+     * @param {number} detailId 模块id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteModuleQuotationUsingPOST(detailId: number, options: any = {}): FetchArgs {
+      // verify required parameter 'detailId' is not null or undefined
+      if (detailId === null || detailId === undefined) {
+        throw new RequiredError(
+          "detailId",
+          "Required parameter detailId was null or undefined when calling deleteModuleQuotationUsingPOST."
+        );
+      }
+      const localVarPath = `/quotation/deleteModuleQuotation`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (detailId !== undefined) {
+        localVarQueryParameter["detailId"] = detailId;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
      * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
@@ -7783,6 +8187,67 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
       const localVarRequestOptions = Object.assign({ method: "POST" }, options);
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
+
+      if (quotationId !== undefined) {
+        localVarQueryParameter["quotationId"] = quotationId;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 导出报价列表
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {number} [quotationId]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    exportQuotationUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      quotationId?: number,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/quotation/exportQuotation`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (pageCurrent !== undefined) {
+        localVarQueryParameter["pageCurrent"] = pageCurrent;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter["pageSize"] = pageSize;
+      }
+
+      if (orderBy !== undefined) {
+        localVarQueryParameter["orderBy"] = orderBy;
+      }
+
+      if (descOrAsc !== undefined) {
+        localVarQueryParameter["descOrAsc"] = descOrAsc;
+      }
+
+      if (pageBegin !== undefined) {
+        localVarQueryParameter["pageBegin"] = pageBegin;
+      }
 
       if (quotationId !== undefined) {
         localVarQueryParameter["quotationId"] = quotationId;
@@ -8033,6 +8498,61 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
     },
     /**
      *
+     * @summary 查询模块组成顶级种类,eg:验证试验,一般毒理
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getQuotationRootInfoUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      options: any = {}
+    ): FetchArgs {
+      const localVarPath = `/quotation/getQuotationRootInfo`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (pageCurrent !== undefined) {
+        localVarQueryParameter["pageCurrent"] = pageCurrent;
+      }
+
+      if (pageSize !== undefined) {
+        localVarQueryParameter["pageSize"] = pageSize;
+      }
+
+      if (orderBy !== undefined) {
+        localVarQueryParameter["orderBy"] = orderBy;
+      }
+
+      if (descOrAsc !== undefined) {
+        localVarQueryParameter["descOrAsc"] = descOrAsc;
+      }
+
+      if (pageBegin !== undefined) {
+        localVarQueryParameter["pageBegin"] = pageBegin;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
      * @summary 获取所有报价列表信息
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
@@ -8121,6 +8641,72 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
         url: url.format(localVarUrlObj),
         options: localVarRequestOptions
       };
+    },
+    /**
+     *
+     * @summary 更新报价所有信息
+     * @param {UpdateQuotationDetailReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationDetailUsingPOST(request: UpdateQuotationDetailReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError("request", "Required parameter request was null or undefined when calling updateQuotationDetailUsingPOST.");
+      }
+      const localVarPath = `/quotation/updateQuotationDetail`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"UpdateQuotationDetailReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 根据模块id更新其中一个模块
+     * @param {UpdateQuotationModuleReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationModuleUsingPOST(request: UpdateQuotationModuleReq, options: any = {}): FetchArgs {
+      // verify required parameter 'request' is not null or undefined
+      if (request === null || request === undefined) {
+        throw new RequiredError("request", "Required parameter request was null or undefined when calling updateQuotationModuleUsingPOST.");
+      }
+      const localVarPath = `/quotation/updateQuotationModule`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      const needsSerialization =
+        <any>"UpdateQuotationModuleReq" !== "string" || localVarRequestOptions.headers["Content-Type"] === "application/json";
+      localVarRequestOptions.body = needsSerialization ? JSON.stringify(request || {}) : request || "";
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
     }
   };
 };
@@ -8152,6 +8738,44 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
     },
     /**
      *
+     * @summary 添加模块报价接口
+     * @param {AddModuleQuotationReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addModuleQuotationUsingPOST(request: AddModuleQuotationReq, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).addModuleQuotationUsingPOST(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 根据模块Id删除模块
+     * @param {number} detailId 模块id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteModuleQuotationUsingPOST(detailId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).deleteModuleQuotationUsingPOST(detailId, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
      * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
@@ -8163,6 +8787,46 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
         return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
           if (response.status >= 200 && response.status < 300) {
             return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 导出报价列表
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {number} [quotationId]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    exportQuotationUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      quotationId?: number,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).exportQuotationUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        quotationId,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response;
           } else {
             throw response;
           }
@@ -8322,6 +8986,43 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
     },
     /**
      *
+     * @summary 查询模块组成顶级种类,eg:验证试验,一般毒理
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getQuotationRootInfoUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<ResultPageInfoGetNewQuotationDetailResp> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).getQuotationRootInfoUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        options
+      );
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
      * @summary 获取所有报价列表信息
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
@@ -8378,6 +9079,50 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
           }
         });
       };
+    },
+    /**
+     *
+     * @summary 更新报价所有信息
+     * @param {UpdateQuotationDetailReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationDetailUsingPOST(
+      request: UpdateQuotationDetailReq,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).updateQuotationDetailUsingPOST(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 根据模块id更新其中一个模块
+     * @param {UpdateQuotationModuleReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationModuleUsingPOST(
+      request: UpdateQuotationModuleReq,
+      options?: any
+    ): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = QuotationControllerApiFetchParamCreator(configuration).updateQuotationModuleUsingPOST(request, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
     }
   };
 };
@@ -8400,6 +9145,26 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
     },
     /**
      *
+     * @summary 添加模块报价接口
+     * @param {AddModuleQuotationReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    addModuleQuotationUsingPOST(request: AddModuleQuotationReq, options?: any) {
+      return QuotationControllerApiFp(configuration).addModuleQuotationUsingPOST(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据模块Id删除模块
+     * @param {number} detailId 模块id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteModuleQuotationUsingPOST(detailId: number, options?: any) {
+      return QuotationControllerApiFp(configuration).deleteModuleQuotationUsingPOST(detailId, options)(fetch, basePath);
+    },
+    /**
+     *
      * @summary 根据报价Id删除报价(清除所有)
      * @param {number} quotationId 报价id
      * @param {*} [options] Override http request option.
@@ -8407,6 +9172,37 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
      */
     deleteQuotationUsingPOST(quotationId: number, options?: any) {
       return QuotationControllerApiFp(configuration).deleteQuotationUsingPOST(quotationId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 导出报价列表
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {number} [quotationId]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    exportQuotationUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      quotationId?: number,
+      options?: any
+    ) {
+      return QuotationControllerApiFp(configuration).exportQuotationUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        quotationId,
+        options
+      )(fetch, basePath);
     },
     /**
      *
@@ -8522,6 +9318,34 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
     },
     /**
      *
+     * @summary 查询模块组成顶级种类,eg:验证试验,一般毒理
+     * @param {number} [pageCurrent] 当前页
+     * @param {number} [pageSize] 每页数量
+     * @param {string} [orderBy] 排序字段
+     * @param {string} [descOrAsc] 升序或降序
+     * @param {number} [pageBegin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getQuotationRootInfoUsingGET(
+      pageCurrent?: number,
+      pageSize?: number,
+      orderBy?: string,
+      descOrAsc?: string,
+      pageBegin?: number,
+      options?: any
+    ) {
+      return QuotationControllerApiFp(configuration).getQuotationRootInfoUsingGET(
+        pageCurrent,
+        pageSize,
+        orderBy,
+        descOrAsc,
+        pageBegin,
+        options
+      )(fetch, basePath);
+    },
+    /**
+     *
      * @summary 获取所有报价列表信息
      * @param {number} [pageCurrent] 当前页
      * @param {number} [pageSize] 每页数量
@@ -8557,6 +9381,26 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
      */
     updateQuotationConditionUsingPOST(request: UpdateQuotationProjectReq, options?: any) {
       return QuotationControllerApiFp(configuration).updateQuotationConditionUsingPOST(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 更新报价所有信息
+     * @param {UpdateQuotationDetailReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationDetailUsingPOST(request: UpdateQuotationDetailReq, options?: any) {
+      return QuotationControllerApiFp(configuration).updateQuotationDetailUsingPOST(request, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 根据模块id更新其中一个模块
+     * @param {UpdateQuotationModuleReq} request request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateQuotationModuleUsingPOST(request: UpdateQuotationModuleReq, options?: any) {
+      return QuotationControllerApiFp(configuration).updateQuotationModuleUsingPOST(request, options)(fetch, basePath);
     }
   };
 };
@@ -8582,6 +9426,30 @@ export class QuotationControllerApi extends BaseAPI {
 
   /**
    *
+   * @summary 添加模块报价接口
+   * @param {AddModuleQuotationReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public addModuleQuotationUsingPOST(request: AddModuleQuotationReq, options?: any) {
+    return QuotationControllerApiFp(this.configuration).addModuleQuotationUsingPOST(request, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 根据模块Id删除模块
+   * @param {number} detailId 模块id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public deleteModuleQuotationUsingPOST(detailId: number, options?: any) {
+    return QuotationControllerApiFp(this.configuration).deleteModuleQuotationUsingPOST(detailId, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
    * @summary 根据报价Id删除报价(清除所有)
    * @param {number} quotationId 报价id
    * @param {*} [options] Override http request option.
@@ -8590,6 +9458,39 @@ export class QuotationControllerApi extends BaseAPI {
    */
   public deleteQuotationUsingPOST(quotationId: number, options?: any) {
     return QuotationControllerApiFp(this.configuration).deleteQuotationUsingPOST(quotationId, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 导出报价列表
+   * @param {number} [pageCurrent] 当前页
+   * @param {number} [pageSize] 每页数量
+   * @param {string} [orderBy] 排序字段
+   * @param {string} [descOrAsc] 升序或降序
+   * @param {number} [pageBegin]
+   * @param {number} [quotationId]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public exportQuotationUsingGET(
+    pageCurrent?: number,
+    pageSize?: number,
+    orderBy?: string,
+    descOrAsc?: string,
+    pageBegin?: number,
+    quotationId?: number,
+    options?: any
+  ) {
+    return QuotationControllerApiFp(this.configuration).exportQuotationUsingGET(
+      pageCurrent,
+      pageSize,
+      orderBy,
+      descOrAsc,
+      pageBegin,
+      quotationId,
+      options
+    )(this.fetch, this.basePath);
   }
 
   /**
@@ -8714,6 +9615,36 @@ export class QuotationControllerApi extends BaseAPI {
 
   /**
    *
+   * @summary 查询模块组成顶级种类,eg:验证试验,一般毒理
+   * @param {number} [pageCurrent] 当前页
+   * @param {number} [pageSize] 每页数量
+   * @param {string} [orderBy] 排序字段
+   * @param {string} [descOrAsc] 升序或降序
+   * @param {number} [pageBegin]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public getQuotationRootInfoUsingGET(
+    pageCurrent?: number,
+    pageSize?: number,
+    orderBy?: string,
+    descOrAsc?: string,
+    pageBegin?: number,
+    options?: any
+  ) {
+    return QuotationControllerApiFp(this.configuration).getQuotationRootInfoUsingGET(
+      pageCurrent,
+      pageSize,
+      orderBy,
+      descOrAsc,
+      pageBegin,
+      options
+    )(this.fetch, this.basePath);
+  }
+
+  /**
+   *
    * @summary 获取所有报价列表信息
    * @param {number} [pageCurrent] 当前页
    * @param {number} [pageSize] 每页数量
@@ -8752,6 +9683,30 @@ export class QuotationControllerApi extends BaseAPI {
    */
   public updateQuotationConditionUsingPOST(request: UpdateQuotationProjectReq, options?: any) {
     return QuotationControllerApiFp(this.configuration).updateQuotationConditionUsingPOST(request, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 更新报价所有信息
+   * @param {UpdateQuotationDetailReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public updateQuotationDetailUsingPOST(request: UpdateQuotationDetailReq, options?: any) {
+    return QuotationControllerApiFp(this.configuration).updateQuotationDetailUsingPOST(request, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 根据模块id更新其中一个模块
+   * @param {UpdateQuotationModuleReq} request request
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof QuotationControllerApi
+   */
+  public updateQuotationModuleUsingPOST(request: UpdateQuotationModuleReq, options?: any) {
+    return QuotationControllerApiFp(this.configuration).updateQuotationModuleUsingPOST(request, options)(this.fetch, this.basePath);
   }
 }
 

@@ -30,6 +30,9 @@ const routes = [
           {
             path: "quotation",
             name: "报价管理",
+            meta: {
+              showTools: true
+            },
             component: () => import("../views/quotation/QuotationList.vue")
           },
           {
