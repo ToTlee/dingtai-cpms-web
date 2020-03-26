@@ -331,8 +331,9 @@ export default class Quotations extends DataListVue {
     }
     let pageOp = options.pageOptions.toParameters();
     let result = await quotationApi.exportQuotationUsingGET(
-      options.pageOptions.pageCurrent,
-      options.pageOptions.pageSize,
+      undefined,
+      undefined,
+      undefined,
       undefined,
       undefined,
       this.selectedItems[0].id
