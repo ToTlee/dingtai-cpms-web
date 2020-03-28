@@ -10,18 +10,14 @@
             :show-header="false"
             size="mini"
             border
-            :cell-style="{padding:'1px'}"
-            :row-style="{height:'10px'}"
+            :cell-style="{ padding: '1px' }"
+            :row-style="{ height: '10px' }"
           >
             <el-table-column prop="label"></el-table-column>
             <el-table-column prop="value">
               <template slot-scope="scope">
-                <el-input
-                  v-if="!scope.row.provider && isEditting"
-                  v-model="scope.row.value"
-                  size="mini"
-                />
-                <span v-else>{{scope.row.value}}</span>
+                <el-input v-if="!scope.row.provider && isEditting" v-model="scope.row.value" size="mini" />
+                <span v-else>{{ scope.row.value }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -30,22 +26,12 @@
       <el-col :span="12" class="property-col"></el-col>
       <el-col :span="12">
         <div class="span-header">检测指标</div>
-        <el-table
-          class="table"
-          :data="data2.testing"
-          size="mini"
-          border
-          :cell-style="{padding:'1px'}"
-        >
+        <el-table class="table" :data="data2.testing" size="mini" border :cell-style="{ padding: '1px' }">
           <el-table-column prop="label" label="检测指标"></el-table-column>
           <el-table-column prop="value" label="次数">
             <template slot-scope="scope">
-              <el-input
-                v-if="!scope.row.provider && isEditting"
-                v-model="scope.row.value"
-                size="mini"
-              />
-              <span v-else>{{scope.row.value}}</span>
+              <el-input v-if="!scope.row.provider && isEditting" v-model="scope.row.value" size="mini" />
+              <span v-else>{{ scope.row.value }}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -54,13 +40,7 @@
     </el-row>
     <div class="span-header">
       <span>项目价格明细</span>
-      <el-button
-        v-if="!isEditting"
-        class="edit-button"
-        size="mini"
-        type="text"
-        @click="startEditing"
-      >编辑</el-button>
+      <el-button v-if="!isEditting" class="edit-button" size="mini" type="text" @click="startEditing">编辑</el-button>
       <span v-else-if="info" class="edit-button">
         <el-button class="edit-button" size="mini" type="text" @click="saveEdit">确定</el-button>
         <el-button class="edit-button" size="mini" type="text" @click="cancelEdit">放弃</el-button>
@@ -71,28 +51,27 @@
     <el-table
       ref="table"
       class="table"
-      height="100%"
       style="flex:1;"
       :data="data2.prices"
       default-expand-all
-      :tree-props="{children: 'children'}"
+      :tree-props="{ children: 'children' }"
       row-key="id"
       size="mini"
       border
       show-summary
       :summary-method="getSummaries"
-      :cell-style="{padding:'1px'}"
+      :cell-style="{ padding: '1px' }"
     >
       <el-table-column prop="label">
         <template slot-scope="scope">
-          <span>{{scope.row.children ? scope.row.label:""}}</span>
+          <span>{{ scope.row.children ? scope.row.label : "" }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="label" label="内容"></el-table-column>
       <el-table-column label="单价">
         <template slot-scope="scope">
           <el-input v-if="!scope.row.children && isEditting" v-model="scope.row.price" size="mini" />
-          <span v-else>{{!scope.row.children ? scope.row.price:""}}</span>
+          <span v-else>{{ !scope.row.children ? scope.row.price : "" }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="total" label="总计"></el-table-column>
@@ -182,12 +161,7 @@ export default class QuotationDetail extends ClientDataVue {
         } else if (index == 3) {
           let result = vm.data.total;
 
-          summary[index] =
-            result +
-            "\n" +
-            Math.floor(result * 1.1) +
-            "\n" +
-            Math.floor((result * 1.1) / 1000) * 1000;
+          summary[index] = result + "\n" + Math.floor(result * 1.1) + "\n" + Math.floor((result * 1.1) / 1000) * 1000;
         } else {
           summary[index] = "";
         }
@@ -209,8 +183,7 @@ export default class QuotationDetail extends ClientDataVue {
     this.data.prices.forEach(p => {
       if (p.children && p.children.length > 0) {
         p.children.forEach(child => {
-          updateInfo[child.id] =
-            child.price + "|" + child.total + "|" + child.remark ?? "";
+          updateInfo[child.id] = child.price + "|" + child.total + "|" + child.remark ?? "";
         });
       } else {
         updateInfo[p.id] = p.price;
@@ -225,9 +198,7 @@ export default class QuotationDetail extends ClientDataVue {
     updateInfo.totalcost = this.data.total + "";
 
     if (this._info && this._info.id) {
-      let result = await this.requestWithoutResult(() =>
-        quotationApi.updateQuotationModuleUsingPOST(updateInfo)
-      );
+      let result = await this.requestWithoutResult(() => quotationApi.updateQuotationModuleUsingPOST(updateInfo));
       if (result) {
         this.$message.success("更新信息成功！");
         this.isEditting = false;
