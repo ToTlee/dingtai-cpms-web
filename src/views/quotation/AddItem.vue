@@ -2,12 +2,7 @@
   <el-form label-width="80px" size="mini">
     <el-form-item label="项目">
       <el-select v-model="category" placeholder="请选择" size="mini">
-        <el-option
-          v-for="(item,index) in categories"
-          :key="index"
-          :label="item.name"
-          :value="item.name"
-        ></el-option>
+        <el-option v-for="(item, index) in categories" :key="index" :label="item.name" :value="item.name"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item label="内容">
@@ -22,26 +17,19 @@
 </template>
 
 <script lang="ts">
-import {
-  ClientDataVue,
-  quotationApi,
-  PageInfoGetNewQuotationDetailResp,
-  GetNewQuotationDetailResp
-} from "@/client-api";
+import { ClientDataVue, quotationApi, PageInfoGetNewQuotationDetailResp, GetNewQuotationDetailResp } from "@/client-api";
 import Component from "vue-class-component";
 import { Watch, Emit } from "vue-property-decorator";
 @Component
 export default class AddItem extends ClientDataVue {
   category: string = "";
-  id: number = -1;
+  id: number | string = "";
 
   categories: Array<GetNewQuotationDetailResp> = [];
   contents: Array<GetNewQuotationDetailResp> = [];
 
   async mounted() {
-    let result = await this.getData<PageInfoGetNewQuotationDetailResp>(() =>
-      quotationApi.getQuotationRootInfoUsingGET(1, 99999)
-    );
+    let result = await this.getData<PageInfoGetNewQuotationDetailResp>(() => quotationApi.getQuotationRootInfoUsingGET(1, 99999));
     if (result && result.list) {
       this.categories = result.list;
       if (this.categories.length > 0) {
@@ -55,21 +43,14 @@ export default class AddItem extends ClientDataVue {
   @Watch("category")
   async onCategoryChanged(newVal) {
     let result = await this.getData<PageInfoGetNewQuotationDetailResp>(() =>
-      quotationApi.getDefaultSubQuotationByNameUsingGET(
-        1,
-        99999,
-        undefined,
-        undefined,
-        0,
-        newVal
-      )
+      quotationApi.getDefaultSubQuotationByNameUsingGET(1, 99999, undefined, undefined, 0, newVal)
     );
     if (result && result.list) {
       this.contents = result.list;
       if (this.contents && this.contents.length > 0) {
         this.id = this.contents[0].id!;
       } else {
-        this.id = -1;
+        this.id = "";
       }
     }
   }

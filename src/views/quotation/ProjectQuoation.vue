@@ -1,6 +1,6 @@
 <template>
   <div class="project-root">
-    <div>客户：{{data.customer}}</div>
+    <div>客户：{{ data.customer }}</div>
     <div class="table-container">
       <el-table :data="detailLst" height="100%" style="width: 100%" size="mini">
         <el-table-column type="expand">
@@ -12,40 +12,23 @@
         <el-table-column label="内容" prop="name"></el-table-column>
         <el-table-column label="总计(万元)">
           <template slot-scope="props">
-            <el-input
-              v-if="!props.row.hasdetail && props.row.isEditting"
-              v-model="props.row.totalcost"
-              size="mini"
-            />
-            <span v-else>{{props.row.totalcost}}</span>
+            <el-input v-if="!props.row.hasdetail && props.row.isEditting" v-model="props.row.totalcost" size="mini" />
+            <span v-else>{{ props.row.totalcost }}</span>
           </template>
         </el-table-column>
         <el-table-column label="备注" prop="remark">
           <template slot-scope="props">
-            <el-input
-              v-if="!props.row.hasdetail && props.row.isEditting"
-              v-model="props.row.remark"
-              type="texterea"
-              size="mini"
-            />
-            <span v-else>{{props.row.remark}}</span>
+            <el-input v-if="!props.row.hasdetail && props.row.isEditting" v-model="props.row.remark" type="texterea" size="mini" />
+            <span v-else>{{ props.row.remark }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="props">
             <div>
-              <el-button
-                v-if="!props.row.hasdetail"
-                type="text"
-                size="mini"
-                @click="onEditing(props.row)"
-              >{{props.row.isEditting ?'确定':'编辑' }}</el-button>
-              <el-button
-                v-if="props.row.isEditting"
-                type="text"
-                size="mini"
-                @click="cancelEditRow(props.row)"
-              >取消</el-button>
+              <el-button v-if="!props.row.hasdetail" type="text" size="mini" @click="onEditing(props.row)">{{
+                props.row.isEditting ? "确定" : "编辑"
+              }}</el-button>
+              <el-button v-if="props.row.isEditting" type="text" size="mini" @click="cancelEditRow(props.row)">取消</el-button>
               <el-button type="text" size="mini" @click="deleteProject(props.row)">删除</el-button>
             </div>
           </template>
@@ -100,9 +83,7 @@ export default class ProjectQuoation extends ClientDataVue {
       this.data.detailLst = [];
       return;
     }
-    let result = await this.getData<GetDetailQuotationResp>(() =>
-      quotationApi.getDetailQuotationByIdUsingGET(vm.info!.id!)
-    );
+    let result = await this.getData<GetDetailQuotationResp>(() => quotationApi.getDetailQuotationByIdUsingGET(vm.info!.id!));
     if (result) {
       vm.data = result;
     }
@@ -151,9 +132,7 @@ export default class ProjectQuoation extends ClientDataVue {
           quotationId: this.info.id,
           quotationDetailEntity: info.info
         };
-        let result = await this.requestWithoutResult(() =>
-          quotationApi.addModuleQuotationUsingPOST(addInfo)
-        );
+        let result = await this.requestWithoutResult(() => quotationApi.addModuleQuotationUsingPOST(addInfo));
         if (result) {
           this.loadData();
         }
@@ -166,11 +145,13 @@ export default class ProjectQuoation extends ClientDataVue {
     this.$msgbox
       .confirm("是否确认删除")
       .then(data => {
-        vm.requestWithoutResult(() =>
-          quotationApi.deleteModuleQuotationUsingPOST(project.id!)
-        )
+        vm.requestWithoutResult(() => quotationApi.deleteModuleQuotationUsingPOST(project.id!))
           .then(result => {
             if (result) {
+              let index = vm.data.detailLst?.indexOf(project);
+              if (index) {
+                vm.data.detailLst?.splice(index, 1);
+              }
               vm.$message.success("删除成功!");
             }
           })

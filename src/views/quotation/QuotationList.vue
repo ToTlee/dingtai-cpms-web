@@ -63,28 +63,14 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button
-            size="small"
-            v-if="!scope.row.children"
-            type="text"
-            @click="editRow(scope.row)"
-          >
-            {{
-            scope.row.editing ? "确定" : "编辑"
-            }}
+          <el-button size="small" v-if="!scope.row.children" type="text" @click="editRow(scope.row)">
+            {{ scope.row.editing ? "确定" : "编辑" }}
           </el-button>
-          <el-button
-            size="small"
-            v-if="!scope.row.children && scope.row.editing"
-            type="text"
-            @click="cancelEditRow(scope.row)"
-          >取消</el-button>
-          <el-button
-            size="small"
-            v-if="!scope.row.children"
-            type="text"
-            @click="showDetial(scope.row)"
-          >明细</el-button>
+          <el-button size="small" v-if="!scope.row.children && scope.row.editing" type="text" @click="cancelEditRow(scope.row)"
+            >取消</el-button
+          >
+          <el-button size="small" v-if="!scope.row.children" type="text" @click="showDetial(scope.row)">明细</el-button>
+          <el-button size="small" v-if="!scope.row.children" type="text" @click="exportQuoation(scope.row)">导出</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -115,19 +101,9 @@
 </template>
 
 <script lang="ts">
-import {
-  ClientDataVue,
-  PageInfo,
-  AddDetailQuotationReq,
-  PageInfoGetCustomerResp,
-  customerApi
-} from "@/client-api";
+import { ClientDataVue, PageInfo, AddDetailQuotationReq, PageInfoGetCustomerResp, customerApi } from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
-import {
-  quotationApi,
-  GetQuotationInfoResp,
-  PageInfoGetQuotationInfoResp
-} from "@/client-api";
+import { quotationApi, GetQuotationInfoResp, PageInfoGetQuotationInfoResp } from "@/client-api";
 import Component from "vue-class-component";
 
 import Overview from "../overview/Overview.vue";
@@ -174,10 +150,7 @@ export default class Quotations extends DataListVue {
     this.isLoading = true;
     let vm = this;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-      quotationApi.listAllQuotationInfoUsingGET(
-        vm.pageInfo.pageNum,
-        vm.pageInfo.pageSize
-      )
+      quotationApi.listAllQuotationInfoUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
     if (result && result.list) {
       this.pageInfo = result;
@@ -256,14 +229,10 @@ export default class Quotations extends DataListVue {
       .then(async () => {
         for (let i = 0; i < vm.selectedItems.length; i++) {
           const element = vm.selectedItems[i];
-          await vm.requestWithoutResult(() =>
-            quotationApi.deleteQuotationUsingPOST(element.id!)
-          );
+          await vm.requestWithoutResult(() => quotationApi.deleteQuotationUsingPOST(element.id!));
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success(
-          "成功删除" + this.selectedItems.length + "个报价！"
-        );
+        vm.$message.success("成功删除" + this.selectedItems.length + "个报价！");
       })
       .catch();
   }
@@ -303,14 +272,7 @@ export default class Quotations extends DataListVue {
     }
     this.isLoading = true;
     let result = await this.getData<PageInfoGetQuotationInfoResp>(() =>
-      quotationApi.getQuotationByNameUsingGET(
-        vm.pageInfo.pageNum,
-        vm.pageInfo.pageSize,
-        undefined,
-        undefined,
-        undefined,
-        query
-      )
+      quotationApi.getQuotationByNameUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize, undefined, undefined, undefined, query)
     );
     let success = false;
     if (result && result.list) {
@@ -321,25 +283,15 @@ export default class Quotations extends DataListVue {
     return success;
   }
 
-  async onExport(options: ExportOptions) {
-    if (this.selectedItems.length < 1) {
-      this.$message.warning("必须勾选一项！");
-      return;
-    } else if (this.selectedItems.length > 1) {
-      this.$message.warning("只能勾选一项！");
-      return;
-    }
-    let pageOp = options.pageOptions.toParameters();
-    let result = await quotationApi.exportQuotationUsingGET(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      this.selectedItems[0].id
-    );
-    if (result.status == 200) {
-      window.location.href = result.url;
+  async exportQuoation(row) {
+    try {
+      let result = await quotationApi.exportQuotationUsingGET(undefined, undefined, undefined, undefined, undefined, row.id);
+      if (result.status == 200) {
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.log(error);
+      this.$message.error("服务器错误, 状态码:" + error.status);
     }
   }
 
@@ -353,15 +305,11 @@ export default class Quotations extends DataListVue {
   }
 
   async querySearchAsync(queryString: string, db) {
-    let result = await this.getData<PageInfoGetCustomerResp>(() =>
-      customerApi.listCustomerUsingGET()
-    );
+    let result = await this.getData<PageInfoGetCustomerResp>(() => customerApi.listCustomerUsingGET());
     if (result) {
       let data = result.list;
       if (data) {
-        data = data.filter(value =>
-          value.customerName!.toLowerCase().includes(queryString.toLowerCase())
-        );
+        data = data.filter(value => value.customerName!.toLowerCase().includes(queryString.toLowerCase()));
       }
       db(data);
     }
@@ -369,8 +317,7 @@ export default class Quotations extends DataListVue {
 }
 </script>
 
-
-<style >
+<style>
 .el-dialog__header {
   padding: 20px 0px 6px 0px;
 }
@@ -426,5 +373,3 @@ export default class Quotations extends DataListVue {
   border-radius: 0px !important;
 }
 </style>
-
-
