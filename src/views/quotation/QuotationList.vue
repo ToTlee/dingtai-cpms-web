@@ -93,6 +93,7 @@
       height="fit-content"
       :close-on-press-escape="false"
       :close-on-click-modal="false"
+      @close="dialogClosed"
       lock-scroll
     >
       <component :is="dialogComponent" :info="currentInfo" @submit="onSubmit" @cancel="cancel"></component>
@@ -263,7 +264,9 @@ export default class Quotations extends DataListVue {
     this.currentInfo = row;
     this.dialogTableVisible = true;
   }
-
+  dialogClosed() {
+    this.refreshData();
+  }
   async onSearch(query: string): Promise<boolean> {
     let vm = this;
     if (!query || query == "") {

@@ -56,19 +56,9 @@
       height="fit-content"
       :show-close="false"
     >
-      <add-customer-form
-        :selectedInfo="currentCustomerInfo"
-        @submit="submitCustomer"
-        @cancel="cancleAddCustomer"
-      ></add-customer-form>
+      <add-customer-form :selectedInfo="currentCustomerInfo" @submit="submitCustomer" @cancel="cancleAddCustomer"></add-customer-form>
     </el-dialog>
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogTableVisible"
-      width="fit-content"
-      height="fit-content"
-      :lock-scroll="false"
-    >
+    <el-dialog :title="dialogTitle" :visible.sync="dialogTableVisible" width="fit-content" height="fit-content" :lock-scroll="false">
       <template></template>
       <component :is="dialogComponent" :info="currentInfo"></component>
     </el-dialog>
@@ -78,11 +68,7 @@
 <script lang="ts">
 import { ClientDataVue, PageInfo } from "@/client-api";
 import { DataListVue } from "../data-view/DataListVue";
-import {
-  customerApi,
-  GetCustomerResp,
-  PageInfoGetCustomerResp
-} from "@/client-api";
+import { customerApi, GetCustomerResp, PageInfoGetCustomerResp } from "@/client-api";
 import { Emit, Prop } from "vue-property-decorator";
 import { ExportOptions, ExportType } from "../data-view/ExportOptions";
 import Component from "vue-class-component";
@@ -123,10 +109,7 @@ export default class Customers extends DataListVue {
     this.isLoading = true;
     let vm = this;
     let result = await this.getData<PageInfoGetCustomerResp>(() =>
-      customerApi.listCustomerUsingGET(
-        vm.pageInfo.pageNum,
-        vm.pageInfo.pageSize
-      )
+      customerApi.listCustomerUsingGET(vm.pageInfo.pageNum, vm.pageInfo.pageSize)
     );
     if (result) {
       this.pageInfo = result;
@@ -171,14 +154,10 @@ export default class Customers extends DataListVue {
       .then(async () => {
         for (let i = 0; i < vm.selectedItems.length; i++) {
           const element = vm.selectedItems[i];
-          await vm.requestWithoutResult(() =>
-            customerApi.deleteCustomerUsingPOST(element.id!)
-          );
+          await vm.requestWithoutResult(() => customerApi.deleteCustomerUsingPOST(element.id!));
           vm.data.splice(vm.data.indexOf(element), 1);
         }
-        vm.$message.success(
-          "成功删除" + this.selectedItems.length + "个客户！"
-        );
+        vm.$message.success("成功删除" + this.selectedItems.length + "个客户！");
       })
       .catch();
   }
@@ -199,7 +178,6 @@ export default class Customers extends DataListVue {
     this.addCustomerVisible = false;
   }
   openInfo(command: string, row: GetCustomerResp) {
-    debugger;
     let component = Overview;
     this.currentInfo = row;
     if (command == "proceeds") {
@@ -222,14 +200,7 @@ export default class Customers extends DataListVue {
     }
     this.isLoading = true;
     let result = await this.getData<PageInfoGetCustomerResp>(() =>
-      customerApi.listCustomerUsingGET(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        query
-      )
+      customerApi.listCustomerUsingGET(undefined, undefined, undefined, undefined, undefined, query)
     );
     let success = false;
     if (result && result.list) {

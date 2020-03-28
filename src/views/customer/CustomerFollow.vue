@@ -4,62 +4,53 @@
     <div class="info">
       <el-row class="info-row" :gutter="20">
         <el-col :span="4" class="info-algin-justify">客户名称:</el-col>
-        <el-col
-          :span="8"
-          class="info-algin-left"
-          style="font-weight:bold"
-        >{{customerInfo.customerName}}</el-col>
+        <el-col :span="8" class="info-algin-left" style="font-weight:bold">{{ customerInfo.customerName }}</el-col>
       </el-row>
       <el-row class="info-row" :gutter="20">
         <el-col :span="3" class="info-algin-justify">联系人:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.contacts}}</el-col>
+        <el-col :span="9" class="info-algin-left">{{ customerInfo.contacts }}</el-col>
         <el-col :span="3" class="info-algin-justify">联系电话:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.phone}}</el-col>
+        <el-col :span="9" class="info-algin-left">{{ customerInfo.phone }}</el-col>
       </el-row>
       <el-row class="info-row" :gutter="20">
         <el-col :span="3" class="info-algin-justify">地址:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.address}}</el-col>
+        <el-col :span="9" class="info-algin-left">{{ customerInfo.address }}</el-col>
         <el-col :span="3" class="info-algin-justify">对接人:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.connector}}</el-col>
+        <el-col :span="9" class="info-algin-left">{{ customerInfo.connector }}</el-col>
       </el-row>
       <el-row class="info-row" :gutter="20">
         <el-col :span="3" class="info-algin-justify">备注:</el-col>
-        <el-col :span="9" class="info-algin-left">{{customerInfo.remark}}</el-col>
+        <el-col :span="9" class="info-algin-left">{{ customerInfo.remark }}</el-col>
       </el-row>
       <el-row class="info-row" :gutter="20">
         <el-col :span="4" class="info-algin-justify">最后一次更新:</el-col>
-        <el-col :span="8" class="info-algin-left">{{lastUpdateDate}}</el-col>
+        <el-col :span="8" class="info-algin-left">{{ lastUpdateDate }}</el-col>
       </el-row>
     </div>
     <div class="info-title">跟进</div>
     <div class="info">
-      <el-form label-width="100px" size="small">
+      <el-form size="mini">
         <el-row>
-          <el-col :span="12">
+          <el-col :span="16">
             <el-form-item label="跟进内容:" required>
               <el-input type="textarea" v-model="followContent" style="width:300px;"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="8" style="text-align:left">
+            <!-- <el-button type="primary" @click="cancelFollow" size="mini">取消</el-button> -->
+            <el-button type="primary" style="margin-left:10px" @click="saveFollow" size="mini">提交</el-button>
+          </el-col>
         </el-row>
-        <el-form-item size="normal">
-          <el-button type="primary" @click="cancelFollow">取消</el-button>
-          <el-button type="primary" @click="saveFollow">提交</el-button>
-        </el-form-item>
       </el-form>
     </div>
     <div class="info-title">客户跟进情况</div>
     <div v-if="customerFollow.length == 0" style="text-align:left;margin-left:8px">无</div>
-    <div style="height:200px; overflow-y:scroll;">
+    <div>
       <el-timeline class="info-timeline" v-if="customerFollow.length > 0">
-        <el-timeline-item
-          v-for="(follow, index) in customerFollow"
-          :key="index"
-          :timestamp="follow.createTime"
-          color="#0790df"
-        >
+        <el-timeline-item v-for="(follow, index) in customerFollow" :key="index" :timestamp="follow.createTime" color="#0790df">
           <div>
-            <div style="font-weight:bold">{{follow.followCase}}</div>
-            <div style="color:gray;font-size:14px">跟进人: {{follow.creator}}</div>
+            <div style="font-weight:bold">{{ follow.followCase }}</div>
+            <div style="color:gray;font-size:14px">跟进人: {{ follow.creator }}</div>
           </div>
         </el-timeline-item>
       </el-timeline>
@@ -97,9 +88,7 @@ export default class customerFollow extends ClientDataVue {
 
   get lastUpdateDate() {
     if (this.customerFollow.length > 0) {
-      return this.customerFollow.reduce((pre, cur) =>
-        pre.createTime! < cur.createTime! ? cur : pre
-      ).createTime;
+      return this.customerFollow.reduce((pre, cur) => (pre.createTime! < cur.createTime! ? cur : pre)).createTime;
     }
     return "无";
   }
@@ -123,9 +112,7 @@ export default class customerFollow extends ClientDataVue {
 
   async getCustomerInfo() {
     if (this.customerId) {
-      let result = await this.getData<GetCustomerResp>(() =>
-        customerApi.getCustomerUsingGET(this.customerId!)
-      );
+      let result = await this.getData<GetCustomerResp>(() => customerApi.getCustomerUsingGET(this.customerId!));
       if (result) {
         this.customerInfo = result;
       } else {
@@ -135,9 +122,7 @@ export default class customerFollow extends ClientDataVue {
   }
 
   async getCustomerFollow() {
-    let result = await this.getData<Array<GetCustomerFollowResp>>(() =>
-      customerApi.getCustomerFollowUsingGET(this.customerId!)
-    );
+    let result = await this.getData<Array<GetCustomerFollowResp>>(() => customerApi.getCustomerFollowUsingGET(this.customerId!));
     if (result) {
       this.customerFollow = result;
     } else {
@@ -153,9 +138,7 @@ export default class customerFollow extends ClientDataVue {
       remark: "无备注"
     };
 
-    result = await this.requestWithoutResult(() =>
-      customerFollowApi.addCustomerFollowUsingPOST(data)
-    );
+    result = await this.requestWithoutResult(() => customerFollowApi.addCustomerFollowUsingPOST(data));
     if (result) {
       this.$message.success("操作成功");
 
@@ -189,7 +172,7 @@ export default class customerFollow extends ClientDataVue {
 .info-root {
   display: flex;
   width: 580px;
-  height: 500px;
+  height: 600px;
   flex-direction: column;
 }
 
