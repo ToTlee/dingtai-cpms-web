@@ -16,12 +16,7 @@
               :loading="isSearching"
               @change="onCustomerChange"
             >
-              <el-option
-                v-for="item in customers"
-                :key="item.id"
-                :label="item.customerName"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="item in customers" :key="item.id" :label="item.customerName" :value="item.id"></el-option>
             </el-select>
             <!-- <el-input v-model="contractInfo.info.customerName"></el-input> -->
           </el-form-item>
@@ -47,58 +42,73 @@
       <el-form-item label="合同金额:" required>
         <el-input v-model="contractInfo.info.contractMoney" placeholder="单位: 元"></el-input>
       </el-form-item>
-      <div class="info-header">合同分期</div>
-      <el-form-item :label="'合同共分 '+contractInfo.periods.length+' 期'">
-        <div v-if="contractInfo.periods.length == 0">
-          <el-link type="primary" @click="showAddPeriodDialog">未添加合同期间</el-link>
-        </div>
-        <el-timeline class="timeline" v-if="contractInfo.periods.length > 0">
-          <el-timeline-item
-            v-for="(item, index) in contractInfo.periods"
-            :key="index"
-            hide-timestamp
-            :timestamp="item.info.endTime.toString()"
-            placement="bottom"
-          >
-            <div @mouseenter="showEditPanel(item)" @mouseleave="hideEditPanel(item)">
-              <div class="period-title">
-                {{item.info.periodName}}
-                <span>(共 {{item.info.periodMoney}} 元)</span>
-              </div>
-              <div
-                class="period-content"
-              >{{item.info.periodContent ? item.info.periodContent:'无节点'}}</div>
-              <div
-                class="period-content"
-              >{{getDate(item.info.startTime)}} 至 {{getDate(item.info.endTime)}}</div>
-              <div class="item-edit-panel" v-if="item.showEditor">
-                <el-button type="text" @click="editPeriod(item)">编辑</el-button>
-                <el-button type="text" @click="deletePeriod(item)">删除</el-button>
-              </div>
+      <el-row>
+        <el-col :span="14">
+          <div class="info-header">合同分期</div>
+          <el-form-item :label="'合同共分 ' + contractInfo.periods.length + ' 期'">
+            <div v-if="contractInfo.periods.length == 0">
+              <el-link type="primary" @click="showAddPeriodDialog">未添加合同期间</el-link>
             </div>
-          </el-timeline-item>
-          <el-timeline-item>
-            <el-link type="primary" @click="showAddPeriodDialog" hide-timestamp>添加期间</el-link>
-          </el-timeline-item>
-        </el-timeline>
-        <el-dialog
-          :visible.sync="addPeriodVisible"
-          :close-on-click-modal="false"
-          :close-on-press-escape="false"
-          title="添加合同分期信息"
-          width="fit-content"
-          height="fit-content"
-          :show-close="false"
-          append-to-body
-          destroy-on-close
-        >
-          <add-period-form :period="currentPeroid" @submit="addPeriod" @cancel="cancelAddPeriod"></add-period-form>
-        </el-dialog>
-      </el-form-item>
-      <el-form-item size="normal">
-        <el-button type="primary" @click="saveContract">保存</el-button>
-        <el-button @click="cancelContract">取消</el-button>
-      </el-form-item>
+            <el-timeline class="timeline" v-if="contractInfo.periods.length > 0">
+              <el-timeline-item
+                v-for="(item, index) in contractInfo.periods"
+                :key="index"
+                hide-timestamp
+                :timestamp="item.info.endTime.toString()"
+                placement="bottom"
+              >
+                <div @mouseenter="showEditPanel(item)" @mouseleave="hideEditPanel(item)">
+                  <div class="period-title">
+                    {{ item.info.periodName }}
+                    <span>(共 {{ item.info.periodMoney }} 元)</span>
+                  </div>
+                  <div class="period-content">{{ item.info.periodContent ? item.info.periodContent : "无节点" }}</div>
+                  <div class="period-content">{{ getDate(item.info.startTime) }} 至 {{ getDate(item.info.endTime) }}</div>
+                  <div class="item-edit-panel" v-if="item.showEditor">
+                    <el-button type="text" @click="editPeriod(item)">编辑</el-button>
+                    <el-button type="text" @click="deletePeriod(item)">删除</el-button>
+                  </div>
+                </div>
+              </el-timeline-item>
+              <el-timeline-item>
+                <el-link type="primary" @click="showAddPeriodDialog" hide-timestamp>添加期间</el-link>
+              </el-timeline-item>
+            </el-timeline>
+            <el-dialog
+              :visible.sync="addPeriodVisible"
+              :close-on-click-modal="false"
+              :close-on-press-escape="false"
+              title="添加合同分期信息"
+              width="fit-content"
+              height="fit-content"
+              :show-close="false"
+              append-to-body
+              destroy-on-close
+            >
+              <add-period-form :period="currentPeroid" @submit="addPeriod" @cancel="cancelAddPeriod"></add-period-form>
+            </el-dialog>
+          </el-form-item>
+          <el-form-item size="normal">
+            <el-button type="primary" @click="saveContract">保存</el-button>
+            <el-button @click="cancelContract">取消</el-button>
+          </el-form-item>
+        </el-col>
+        <el-col :span="10">
+          <div class="info-header">附件列表</div>
+          <el-upload
+            class="upload-demo"
+            action="/admin/attachment/attachmentUploadAll"
+            :file-list="fileList"
+            :limit="10"
+            :on-success="fileUploaded"
+            :on-remove="removeFile"
+            :before-remove="beforeRemove"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">上传文件附件</div>
+          </el-upload>
+        </el-col>
+      </el-row>
     </el-form>
   </div>
 </template>
@@ -115,7 +125,10 @@ import {
   PageInfoGetCustomerResp,
   AddContractReq,
   AddContractPeriodReq,
-  ClientDataVue
+  ClientDataVue,
+  attachmentApi,
+  AttachmentUploadRsep,
+  UpdateContractReq
 } from "@/client-api";
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 import AddPeriodForm from "./AddPeriodForm.vue";
@@ -134,6 +147,7 @@ export default class AddContractForm extends ClientDataVue {
   addPeriodVisible = false;
   isSearching = false;
   customers: Array<GetCustomerResp> = [];
+  fileList: any[] = [];
 
   currentPeroid?: GetContractPeriodResp = {};
 
@@ -146,6 +160,14 @@ export default class AddContractForm extends ClientDataVue {
       this.info.periods?.forEach(p => {
         info.periods?.push({ info: ContractCreator.copyPeriod(p.info) });
       });
+      this.fileList =
+        this.info.info?.attachmentInfoResp?.map(a => {
+          return {
+            name: a.attachmentName,
+            url: "/admin/attachment/download?attachmentId=" + a.attachmentId,
+            attachmentId: a.attachmentId
+          };
+        }) ?? [];
     }
     return ClientDataVue.observable(info);
   }
@@ -171,14 +193,7 @@ export default class AddContractForm extends ClientDataVue {
   async searchCustomers(query: string) {
     this.isSearching = true;
     let data = await this.getData<PageInfoGetCustomerResp>(() =>
-      customerApi.listCustomerUsingGET(
-        1,
-        50,
-        "customer_name",
-        undefined,
-        undefined,
-        query
-      )
+      customerApi.listCustomerUsingGET(1, 50, "customer_name", undefined, undefined, query)
     );
     if (data && data.list) {
       this.customers = data.list;
@@ -194,6 +209,23 @@ export default class AddContractForm extends ClientDataVue {
     this.contractInfo.info!.customerId = info?.id;
   }
 
+  fileUploaded(response, file, fileList) {
+    file.id = response.data.attachmentId;
+    this.fileList.push({
+      name: response.data.attachmentName,
+      attachmentId: response.data.attachmentId,
+      url: "/admin/attachment/download?attachmentId=" + response.data.attachmentId
+    });
+  }
+  async beforeRemove(file, fileList) {
+    return this.$confirm(`确定移除 ${file.name}?`);
+  }
+  async removeFile(file, fileList) {
+    let index = this.fileList.findIndex(f => f.customerId == file.id);
+    this.fileList.splice(index, 1);
+    this.requestWithoutResult(() => attachmentApi.attachmentDeleteUsingPOST(file.id));
+  }
+
   showEditPanel(item: ContractPeroid) {
     this.$set(item, "showEditor", true);
   }
@@ -205,9 +237,7 @@ export default class AddContractForm extends ClientDataVue {
   addPeriod(info: GetContractPeriodResp) {
     if (info) {
       if (this.currentPeroid) {
-        let index = this.contractInfo.periods?.findIndex(
-          p => p.info.id == this.currentPeroid!.id
-        );
+        let index = this.contractInfo.periods?.findIndex(p => p.info.id == this.currentPeroid!.id);
         this.$set(this.contractInfo.periods!, index!, { info });
       } else {
         this.contractInfo.periods?.push({ info });
@@ -230,9 +260,7 @@ export default class AddContractForm extends ClientDataVue {
       .then(() => {
         if (item.info) {
           if (item.info.id) {
-            vm.requestWithoutResult(() =>
-              periodApi.deleteContractPeriodUsingPOST(item.info.id!)
-            ).then(result => {
+            vm.requestWithoutResult(() => periodApi.deleteContractPeriodUsingPOST(item.info.id!)).then(result => {
               if (result) {
                 this.$message({
                   type: "success",
@@ -273,12 +301,11 @@ export default class AddContractForm extends ClientDataVue {
         contractNo: cinfo.contractNo,
         signTime: cinfo.signTime,
         customerId: cinfo.customerId,
-        addContractPeriodReqs: []
+        addContractPeriodReqs: [],
+        attachmentList: vm.fileList.map(f => f.attachmentId)
       };
       if (this.contractInfo.periods) {
-        data.addContractPeriodReqs = this.contractInfo.periods.map<
-          AddContractPeriodReq
-        >(p => {
+        data.addContractPeriodReqs = this.contractInfo.periods.map<AddContractPeriodReq>(p => {
           return {
             contractId: cinfo.id,
             startTime: p.info.startTime,
@@ -290,9 +317,7 @@ export default class AddContractForm extends ClientDataVue {
         });
       }
 
-      result = await this.requestWithoutResult(() =>
-        contractApi.addContractUsingPOST(data)
-      );
+      result = await this.requestWithoutResult(() => contractApi.addContractUsingPOST(data));
     }
     if (result) {
       this.$message.success("操作成功");
@@ -312,9 +337,17 @@ export default class AddContractForm extends ClientDataVue {
 
   private async updateContract(): Promise<boolean> {
     let data = this.contractInfo;
-    let result = await this.requestWithoutResult(() =>
-      contractApi.updateContractUsingPOST(data.info!)
-    );
+    if (!data.info) return false;
+    let updateInfo: UpdateContractReq = {
+      id: data.info.id,
+      attachmentList: this.fileList.map(f => f.attachmentId),
+      contractMoney: data.info.contractMoney,
+      contractName: data.info.contractName,
+      contractNo: data.info.contractNo,
+      customerId: data.info.customerId,
+      signTime: data.info.signTime
+    };
+    let result = await this.requestWithoutResult(() => contractApi.updateContractUsingPOST(updateInfo));
     if (result && data.periods) {
       let hasedPeriods = ArrayUtils.toSet(this.info!.periods!, p => p.info.id);
       for (let i = 0; i < data.periods.length; i++) {
@@ -322,16 +355,10 @@ export default class AddContractForm extends ClientDataVue {
           let period = data.periods[i];
           if (hasedPeriods.has(period.info.id)) {
             period.info.contractId = data.info!.id;
-            await this.requestWithoutResult(
-              () => periodApi.updateContractPeriodUsingPOST(period.info),
-              period.info.periodName
-            );
+            await this.requestWithoutResult(() => periodApi.updateContractPeriodUsingPOST(period.info), period.info.periodName);
           } else {
             data.periods[i].info.contractId = data.info!.id;
-            await this.requestWithoutResult(
-              () => periodApi.addContractPeriodUsingPOST(period.info),
-              period.info.periodName
-            );
+            await this.requestWithoutResult(() => periodApi.addContractPeriodUsingPOST(period.info), period.info.periodName);
           }
         } catch (error) {
           console.log(error);

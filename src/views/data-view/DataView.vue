@@ -1,14 +1,16 @@
 <!-- 合同管理模块 -->
 <template>
   <div class="view-root">
-    <div class="page-title">{{ info.title }}</div>
+    <div class="page-title">{{ title }}</div>
     <div class="contracts-tools">
       <div class="function-panel">
         <el-button type="primary" size="small" @click="addItem">添加</el-button>
-        <el-button type="primary" size="small" @click="editItem">编辑</el-button>
+        <el-button type="primary" size="small" @click="editItem" v-if="routeMeta.showEdit == undefined || routeMeta.showEdit == true"
+          >编辑</el-button
+        >
         <el-button type="primary" size="small" @click="deleteItem">删除</el-button>
         <el-button type="primary" size="small" @click="refresh">刷新</el-button>
-        <div style="margin-left:10px;margin-right:10px" v-if="showTools">
+        <div style="margin-left:10px;margin-right:10px" v-if="routeMeta.showTools">
           <el-button type="primary" size="small" @click="staticstic">统计</el-button>
           <el-button type="primary" size="small" @click="exportData">导出</el-button>
         </div>
@@ -27,13 +29,7 @@
       </div>
 
       <div class="search-panel">
-        <el-input
-          prefix-icon="el-icon-search"
-          placeholder="输入关键字"
-          @keyup.enter.native="search"
-          size="small"
-          v-model="queryString"
-        >
+        <el-input prefix-icon="el-icon-search" placeholder="输入关键字" @keyup.enter.native="search" size="small" v-model="queryString">
           <!-- <el-select slot="prepend" placeholder="请选择检索段">
             <el-option label="餐厅名" value="1"></el-option>
             <el-option label="订单号" value="2"></el-option>
@@ -65,6 +61,14 @@ export default class DataView extends Vue {
   queryString: string | number = "";
   info = { title: "操作面板", extraTools: false };
   showTools: boolean = false;
+
+  get routeMeta() {
+    return this.$route.meta ?? {};
+  }
+
+  get title() {
+    return this.$route.meta?.title ?? this.$route.name;
+  }
 
   async addItem() {
     let dataView: any = this.$refs.dataView;
@@ -124,13 +128,6 @@ export default class DataView extends Vue {
       }
       dataView.onExport(options);
     }
-  }
-
-  @Watch("$route")
-  onRoute(newVal: Route) {
-    this.$route;
-    this.showTools = newVal.meta.showTools;
-    this.info.title = newVal.name!;
   }
 }
 </script>

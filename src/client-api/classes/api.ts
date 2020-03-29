@@ -239,6 +239,12 @@ export interface AddContractReq {
    */
   addContractPeriodReqs?: Array<AddContractPeriodReq>;
   /**
+   * 附件列表
+   * @type {Array<number>}
+   * @memberof AddContractReq
+   */
+  attachmentList?: Array<number>;
+  /**
    * 合同金额
    * @type {number}
    * @memberof AddContractReq
@@ -531,6 +537,52 @@ export interface AddUserReq {
 /**
  *
  * @export
+ * @interface AttachmentInfoResp
+ */
+export interface AttachmentInfoResp {
+  /**
+   * 文件id
+   * @type {number}
+   * @memberof AttachmentInfoResp
+   */
+  attachmentId?: number;
+  /**
+   * 文件名称
+   * @type {string}
+   * @memberof AttachmentInfoResp
+   */
+  attachmentName?: string;
+}
+
+/**
+ *
+ * @export
+ * @interface AttachmentUploadRsep
+ */
+export interface AttachmentUploadRsep {
+  /**
+   * 文件id
+   * @type {number}
+   * @memberof AttachmentUploadRsep
+   */
+  attachmentId?: number;
+  /**
+   * 文件名称
+   * @type {string}
+   * @memberof AttachmentUploadRsep
+   */
+  attachmentName?: string;
+  /**
+   * 文件路径
+   * @type {string}
+   * @memberof AttachmentUploadRsep
+   */
+  attachmentPath?: string;
+}
+
+/**
+ *
+ * @export
  * @interface GetContractInvoiceResp
  */
 export interface GetContractInvoiceResp {
@@ -714,6 +766,12 @@ export interface GetContractReceivablesResp {
  * @interface GetContractResp
  */
 export interface GetContractResp {
+  /**
+   *
+   * @type {Array<AttachmentInfoResp>}
+   * @memberof GetContractResp
+   */
+  attachmentInfoResp?: Array<AttachmentInfoResp>;
   /**
    * 签订金额
    * @type {number}
@@ -2891,6 +2949,38 @@ export interface Result {
 /**
  *
  * @export
+ * @interface ResultAttachmentUploadRsep
+ */
+export interface ResultAttachmentUploadRsep {
+  /**
+   *
+   * @type {AttachmentUploadRsep}
+   * @memberof ResultAttachmentUploadRsep
+   */
+  data?: AttachmentUploadRsep;
+  /**
+   *
+   * @type {string}
+   * @memberof ResultAttachmentUploadRsep
+   */
+  msg?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ResultAttachmentUploadRsep
+   */
+  respTime?: string;
+  /**
+   *
+   * @type {number}
+   * @memberof ResultAttachmentUploadRsep
+   */
+  status?: number;
+}
+
+/**
+ *
+ * @export
  * @interface ResultGetContractInvoiceResp
  */
 export interface ResultGetContractInvoiceResp {
@@ -3831,6 +3921,12 @@ export interface UpdateContractReceivablesReq {
  */
 export interface UpdateContractReq {
   /**
+   * 附件列表
+   * @type {Array<number>}
+   * @memberof UpdateContractReq
+   */
+  attachmentList?: Array<number>;
+  /**
    * 合同金额
    * @type {number}
    * @memberof UpdateContractReq
@@ -4464,6 +4560,266 @@ export interface ZtreeResp {
    * @memberof ZtreeResp
    */
   pId?: number;
+}
+
+/**
+ * AttachmentControllerApi - fetch parameter creator
+ * @export
+ */
+export const AttachmentControllerApiFetchParamCreator = function(configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @summary 删除附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDeleteUsingPOST(attachmentId: number, options: any = {}): FetchArgs {
+      // verify required parameter 'attachmentId' is not null or undefined
+      if (attachmentId === null || attachmentId === undefined) {
+        throw new RequiredError(
+          "attachmentId",
+          "Required parameter attachmentId was null or undefined when calling attachmentDeleteUsingPOST."
+        );
+      }
+      const localVarPath = `/attachment/delete`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (attachmentId !== undefined) {
+        localVarQueryParameter["attachmentId"] = attachmentId;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 下载附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDownloadUsingGET(attachmentId: number, options: any = {}): FetchArgs {
+      // verify required parameter 'attachmentId' is not null or undefined
+      if (attachmentId === null || attachmentId === undefined) {
+        throw new RequiredError(
+          "attachmentId",
+          "Required parameter attachmentId was null or undefined when calling attachmentDownloadUsingGET."
+        );
+      }
+      const localVarPath = `/attachment/download`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "GET" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (attachmentId !== undefined) {
+        localVarQueryParameter["attachmentId"] = attachmentId;
+      }
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    },
+    /**
+     *
+     * @summary 通用上传附件，传到固定目录，不限格式
+     * @param {any} [file] file
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentUploadAllUsingPOST(file?: any, options: any = {}): FetchArgs {
+      const localVarPath = `/attachment/attachmentUploadAll`;
+      const localVarUrlObj = url.parse(localVarPath, true);
+      const localVarRequestOptions = Object.assign({ method: "POST" }, options);
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+      const localVarFormParams = new url.URLSearchParams();
+
+      if (file !== undefined) {
+        localVarFormParams.set("file", file as any);
+      }
+
+      localVarHeaderParameter["Content-Type"] = "application/x-www-form-urlencoded";
+
+      localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+      // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+      delete localVarUrlObj.search;
+      localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+      localVarRequestOptions.body = localVarFormParams.toString();
+
+      return {
+        url: url.format(localVarUrlObj),
+        options: localVarRequestOptions
+      };
+    }
+  };
+};
+
+/**
+ * AttachmentControllerApi - functional programming interface
+ * @export
+ */
+export const AttachmentControllerApiFp = function(configuration?: Configuration) {
+  return {
+    /**
+     *
+     * @summary 删除附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDeleteUsingPOST(attachmentId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Result> {
+      const localVarFetchArgs = AttachmentControllerApiFetchParamCreator(configuration).attachmentDeleteUsingPOST(attachmentId, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 下载附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDownloadUsingGET(attachmentId: number, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<Response> {
+      const localVarFetchArgs = AttachmentControllerApiFetchParamCreator(configuration).attachmentDownloadUsingGET(attachmentId, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response;
+          } else {
+            throw response;
+          }
+        });
+      };
+    },
+    /**
+     *
+     * @summary 通用上传附件，传到固定目录，不限格式
+     * @param {any} [file] file
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentUploadAllUsingPOST(file?: any, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<ResultAttachmentUploadRsep> {
+      const localVarFetchArgs = AttachmentControllerApiFetchParamCreator(configuration).attachmentUploadAllUsingPOST(file, options);
+      return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+        return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then(response => {
+          if (response.status >= 200 && response.status < 300) {
+            return response.json();
+          } else {
+            throw response;
+          }
+        });
+      };
+    }
+  };
+};
+
+/**
+ * AttachmentControllerApi - factory interface
+ * @export
+ */
+export const AttachmentControllerApiFactory = function(configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+  return {
+    /**
+     *
+     * @summary 删除附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDeleteUsingPOST(attachmentId: number, options?: any) {
+      return AttachmentControllerApiFp(configuration).attachmentDeleteUsingPOST(attachmentId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 下载附件
+     * @param {number} attachmentId 文件id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentDownloadUsingGET(attachmentId: number, options?: any) {
+      return AttachmentControllerApiFp(configuration).attachmentDownloadUsingGET(attachmentId, options)(fetch, basePath);
+    },
+    /**
+     *
+     * @summary 通用上传附件，传到固定目录，不限格式
+     * @param {any} [file] file
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    attachmentUploadAllUsingPOST(file?: any, options?: any) {
+      return AttachmentControllerApiFp(configuration).attachmentUploadAllUsingPOST(file, options)(fetch, basePath);
+    }
+  };
+};
+
+/**
+ * AttachmentControllerApi - object-oriented interface
+ * @export
+ * @class AttachmentControllerApi
+ * @extends {BaseAPI}
+ */
+export class AttachmentControllerApi extends BaseAPI {
+  /**
+   *
+   * @summary 删除附件
+   * @param {number} attachmentId 文件id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AttachmentControllerApi
+   */
+  public attachmentDeleteUsingPOST(attachmentId: number, options?: any) {
+    return AttachmentControllerApiFp(this.configuration).attachmentDeleteUsingPOST(attachmentId, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 下载附件
+   * @param {number} attachmentId 文件id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AttachmentControllerApi
+   */
+  public attachmentDownloadUsingGET(attachmentId: number, options?: any) {
+    return AttachmentControllerApiFp(this.configuration).attachmentDownloadUsingGET(attachmentId, options)(this.fetch, this.basePath);
+  }
+
+  /**
+   *
+   * @summary 通用上传附件，传到固定目录，不限格式
+   * @param {any} [file] file
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof AttachmentControllerApi
+   */
+  public attachmentUploadAllUsingPOST(file?: any, options?: any) {
+    return AttachmentControllerApiFp(this.configuration).attachmentUploadAllUsingPOST(file, options)(this.fetch, this.basePath);
+  }
 }
 
 /**
@@ -8210,7 +8566,7 @@ export const QuotationControllerApiFetchParamCreator = function(configuration?: 
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {number} [quotationId]
+     * @param {number} [quotationId] 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -8801,7 +9157,7 @@ export const QuotationControllerApiFp = function(configuration?: Configuration) 
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {number} [quotationId]
+     * @param {number} [quotationId] 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9181,7 +9537,7 @@ export const QuotationControllerApiFactory = function(configuration?: Configurat
      * @param {string} [orderBy] 排序字段
      * @param {string} [descOrAsc] 升序或降序
      * @param {number} [pageBegin]
-     * @param {number} [quotationId]
+     * @param {number} [quotationId] 报价id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
@@ -9468,7 +9824,7 @@ export class QuotationControllerApi extends BaseAPI {
    * @param {string} [orderBy] 排序字段
    * @param {string} [descOrAsc] 升序或降序
    * @param {number} [pageBegin]
-   * @param {number} [quotationId]
+   * @param {number} [quotationId] 报价id
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof QuotationControllerApi

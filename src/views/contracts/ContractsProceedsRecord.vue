@@ -18,11 +18,7 @@
         <span class="info-item-label">已收款:</span>
         {{ contractSummary.recievedMoney }}元
       </div>
-      <el-button
-        class="info-item"
-        type="text"
-        @click="showDetail"
-      >{{ showDetailInfo ? "收起" : "更多" }}</el-button>
+      <el-button class="info-item" type="text" @click="showDetail">{{ showDetailInfo ? "收起" : "更多" }}</el-button>
       <div style="flex:1;text-align:right;">
         <!-- <el-tooltip content="添加合同款项" placement="bottom">
           <el-button type="text" @click="addItem">添加</el-button>
@@ -30,15 +26,25 @@
         <el-button type="text" @click="refashData">刷新</el-button>
       </div>
     </div>
-    <div class="deltail-info" v-if="showDetailInfo">
-      <div class="info-item">
-        <span class="info-item-label">已开票:</span>
-        {{ contractSummary.invoicedMoney }}元
+    <div v-if="showDetailInfo">
+      <div class="deltail-info">
+        <div class="info-item">
+          <span class="info-item-label">已开票:</span>
+          {{ contractSummary.invoicedMoney }}元
+        </div>
+        <div class="info-item">
+          <span class="info-item-label">未收款: :</span>
+          {{ contractSummary.unrecievedMoney }}元
+        </div>
       </div>
-      <div class="info-item">
-        <span class="info-item-label">未收款: :</span>
-        {{ contractSummary.unrecievedMoney }}元
+      <div class="info-item-header">附件</div>
+      <div v-for="item in fileList" :key="item.url" class="file-item">
+        {{ item.attachmentName }}
+        <el-button type="text" @click="downloadFile(item)" size="mini">下载</el-button>
       </div>
+      <!-- <el-upload action="/admin/attachment/attachmentUploadAll" multiple :limit="100" :show-file-list="false" :on-success="fileUploaded">
+        <el-button size="mini" type="text">点击上传</el-button>
+      </el-upload> -->
     </div>
     <div class="timeline" v-if="!isLoading">
       <el-timeline>
@@ -66,16 +72,10 @@
                   <div class="info-list-item">收款人: {{ item.proceed.receivePerson }}</div>
                   <div class="info-list-item">
                     发票编号:
-                    <el-button
-                      type="text"
-                      v-if="item.invoice != undefined"
-                      @click="showInvoiceInfo(item)"
-                    >{{ item.invoice.invoiceNo }}</el-button>
-                    <el-button
-                      type="text"
-                      v-if="item.invoice == undefined"
-                      @click="addItem(item)"
-                    >未开发票</el-button>
+                    <el-button type="text" v-if="item.invoice != undefined" @click="showInvoiceInfo(item)">{{
+                      item.invoice.invoiceNo
+                    }}</el-button>
+                    <el-button type="text" v-if="item.invoice == undefined" @click="addItem(item)">未开发票</el-button>
                   </div>
                 </div>
                 <div>备注: {{ item.remark }}</div>
@@ -147,7 +147,8 @@ import {
   GetContractReceivablesResp,
   GetContractResp,
   GetContractPeriodResp,
-  periodApi
+  periodApi,
+  attachmentApi
 } from "@/client-api";
 import { ContractCreator, ContractInfo, ContractPeroid } from "./ContractInfo";
 
@@ -181,6 +182,10 @@ export default class ContractsProceedsRecord extends ClientDataVue {
     return this.data.periods;
   }
 
+  get fileList() {
+    return this.contractInfo?.attachmentInfoResp ?? [];
+  }
+
   get contractSummary() {
     let recievedMoney = 0;
     let invoicedMoney = 0;
@@ -208,6 +213,14 @@ export default class ContractsProceedsRecord extends ClientDataVue {
     this.showDetailInfo = !this.showDetailInfo;
   }
 
+  async downloadFile(item) {
+    window.location.href = "/admin/attachment/download?attachmentId=" + item.attachmentId;
+  }
+
+  fileUploaded(response, file, fileList) {
+    this.fileList.push(response.data);
+  }
+
   itemEnter(item: any) {
     this.$set(item, "showEditor", true);
   }
@@ -223,9 +236,7 @@ export default class ContractsProceedsRecord extends ClientDataVue {
     })
       .then(() => {
         if (item.proceed && item.proceed.id) {
-          let result = proceedsApi.deleteContractReceivablesUsingPOST(
-            item.proceed.id!
-          );
+          let result = proceedsApi.deleteContractReceivablesUsingPOST(item.proceed.id!);
           result.then(r => {
             let resultValue = this.getClientData(r);
             if (resultValue.successed) {
@@ -298,8 +309,8 @@ export default class ContractsProceedsRecord extends ClientDataVue {
 .info-item {
   margin-right: 18px;
 }
-
-.info-item-label {
+.file-item {
+  cursor: pointer;
 }
 
 .deltail-info {
@@ -344,9 +355,12 @@ export default class ContractsProceedsRecord extends ClientDataVue {
 
 .icon-warning {
   font-size: 16px;
-  color: --color-warning;
+  color: $--color-warning;
 }
-
+.info-item-header {
+  font-size: 16px;
+  color: $--color-primary;
+}
 .info-list {
   display: flex;
   flex-direction: row;
