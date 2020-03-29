@@ -25,3 +25,4 @@ jobs:
           host: ${{ secrets.DING_TAI_HOST }}
           username: ${{ secrets. DING_TAI_HOST_USERNAME }}
           password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
+          concurrency: 10
