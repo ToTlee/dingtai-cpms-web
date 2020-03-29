@@ -17,12 +17,11 @@ jobs:
           node-version: "10.x"
       - name: Build project
         run: yarn && yarn build
-      - name: SCP Command to Transfer Files
-        uses: appleboy/scp-action@v0.0.7
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
         with:
+          local: ./dingtai
+          remote: /usr/local/dingtai/frontend/nginx/nginx/client/test/
           host: ${{ secrets.DING_TAI_HOST }}
           username: ${{ secrets. DING_TAI_HOST_USERNAME }}
           password: ${{ secrets.DING_TAI_HOST_PASSWORD }}
-          target: /usr/local/dingtai/frontend/nginx/nginx/client/test
-          source: ./dingtai/*
-          rm: true
